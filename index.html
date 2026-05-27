@@ -1,833 +1,1199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Android Articles - Beautiful Card Layout</title>
+    <title>Phone Prices - Full Screen & Dynamic Brand Lists</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-        .article-card {
+        .main-card {
             border: none;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: #fff;
-            position: relative;
+            border-radius: 0;
+            box-shadow: none;
+            background-color: #ffffff;
         }
 
-        .article-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        .card-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            border-radius: 0 !important;
+            padding: 20px 24px;
+            border-bottom: 3px solid #e94560;
         }
 
-        /* Carousel images now support responsive resolutions via srcset */
-        .carousel-item img {
-            height: 220px;
-            object-fit: cover;
-            width: 100%;
-            display: block;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-title {
+        .card-header h3 {
+            margin: 0;
             font-weight: 700;
-            color: #2c3e50;
+            letter-spacing: 0.5px;
         }
 
-        .short-text {
-            color: #555;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ────────── Comment Note Styling (unchanged) ────────── */
-        .comment-note {
-            background: #fef9e7;
-            border-left: 4px solid #f1c40f;
-            border-radius: 8px;
-            padding: 0.6rem 0.8rem;
-            margin: 0.8rem 0;
-            font-size: 0.85rem;
-            color: #5d4a1f;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            line-height: 1.4;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-        }
-        .comment-note .note-icon {
-            font-size: 1rem;
-            flex-shrink: 0;
-            margin-top: 0.1rem;
-        }
-        .comment-note .note-text {
-            flex: 1;
-        }
-        .comment-note.info {
-            background: #eaf2f8;
-            border-left-color: #3498db;
-            color: #1a5276;
-        }
-        .comment-note.tip {
-            background: #eafaf1;
-            border-left-color: #2ecc71;
-            color: #1d6d3a;
-        }
-        .comment-note.warning {
-            background: #fdedec;
-            border-left-color: #e74c3c;
-            color: #78281f;
-        }
-        .comment-note.idea {
-            background: #f4ecf7;
-            border-left-color: #9b59b6;
-            color: #4a235a;
-        }
-
-        /* ────────── Bootstrap Alert Overrides (if needed) ────────── */
-        .alert {
-            font-size: 0.85rem;
-            padding: 0.6rem 0.8rem;
-            margin: 0.8rem 0;
-            border-radius: 8px;
-        }
-
-        /* ────────── Quote Card Styling ────────── */
-        .quote-card {
-            background: #f8f9fa;
-            border-left: 4px solid #6c757d;
-            border-radius: 5px;
-            padding: 0.75rem 1rem;
-            margin: 0.8rem 0;
-            font-style: italic;
-            position: relative;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-        }
-        .quote-card::before {
-            content: "\201C";
-            font-size: 2rem;
-            color: #6c757d;
-            position: absolute;
-            left: 0.5rem;
-            top: 0.2rem;
-            line-height: 1;
-        }
-        .quote-card .quote-text {
-            padding-left: 2rem;
-            margin-bottom: 0.25rem;
-            font-style: italic;
-            color: #333;
-        }
-        .quote-card .quote-author {
-            font-style: normal;
+        .btn-add-phone {
+            background: #e94560;
+            border: none;
+            color: #fff;
             font-weight: 600;
-            color: #555;
-            padding-left: 2rem;
-            font-size: 0.9rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        /* ────────── Rich Text Full-Text Area ────────── */
-        .full-text {
-            color: #333;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #ddd;
-            line-height: 1.7;
+        .btn-add-phone:hover {
+            background: #d13350;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+            color: #fff;
         }
 
-        .full-text strong,
-        .full-text b {
-            color: #1a1a1a;
+        .btn-copy-html {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: #fff;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        .full-text em,
-        .full-text i {
+        .btn-copy-html:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #fff;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box .form-control {
+            border-radius: 50px;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+        }
+
+        .search-box .form-control:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 0.25rem rgba(233, 69, 96, 0.2);
+        }
+
+        .search-box .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #e94560;
+            font-size: 1.2rem;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .search-box .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border: none;
+            background: none;
+            padding: 4px 8px;
+            border-radius: 50%;
+            transition: all 0.2s;
+            z-index: 10;
+            display: none;
+        }
+
+        .search-box .clear-btn:hover {
+            color: #e94560;
+            background-color: #fce4e8;
+        }
+
+        .table {
+            margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+
+        .table thead th {
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 14px 16px;
+            border: none;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table tbody td {
+            padding: 12px 16px;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .phone-name-cell {
+            min-width: 220px;
+            white-space: nowrap;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9ff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        /* Known brand badge colors */
+        .badge-apple {
+            background-color: #fce4e8;
+            color: #c0392b;
+        }
+        .badge-samsung {
+            background-color: #e3eafd;
+            color: #1e3799;
+        }
+        .badge-xiaomi {
+            background-color: #fff3e0;
+            color: #e67e22;
+        }
+        .badge-google {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .badge-oneplus {
+            background-color: #fce4ec;
+            color: #ad1457;
+        }
+        .badge-huawei {
+            background-color: #fbe9e7;
+            color: #bf360c;
+        }
+        .badge-oppo {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+        }
+        .badge-vivo {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+        .badge-motorola {
+            background-color: #f3e5f5;
+            color: #6a1b9a;
+        }
+        .badge-nokia {
+            background-color: #e0f7fa;
+            color: #006064;
+        }
+        .badge-sony {
+            background-color: #ede7f6;
+            color: #311b92;
+        }
+        .badge-realme {
+            background-color: #fff8e1;
+            color: #e65100;
+        }
+        .badge-honor {
+            background-color: #e8eaf6;
+            color: #1a237e;
+        }
+        .badge-asus {
+            background-color: #efebe9;
+            color: #3e2723;
+        }
+        .badge-other {
+            background-color: #f5f5f5;
             color: #444;
         }
 
-        .text-highlight-blue { color: #0d6efd; font-weight: 600; }
-        .text-highlight-green { color: #198754; font-weight: 600; }
-        .text-highlight-orange { color: #fd7e14; font-weight: 600; }
-        .text-highlight-red { color: #dc3545; font-weight: 600; }
-        .text-highlight-purple { color: #6f42c1; font-weight: 600; }
-
-        .full-text a {
-            color: #0d6efd;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            transition: color 0.2s, text-decoration-color 0.2s;
-        }
-        .full-text a:hover {
-            color: #0a58ca;
-            text-decoration-color: #0a58ca;
+        .price {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #1a1a2e;
+            white-space: nowrap;
         }
 
-        .full-text ul,
-        .full-text ol {
-            padding-left: 1.5rem;
-            margin-top: 0.6rem;
-            margin-bottom: 0.6rem;
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
         }
-        .full-text ul li,
-        .full-text ol li {
-            margin-bottom: 0.35rem;
-            padding-left: 0.25rem;
-        }
-        .full-text ul { list-style-type: disc; }
-        .full-text ol { list-style-type: decimal; }
-        .full-text ul ul { list-style-type: circle; }
-        .full-text ul ul ul { list-style-type: square; }
-        .full-text ol ol { list-style-type: lower-alpha; }
-
-        /* ────────── Custom Android Icon ────────── */
-        .android-icon {
-            display: inline-block;
-            width: 2rem;
-            height: 2rem;
-            vertical-align: middle;
-            margin-right: 0.5rem;
-            color: #3DDC84;
-        }
-        .android-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: currentColor;
+        .no-results i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+            color: #ddd;
         }
 
-        .page-header h1 {
-            font-weight: 800;
-            color: #0d6efd;
-            margin: 0;
+        .result-count {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .result-count span {
+            font-weight: 700;
+            color: #e94560;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        /* Brand grouped lists section */
+        .brand-lists {
+            background: #fff;
+            padding: 20px;
+            margin-top: 2rem;
+            border-top: 2px solid #dee2e6;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #f8f9ff;
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: #e94560;
+        }
+
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-group-item .phone-info {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.25rem;
+            gap: 10px;
         }
 
-        /* ────────── Tags & Buttons ────────── */
-        .tag-badge {
+        .list-group-item .status-mini {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .delete-row-btn {
+            color: #ccc;
             cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
-            margin-right: 5px;
+            font-size: 0.9rem;
+            border: none;
+            background: none;
+            padding: 2px 6px;
+            border-radius: 50%;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+
+        .table tbody tr:hover .delete-row-btn {
+            opacity: 1;
+        }
+
+        .delete-row-btn:hover {
+            color: #e94560;
+            background-color: #fce4e8;
+        }
+
+        /* Source code modal textarea */
+        #sourceCodeTextarea {
+            font-family: 'Courier New', Consolas, monospace;
             font-size: 0.8rem;
-        }
-        .tag-badge:hover {
-            opacity: 0.8;
-            transform: scale(1.05);
-        }
-
-        .filter-btn {
-            border-radius: 30px;
-            padding: 0.4rem 1.2rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid #0d6efd;
-            color: #0d6efd;
-            background: transparent;
-        }
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: #0d6efd;
-            color: white;
-            border-color: #0d6efd;
+            resize: vertical;
+            background-color: #1e1e2e;
+            color: #d4d4d4;
+            border: 1px solid #444;
+            line-height: 1.5;
         }
 
-        .read-more-btn {
-            border-radius: 25px;
-            padding: 0.4rem 1.5rem;
-            margin-top: auto;
-            align-self: flex-start;
+        #sourceCodeTextarea:focus {
+            background-color: #1e1e2e;
+            color: #d4d4d4;
+            box-shadow: 0 0 0 0.25rem rgba(233, 69, 96, 0.25);
+            border-color: #e94560;
         }
 
-        .page-header {
-            background: white;
-            border-radius: 25px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Responsive image heights */
-        @media (max-width: 767px) {
-            .carousel-item img { height: 180px; }
-        }
-        @media (min-width: 768px) and (max-width: 991px) {
-            .carousel-item img { height: 200px; }
-        }
-        @media (min-width: 992px) {
-            .carousel-item img { height: 220px; }
+        @media (max-width: 768px) {
+            .card-header {
+                padding: 15px;
+            }
+            .card-header h3 {
+                font-size: 1.2rem;
+            }
+            .btn-add-phone {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+            .btn-copy-html {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            .table thead th,
+            .table tbody td {
+                font-size: 0.8rem;
+                padding: 8px 6px;
+            }
+            .phone-name-cell {
+                min-width: 150px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <!-- Header with Custom Android Icon -->
-        <div class="page-header text-center">
-            <h1>
-                <span class="android-icon" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M6 18c0 .55.45 1 1 1h1v3.5a1.5 1.5 0 0 0 3 0V19h2v3.5a1.5 1.5 0 0 0 3 0V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48A5.96 5.96 0 0 0 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31A5.983 5.983 0 0 0 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/>
-                    </svg>
-                </span>
-                Android Articles
-            </h1>
-            <p class="lead text-muted mb-0">Click on a tag to filter related articles</p>
+
+    <!-- Full‑screen container without side padding -->
+    <div class="container-fluid p-0">
+        <!-- Main card -->
+        <div class="main-card">
+            <!-- Card Header -->
+            <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <h3><i class="bi bi-phone-fill me-2"></i>Smartphone Prices</h3>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <small class="text-white-50">Last updated: May 2026</small>
+                    <button class="btn btn-copy-html" id="copyHtmlBtn" title="Get full HTML source code with all added phones">
+                        <i class="bi bi-clipboard me-1"></i> Copy HTML
+                    </button>
+                    <button class="btn btn-add-phone" data-bs-toggle="modal" data-bs-target="#addPhoneModal" title="Add a new phone">
+                        <i class="bi bi-plus-circle me-1"></i> Add Phone
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body p-4">
+                <!-- Search Box -->
+                <div class="search-box">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text"
+                    id="searchInput"
+                    class="form-control"
+                    placeholder="Search for a phone... (name, brand, or price)"
+                    autocomplete="off">
+                    <button class="clear-btn" id="clearBtn" title="Clear search">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Result Counter -->
+                <div class="result-count" id="resultCount">
+                    Phones displayed: <span id="countNumber">10</span>
+                </div>
+
+                <!-- Full‑width table -->
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle" id="phoneTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col" class="phone-name-cell">Phone Name</th>
+                                <th scope="col">Price (USD)</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="width:40px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr data-brand="Apple" data-phone="iPhone 16 Pro Max" data-price="1199" data-status="Available">
+                                <td>1</td>
+                                <td><span class="brand-badge badge-apple">Apple</span></td>
+                                <td class="phone-name-cell">iPhone 16 Pro Max</td>
+                                <td><span class="price">$1,199</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Samsung" data-phone="Galaxy S25 Ultra" data-price="1299" data-status="Available">
+                                <td>2</td>
+                                <td><span class="brand-badge badge-samsung">Samsung</span></td>
+                                <td class="phone-name-cell">Galaxy S25 Ultra</td>
+                                <td><span class="price">$1,299</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Apple" data-phone="iPhone 16" data-price="799" data-status="Available">
+                                <td>3</td>
+                                <td><span class="brand-badge badge-apple">Apple</span></td>
+                                <td class="phone-name-cell">iPhone 16</td>
+                                <td><span class="price">$799</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Xiaomi" data-phone="Xiaomi 15 Pro" data-price="749" data-status="Temporarily Out">
+                                <td>4</td>
+                                <td><span class="brand-badge badge-xiaomi">Xiaomi</span></td>
+                                <td class="phone-name-cell">Xiaomi 15 Pro</td>
+                                <td><span class="price">$749</span></td>
+                                <td><span class="badge bg-warning text-dark">Temporarily Out</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Samsung" data-phone="Galaxy Z Fold 6" data-price="1799" data-status="Available">
+                                <td>5</td>
+                                <td><span class="brand-badge badge-samsung">Samsung</span></td>
+                                <td class="phone-name-cell">Galaxy Z Fold 6</td>
+                                <td><span class="price">$1,799</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Google" data-phone="Pixel 9 Pro" data-price="999" data-status="Available">
+                                <td>6</td>
+                                <td><span class="brand-badge badge-google">Google</span></td>
+                                <td class="phone-name-cell">Pixel 9 Pro</td>
+                                <td><span class="price">$999</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="OnePlus" data-phone="OnePlus 13" data-price="699" data-status="Available">
+                                <td>7</td>
+                                <td><span class="brand-badge badge-oneplus">OnePlus</span></td>
+                                <td class="phone-name-cell">OnePlus 13</td>
+                                <td><span class="price">$699</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Apple" data-phone="iPhone SE (4th Gen)" data-price="499" data-status="New">
+                                <td>8</td>
+                                <td><span class="brand-badge badge-apple">Apple</span></td>
+                                <td class="phone-name-cell">iPhone SE (4th Gen)</td>
+                                <td><span class="price">$499</span></td>
+                                <td><span class="badge bg-info">New</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Xiaomi" data-phone="Redmi Note 14 Pro+" data-price="399" data-status="Available">
+                                <td>9</td>
+                                <td><span class="brand-badge badge-xiaomi">Xiaomi</span></td>
+                                <td class="phone-name-cell">Redmi Note 14 Pro+</td>
+                                <td><span class="price">$399</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Samsung" data-phone="Galaxy A56" data-price="449" data-status="15% Off">
+                                <td>10</td>
+                                <td><span class="brand-badge badge-samsung">Samsung</span></td>
+                                <td class="phone-name-cell">Galaxy A56</td>
+                                <td><span class="price">$449</span></td>
+                                <td><span class="badge bg-danger">15% Off</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr data-brand="Google" data-phone="Pixel 9 Pryo" data-price="999" data-status="Available">
+                                <td>11</td>
+                                <td><span class="brand-badge badge-google">Google</span></td>
+                                <td class="phone-name-cell">Pixel 9 Pryo</td>
+                                <td><span class="price">$999</span></td>
+                                <td><span class="badge bg-success">Available</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- No Results Message -->
+                <div class="no-results text-center" id="noResults" style="display: none;">
+                    <i class="bi bi-emoji-frown"></i>
+                    <h5>No matching results</h5>
+                    <p>Try searching with a different keyword</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Tag Filter Buttons -->
-        <div class="d-flex flex-wrap justify-content-center mb-4" id="filterButtons">
-            <button class="btn filter-btn active me-2 mb-2" data-filter="all">All</button>
-            <button class="btn filter-btn me-2 mb-2" data-filter="kotlin">Kotlin</button>
-            <button class="btn filter-btn me-2 mb-2" data-filter="ui">UI</button>
-            <button class="btn filter-btn me-2 mb-2" data-filter="beginner">Beginner</button>
-            <button class="btn filter-btn me-2 mb-2" data-filter="security">Security</button>
-            <button class="btn filter-btn me-2 mb-2" data-filter="tools">Tools</button>
-            <button class="btn filter-btn me-2 mb-2" data-filter="advanced">Advanced</button>
+        <!-- Brand Grouped Lists (Dynamically Generated Accordion) -->
+        <div class="brand-lists" id="brandListsSection">
+            <h4 class="mb-3"><i class="bi bi-collection me-2"></i>Phones by Brand</h4>
+            <div class="accordion" id="brandAccordion">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+            <div id="noBrandData" class="text-center text-muted py-4" style="display:none;">
+                <i class="bi bi-inbox" style="font-size:2rem;"></i>
+                <p class="mt-2">No phones in the table yet. Add some phones to see them grouped by brand.</p>
+            </div>
         </div>
 
-        <!-- Articles Grid -->
-        <div class="row g-4" id="articlesContainer">
-
-            <!-- Article 1 -->
-            <div class="col-lg-4 col-md-6 article-item" data-tags="kotlin beginner">
-                <div class="card article-card h-100">
-                    <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/seed/android1a/600/300"
-                                     srcset="https://picsum.photos/seed/android1a/300/150 300w,
-                                             https://picsum.photos/seed/android1a/600/300 600w,
-                                             https://picsum.photos/seed/android1a/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Android Kotlin 1" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android1b/600/300"
-                                     srcset="https://picsum.photos/seed/android1b/300/150 300w,
-                                             https://picsum.photos/seed/android1b/600/300 600w,
-                                             https://picsum.photos/seed/android1b/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Android Kotlin 2" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android1c/600/300"
-                                     srcset="https://picsum.photos/seed/android1c/300/150 300w,
-                                             https://picsum.photos/seed/android1c/600/300 600w,
-                                             https://picsum.photos/seed/android1c/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Android Kotlin 3" class="d-block w-100">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Getting Started with Android and Kotlin</h5>
-                        <p class="short-text">Kotlin has become the <strong>official language</strong> for Android development. This guide covers the basics...</p>
-
-                        <!-- Existing Comment Note -->
-                        <div class="comment-note info">
-                            <span class="note-icon">💬</span>
-                            <span class="note-text"><strong>Editor's note:</strong> Updated for Android Studio Hedgehog (2026.1.1)</span>
-                        </div>
-
-                        <!-- Bootstrap Alert -->
-                        <div class="alert alert-warning" role="alert">
-                            ⚠️ <strong>Alert:</strong> Make sure you have JDK 17 installed before starting.
-                        </div>
-
-                        <!-- Small Quote Card -->
-                        <div class="quote-card">
-                            <p class="quote-text">"The best way to learn Kotlin is by writing code."</p>
-                            <p class="quote-author">– An Android Developer</p>
-                        </div>
-
-                        <div class="collapse full-text" id="collapse1">
-                            <p>
-                                <strong>Kotlin</strong> offers <em>concise syntax</em>,
-                                <strong>null safety</strong>, and full interoperability with <strong>Java</strong>.
-                                In this article we explore how to set up
-                                <a href="https://developer.android.com/studio" target="_blank" rel="noopener">Android Studio</a>,
-                                create your first project, and write a simple
-                                <span class="text-highlight-blue">"Hello World"</span> app using Kotlin.
-                            </p>
-                            <p>Here's what you'll learn:</p>
-                            <ul>
-                                <li>Setting up <span class="text-highlight-green">Android Studio</span> on Windows, macOS, or Linux</li>
-                                <li>Creating a new project with an <strong>Empty Activity</strong> template</li>
-                                <li>Understanding the <em>Android Manifest</em> and its role</li>
-                                <li>
-                                    Writing your first composable or XML layout
-                                    <ul>
-                                        <li>Using <strong>Jetpack Compose</strong> (modern declarative UI)</li>
-                                        <li>Using traditional <strong>XML</strong> with <code>ConstraintLayout</code></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <p>Quick setup steps:</p>
-                            <ol>
-                                <li>Download &amp; install <a href="https://developer.android.com/studio" target="_blank" rel="noopener">Android Studio</a></li>
-                                <li>Launch the <strong>Setup Wizard</strong> and install the required SDK packages</li>
-                                <li>Create a <span class="text-highlight-orange">new project</span> &rarr; choose <em>Empty Activity</em></li>
-                                <li>Press <kbd>Run</kbd> and launch the app on an emulator or device</li>
-                            </ol>
-                            <p>
-                                <span class="text-highlight-purple">Pro tip:</span> always keep your
-                                <em>Gradle plugin</em> and dependencies up to date. Check the official
-                                <a href="https://kotlinlang.org/docs/home.html" target="_blank" rel="noopener">Kotlin documentation</a>
-                                for the latest language features.
-                            </p>
-                            <p>By the end, you'll have a <span class="text-highlight-red">solid foundation</span> to continue building modern Android applications.</p>
-                        </div>
-                        <button class="btn btn-primary read-more-btn mt-auto align-self-start" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false">
-                            Read more
-                        </button>
-                        <div class="mt-3">
-                            <span class="badge rounded-pill bg-primary tag-badge" data-tag="kotlin">Kotlin</span>
-                            <span class="badge rounded-pill bg-success tag-badge" data-tag="beginner">Beginner</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Article 2 -->
-            <div class="col-lg-4 col-md-6 article-item" data-tags="ui beginner">
-                <div class="card article-card h-100">
-                    <div id="carousel2" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/seed/android2a/600/300"
-                                     srcset="https://picsum.photos/seed/android2a/300/150 300w,
-                                             https://picsum.photos/seed/android2a/600/300 600w,
-                                             https://picsum.photos/seed/android2a/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Jetpack Compose 1" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android2b/600/300"
-                                     srcset="https://picsum.photos/seed/android2b/300/150 300w,
-                                             https://picsum.photos/seed/android2b/600/300 600w,
-                                             https://picsum.photos/seed/android2b/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Jetpack Compose 2" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android2c/600/300"
-                                     srcset="https://picsum.photos/seed/android2c/300/150 300w,
-                                             https://picsum.photos/seed/android2c/600/300 600w,
-                                             https://picsum.photos/seed/android2c/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Jetpack Compose 3" class="d-block w-100">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Introduction to Jetpack Compose UI</h5>
-                        <p class="short-text">Jetpack Compose is <em>Android's modern toolkit</em> for building native UI. Learn the declarative approach...</p>
-
-                        <!-- Comment Note -->
-                        <div class="comment-note tip">
-                            <span class="note-icon">💡</span>
-                            <span class="note-text"><strong>Quick tip:</strong> Use Live Templates in Android Studio to speed up Compose code writing.</span>
-                        </div>
-
-                        <!-- Alert -->
-                        <div class="alert alert-info" role="alert">
-                            ℹ️ <strong>Note:</strong> Jetpack Compose requires minimum SDK 21.
-                        </div>
-
-                        <!-- Quote Card -->
-                        <div class="quote-card">
-                            <p class="quote-text">"Declarative UI is the future of Android development."</p>
-                            <p class="quote-author">– Google I/O</p>
-                        </div>
-
-                        <div class="collapse full-text" id="collapse2">
-                            <p>
-                                <strong>Jetpack Compose</strong> simplifies UI development by using
-                                <em>composable functions</em>. Instead of XML layouts, you write
-                                <span class="text-highlight-blue">Kotlin code</span> that describes your UI.
-                            </p>
-                            <p>Core concepts covered:</p>
-                            <ul>
-                                <li><strong>Composable functions</strong> – the building blocks of your UI</li>
-                                <li><strong>State</strong> and <em>recomposition</em></li>
-                                <li><span class="text-highlight-green">Theming</span> with <code>MaterialTheme</code></li>
-                                <li>Building a list with <strong>LazyColumn</strong></li>
-                            </ul>
-                            <p>
-                                Perfect for beginners who want to create
-                                <span class="text-highlight-orange">beautiful, reactive interfaces</span>
-                                with less code and more flexibility. Visit the official
-                                <a href="https://developer.android.com/jetpack/compose" target="_blank" rel="noopener">Compose documentation</a>
-                                for in-depth guides.
-                            </p>
-                            <ol>
-                                <li>Add Compose dependencies to your <strong>build.gradle</strong></li>
-                                <li>Enable the Compose compiler plugin</li>
-                                <li>Replace <code>setContentView</code> with <code>setContent { }</code></li>
-                            </ol>
-                        </div>
-                        <button class="btn btn-primary read-more-btn mt-auto align-self-start" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false">
-                            Read more
-                        </button>
-                        <div class="mt-3">
-                            <span class="badge rounded-pill bg-warning text-dark tag-badge" data-tag="ui">UI</span>
-                            <span class="badge rounded-pill bg-success tag-badge" data-tag="beginner">Beginner</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Article 3 -->
-            <div class="col-lg-4 col-md-6 article-item" data-tags="tools advanced">
-                <div class="card article-card h-100">
-                    <div id="carousel3" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/seed/android3a/600/300"
-                                     srcset="https://picsum.photos/seed/android3a/300/150 300w,
-                                             https://picsum.photos/seed/android3a/600/300 600w,
-                                             https://picsum.photos/seed/android3a/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Debugging Tools 1" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android3b/600/300"
-                                     srcset="https://picsum.photos/seed/android3b/300/150 300w,
-                                             https://picsum.photos/seed/android3b/600/300 600w,
-                                             https://picsum.photos/seed/android3b/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Debugging Tools 2" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android3c/600/300"
-                                     srcset="https://picsum.photos/seed/android3c/300/150 300w,
-                                             https://picsum.photos/seed/android3c/600/300 600w,
-                                             https://picsum.photos/seed/android3c/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Debugging Tools 3" class="d-block w-100">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel3" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel3" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Mastering Android Debugging Tools</h5>
-                        <p class="short-text">Efficient debugging is <strong>crucial</strong> for any developer. Discover advanced techniques...</p>
-
-                        <!-- Comment Note -->
-                        <div class="comment-note warning">
-                            <span class="note-icon">🔧</span>
-                            <span class="note-text"><strong>Pro debugging:</strong> Right-click a breakpoint and set a condition to catch tricky bugs faster.</span>
-                        </div>
-
-                        <!-- Alert -->
-                        <div class="alert alert-danger" role="alert">
-                            ⛔ <strong>Warning:</strong> Attaching debugger to a release build can cause performance issues.
-                        </div>
-
-                        <!-- Quote Card -->
-                        <div class="quote-card">
-                            <p class="quote-text">"Debugging is twice as hard as writing the code in the first place."</p>
-                            <p class="quote-author">– Brian Kernighan</p>
-                        </div>
-
-                        <div class="collapse full-text" id="collapse3">
-                            <p>
-                                This article dives deep into <span class="text-highlight-blue">Android Studio's debugging capabilities</span>.
-                                We cover <strong>conditional breakpoints</strong>, <em>evaluating expressions</em>,
-                                network inspection, and using the
-                                <a href="https://developer.android.com/studio/command-line/adb" target="_blank" rel="noopener">Android Debug Bridge (ADB)</a>.
-                            </p>
-                            <p>Key topics:</p>
-                            <ul>
-                                <li><strong>Logcat</strong> – filtering, custom log levels, and persistent logs</li>
-                                <li><strong>Breakpoints</strong> – conditional, temporary, and exception breakpoints</li>
-                                <li><strong>Network Inspector</strong> – monitor HTTP/HTTPS traffic in real time</li>
-                                <li><span class="text-highlight-green">CPU Profiler</span> – identify bottlenecks in your code</li>
-                            </ul>
-                            <p>
-                                You'll also learn how to <em>profile your app's performance</em> and memory usage
-                                to deliver a <span class="text-highlight-orange">smooth user experience</span>.
-                                Advanced tips for <strong>multi-threaded debugging</strong> are included.
-                            </p>
-                        </div>
-                        <button class="btn btn-primary read-more-btn mt-auto align-self-start" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false">
-                            Read more
-                        </button>
-                        <div class="mt-3">
-                            <span class="badge rounded-pill bg-info text-dark tag-badge" data-tag="tools">Tools</span>
-                            <span class="badge rounded-pill bg-danger tag-badge" data-tag="advanced">Advanced</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Article 4 -->
-            <div class="col-lg-4 col-md-6 article-item" data-tags="security advanced">
-                <div class="card article-card h-100">
-                    <div id="carousel4" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/seed/android4a/600/300"
-                                     srcset="https://picsum.photos/seed/android4a/300/150 300w,
-                                             https://picsum.photos/seed/android4a/600/300 600w,
-                                             https://picsum.photos/seed/android4a/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Security 1" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android4b/600/300"
-                                     srcset="https://picsum.photos/seed/android4b/300/150 300w,
-                                             https://picsum.photos/seed/android4b/600/300 600w,
-                                             https://picsum.photos/seed/android4b/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Security 2" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android4c/600/300"
-                                     srcset="https://picsum.photos/seed/android4c/300/150 300w,
-                                             https://picsum.photos/seed/android4c/600/300 600w,
-                                             https://picsum.photos/seed/android4c/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Security 3" class="d-block w-100">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel4" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel4" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Android Security Best Practices</h5>
-                        <p class="short-text">Protect your users and data with <strong>up-to-date</strong> security measures...</p>
-
-                        <!-- Comment Note -->
-                        <div class="comment-note idea">
-                            <span class="note-icon">🔒</span>
-                            <span class="note-text"><strong>Stay safe:</strong> Always validate input on the server side too – never trust the client alone.</span>
-                        </div>
-
-                        <!-- Alert -->
-                        <div class="alert alert-warning" role="alert">
-                            ⚠️ <strong>Important:</strong> Always keep your dependencies updated to patch security vulnerabilities.
-                        </div>
-
-                        <!-- Quote Card -->
-                        <div class="quote-card">
-                            <p class="quote-text">"Security is not a product, but a process."</p>
-                            <p class="quote-author">– Bruce Schneier</p>
-                        </div>
-
-                        <div class="collapse full-text" id="collapse4">
-                            <p>
-                                <strong>Security</strong> is a top priority. This guide covers the latest practices
-                                including using <span class="text-highlight-blue">Android Keystore</span>,
-                                <em>encrypting shared preferences</em>, securing network communications with
-                                <strong>certificate pinning</strong>, and avoiding common vulnerabilities like
-                                <span class="text-highlight-red">insecure data storage</span>.
-                            </p>
-                            <p>Essential checklist:</p>
-                            <ol>
-                                <li>Use <strong>EncryptedSharedPreferences</strong> for local key-value data</li>
-                                <li>Implement <a href="https://developer.android.com/training/articles/security-ssl" target="_blank" rel="noopener">certificate pinning</a> with OkHttp</li>
-                                <li>Store secrets in the <span class="text-highlight-green">Android Keystore</span></li>
-                                <li>Apply <em>runtime permissions</em> correctly and gracefully</li>
-                                <li>Validate all user input to prevent <strong>injection attacks</strong></li>
-                            </ol>
-                            <p>
-                                We also discuss <em>ProGuard/R8</em> obfuscation and how to safely handle
-                                <span class="text-highlight-purple">biometric authentication</span>.
-                            </p>
-                        </div>
-                        <button class="btn btn-primary read-more-btn mt-auto align-self-start" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false">
-                            Read more
-                        </button>
-                        <div class="mt-3">
-                            <span class="badge rounded-pill bg-secondary tag-badge" data-tag="security">Security</span>
-                            <span class="badge rounded-pill bg-danger tag-badge" data-tag="advanced">Advanced</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Article 5 -->
-            <div class="col-lg-4 col-md-6 article-item" data-tags="kotlin ui">
-                <div class="card article-card h-100">
-                    <div id="carousel5" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/seed/android5a/600/300"
-                                     srcset="https://picsum.photos/seed/android5a/300/150 300w,
-                                             https://picsum.photos/seed/android5a/600/300 600w,
-                                             https://picsum.photos/seed/android5a/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Kotlin Flows 1" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android5b/600/300"
-                                     srcset="https://picsum.photos/seed/android5b/300/150 300w,
-                                             https://picsum.photos/seed/android5b/600/300 600w,
-                                             https://picsum.photos/seed/android5b/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Kotlin Flows 2" class="d-block w-100">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/seed/android5c/600/300"
-                                     srcset="https://picsum.photos/seed/android5c/300/150 300w,
-                                             https://picsum.photos/seed/android5c/600/300 600w,
-                                             https://picsum.photos/seed/android5c/1200/600 1200w"
-                                     sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
-                                     alt="Kotlin Flows 3" class="d-block w-100">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel5" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel5" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Kotlin Flows for UI State</h5>
-                        <p class="short-text">Kotlin Flows provide a <strong>powerful</strong> way to handle asynchronous data streams...</p>
-
-                        <!-- Comment Note -->
-                        <div class="comment-note">
-                            <span class="note-icon">📊</span>
-                            <span class="note-text"><strong>Real‑world use:</strong> Great for live data like stock tickers, chat messages, or sensor readings.</span>
-                        </div>
-
-                        <!-- Alert -->
-                        <div class="alert alert-info" role="alert">
-                            💡 <strong>Tip:</strong> Use <code>stateIn()</code> to convert a cold flow to a <code>StateFlow</code> for UI.
-                        </div>
-
-                        <!-- Quote Card -->
-                        <div class="quote-card">
-                            <p class="quote-text">"Kotlin Flows simplify asynchronous programming with coroutines."</p>
-                            <p class="quote-author">– Android Developers Blog</p>
-                        </div>
-
-                        <div class="collapse full-text" id="collapse5">
-                            <p>
-                                In this article we explore how to use <strong>Kotlin Flows</strong>
-                                to manage UI state in a <em>lifecycle-aware</em> manner.
-                                You'll learn about <span class="text-highlight-blue">StateFlow</span>,
-                                <span class="text-highlight-green">SharedFlow</span>, and how to collect them safely
-                                in your Jetpack Compose or View-based UI.
-                            </p>
-                            <p>What we cover:</p>
-                            <ul>
-                                <li><strong>StateFlow</strong> vs <strong>SharedFlow</strong> – when to use each</li>
-                                <li><em>Cold flows</em> vs <em>hot flows</em></li>
-                                <li>Collecting flows with <code>repeatOnLifecycle</code></li>
-                                <li>Combining multiple flows with <code>combine()</code> and <code>zip()</code></li>
-                            </ul>
-                            <p>
-                                Practical examples demonstrate loading data, error handling, and reacting to
-                                <span class="text-highlight-orange">real-time updates</span>.
-                                A must-read for modern Android developers.
-                                See the
-                                <a href="https://kotlinlang.org/docs/flow.html" target="_blank" rel="noopener">official Kotlin Flow guide</a>
-                                for more details.
-                            </p>
-                        </div>
-                        <button class="btn btn-primary read-more-btn mt-auto align-self-start" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false">
-                            Read more
-                        </button>
-                        <div class="mt-3">
-                            <span class="badge rounded-pill bg-primary tag-badge" data-tag="kotlin">Kotlin</span>
-                            <span class="badge rounded-pill bg-warning text-dark tag-badge" data-tag="ui">UI</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Footer -->
+        <div class="text-center mt-3 pb-3 text-muted" style="font-size: 0.85rem;">
+            <i class="bi bi-shield-check me-1"></i> Prices are approximate and subject to change depending on the store and region
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-    </script>
-    <script>
-        // ----- Tag Filtering -----
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const articleItems = document.querySelectorAll('.article-item');
+    <!-- ==================== ADD PHONE MODAL ==================== -->
+    <div class="modal fade" id="addPhoneModal" tabindex="-1" aria-labelledby="addPhoneModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color:#fff;">
+                    <h5 class="modal-title" id="addPhoneModalLabel">
+                        <i class="bi bi-plus-circle me-2"></i>Add New Phone
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPhoneForm" novalidate>
+                        <div class="mb-3">
+                            <label for="brandInput" class="form-label fw-semibold">Brand <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="brandInput"
+                            list="brandSuggestions"
+                            placeholder="e.g. Apple, Samsung, Huawei..."
+                            required
+                            autocomplete="off">
+                            <datalist id="brandSuggestions">
+                                <option value="Apple">
+                                    <option value="Samsung">
+                                        <option value="Xiaomi">
+                                            <option value="Google">
+                                                <option value="OnePlus">
+                                                    <option value="Huawei">
+                                                        <option value="Oppo">
+                                                            <option value="Vivo">
+                                                                <option value="Motorola">
+                                                                    <option value="Nokia">
+                                                                        <option value="Sony">
+                                                                            <option value="Realme">
+                                                                                <option value="Honor">
+                                                                                    <option value="Asus">
+                                                                                    </datalist>
+                                                                                    <div class="invalid-feedback">Please enter a brand name.</div>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="phoneNameInput" class="form-label fw-semibold">Phone Name <span class="text-danger">*</span></label>
+                                                                                    <input type="text" class="form-control" id="phoneNameInput"
+                                                                                    placeholder="e.g. Galaxy S25 Ultra"
+                                                                                    required>
+                                                                                    <div class="invalid-feedback">Please enter the phone name.</div>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="priceInput" class="form-label fw-semibold">Price (USD) <span class="text-danger">*</span></label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-text">$</span>
+                                                                                        <input type="number" class="form-control" id="priceInput"
+                                                                                        placeholder="e.g. 999"
+                                                                                        min="1" max="99999" step="1"
+                                                                                        required>
+                                                                                        <div class="invalid-feedback">Please enter a valid price (1 - 99,999).</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="statusSelect" class="form-label fw-semibold">Status</label>
+                                                                                    <select class="form-select" id="statusSelect">
+                                                                                        <option value="Available" data-badge="bg-success">Available</option>
+                                                                                        <option value="New" data-badge="bg-info">New</option>
+                                                                                        <option value="Temporarily Out" data-badge="bg-warning text-dark">Temporarily Out</option>
+                                                                                        <option value="15% Off" data-badge="bg-danger">15% Off</option>
+                                                                                        <option value="Pre-order" data-badge="bg-primary">Pre-order</option>
+                                                                                        <option value="Discontinued" data-badge="bg-secondary">Discontinued</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                            <button type="button" class="btn btn-add-phone" id="savePhoneBtn">
+                                                                                <i class="bi bi-check-lg me-1"></i> Add Phone
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- ==================== END ADD PHONE MODAL ==================== -->
 
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const filterValue = this.getAttribute('data-filter');
-                filterButtons.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+                                                            <!-- ==================== SOURCE CODE MODAL ==================== -->
+                                                            <div class="modal fade" id="sourceCodeModal" tabindex="-1" aria-labelledby="sourceCodeModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color:#fff;">
+                                                                            <h5 class="modal-title" id="sourceCodeModalLabel">
+                                                                                <i class="bi bi-code-slash me-2"></i>Full HTML Source Code
+                                                                            </h5>
+                                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="alert alert-info py-2 mb-3 small">
+                                                                                <i class="bi bi-info-circle me-1"></i> This is the <strong>complete HTML code</strong> including all phones you added. You can copy it and save as an <code>.html</code> file. When you open that file, all your added phones will be there.
+                                                                            </div>
+                                                                            <textarea id="sourceCodeTextarea" class="form-control" rows="22" readonly spellcheck="false" aria-label="Full HTML source code"></textarea>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                            <button type="button" class="btn btn-add-phone" id="copyToClipboardBtn">
+                                                                                <i class="bi bi-clipboard me-1"></i> Copy to Clipboard
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- ==================== END SOURCE CODE MODAL ==================== -->
 
-                articleItems.forEach(item => {
-                    const tags = item.getAttribute('data-tags').toLowerCase().split(' ');
-                    if (filterValue === 'all' || tags.includes(filterValue)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
+                                                            <!-- Bootstrap 5 JS Bundle -->
+                                                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+                                                            </script>
 
-        // Clickable tag badges inside cards trigger the corresponding filter button
-        document.querySelectorAll('.tag-badge').forEach(badge => {
-            badge.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const tag = this.getAttribute('data-tag').toLowerCase();
-                const targetBtn = document.querySelector(`.filter-btn[data-filter="${tag}"]`);
-                if (targetBtn) {
-                    targetBtn.click();
-                    document.getElementById('filterButtons').scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
+                                                            <script>
+                                                                (function() {
+                                                                    // ==================== DOM REFERENCES ====================
+                                                                    const searchInput = document.getElementById('searchInput');
+                                                                    const clearBtn = document.getElementById('clearBtn');
+                                                                    const tableBody = document.getElementById('tableBody');
+                                                                    const noResults = document.getElementById('noResults');
+                                                                    const table = document.getElementById('phoneTable');
+                                                                    const countNumber = document.getElementById('countNumber');
+                                                                    const resultCountDiv = document.getElementById('resultCount');
+                                                                    const brandAccordion = document.getElementById('brandAccordion');
+                                                                    const noBrandData = document.getElementById('noBrandData');
+                                                                    const addPhoneModalEl = document.getElementById('addPhoneModal');
+                                                                    const addPhoneForm = document.getElementById('addPhoneForm');
+                                                                    const savePhoneBtn = document.getElementById('savePhoneBtn');
+                                                                    const brandInput = document.getElementById('brandInput');
+                                                                    const phoneNameInput = document.getElementById('phoneNameInput');
+                                                                    const priceInput = document.getElementById('priceInput');
+                                                                    const statusSelect = document.getElementById('statusSelect');
 
-        // ----- Read More / Read Less Button Text Update -----
-        document.addEventListener('show.bs.collapse', function(event) {
-            const collapseElement = event.target;
-            const button = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
-            if (button) button.textContent = 'Read less';
-        });
+                                                                    // Source code modal references
+                                                                    const sourceCodeModalEl = document.getElementById('sourceCodeModal');
+                                                                    const sourceCodeTextarea = document.getElementById('sourceCodeTextarea');
+                                                                    const copyHtmlBtn = document.getElementById('copyHtmlBtn');
+                                                                    const copyToClipboardBtn = document.getElementById('copyToClipboardBtn');
 
-        document.addEventListener('hide.bs.collapse', function(event) {
-            const collapseElement = event.target;
-            const button = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
-            if (button) button.textContent = 'Read more';
-        });
-    </script>
-</body>
-</html>
+                                                                    let addPhoneModal = null;
+                                                                    if (addPhoneModalEl) {
+                                                                        addPhoneModal = new bootstrap.Modal(addPhoneModalEl);
+                                                                    }
+
+                                                                    let sourceCodeModal = null;
+                                                                    if (sourceCodeModalEl) {
+                                                                        sourceCodeModal = new bootstrap.Modal(sourceCodeModalEl);
+                                                                    }
+
+                                                                    // ==================== BRAND BADGE CLASS MAPPING ====================
+                                                                    const brandBadgeClassMap = {
+                                                                        'apple': 'badge-apple',
+                                                                        'samsung': 'badge-samsung',
+                                                                        'xiaomi': 'badge-xiaomi',
+                                                                        'google': 'badge-google',
+                                                                        'oneplus': 'badge-oneplus',
+                                                                        'huawei': 'badge-huawei',
+                                                                        'oppo': 'badge-oppo',
+                                                                        'vivo': 'badge-vivo',
+                                                                        'motorola': 'badge-motorola',
+                                                                        'nokia': 'badge-nokia',
+                                                                        'sony': 'badge-sony',
+                                                                        'realme': 'badge-realme',
+                                                                        'honor': 'badge-honor',
+                                                                        'asus': 'badge-asus',
+                                                                    };
+
+                                                                    const fallbackBadgeClasses = [
+                                                                        'badge-other', 'badge-apple', 'badge-samsung', 'badge-xiaomi',
+                                                                        'badge-google', 'badge-oneplus', 'badge-huawei', 'badge-oppo',
+                                                                        'badge-vivo', 'badge-motorola', 'badge-nokia', 'badge-sony',
+                                                                        'badge-realme', 'badge-honor', 'badge-asus',
+                                                                    ];
+
+                                                                    function getBrandBadgeClass(brandName) {
+                                                                        const key = brandName.trim().toLowerCase();
+                                                                        if (brandBadgeClassMap[key]) {
+                                                                            return brandBadgeClassMap[key];
+                                                                        }
+                                                                        let hash = 0;
+                                                                        for (let i = 0; i < key.length; i++) {
+                                                                            hash = ((hash << 5) - hash) + key.charCodeAt(i);
+                                                                            hash |= 0;
+                                                                        }
+                                                                        const idx = Math.abs(hash) % fallbackBadgeClasses.length;
+                                                                        return fallbackBadgeClasses[idx];
+                                                                    }
+
+                                                                    // ==================== STATUS BADGE CLASS MAPPING ====================
+                                                                    const statusBadgeClassMap = {
+                                                                        'Available': 'bg-success',
+                                                                        'New': 'bg-info',
+                                                                        'Temporarily Out': 'bg-warning text-dark',
+                                                                        '15% Off': 'bg-danger',
+                                                                        'Pre-order': 'bg-primary',
+                                                                        'Discontinued': 'bg-secondary',
+                                                                    };
+
+                                                                    function getStatusBadgeClass(statusText) {
+                                                                        return statusBadgeClassMap[statusText] || 'bg-secondary';
+                                                                    }
+
+                                                                    // ==================== FORMAT PRICE ====================
+                                                                    function formatPrice(priceValue) {
+                                                                        const num = parseInt(priceValue, 10);
+                                                                        if (isNaN(num)) return '$0';
+                                                                        return '$' + num.toLocaleString('en-US');
+                                                                    }
+
+                                                                    // ==================== GET ALL ROWS FROM TABLE ====================
+                                                                    function getAllRows() {
+                                                                        return Array.from(tableBody.querySelectorAll('tr'));
+                                                                    }
+
+                                                                    // ==================== BUILD BRAND LISTS ACCORDION (WITH RE-INIT) ====================
+                                                                    function buildBrandLists() {
+                                                                        const allRows = getAllRows();
+                                                                        const brandGroups = {};
+
+                                                                        allRows.forEach(row => {
+                                                                                    const brand = (row.getAttribute('data-brand') || '').trim();
+                                                                                    const phone = (row.getAttribute('data-phone') || '').trim();
+                                                                                    const priceRaw = row.getAttribute('data-price') || '0';
+                                                                                    const status = (row.getAttribute('data-status') || 'Available').trim();
+                                                                                    const priceNum = parseInt(priceRaw, 10) || 0;
+
+                                                                                    if (!brand || !phone) return;
+
+                                                                                    if (!brandGroups[brand]) {
+                                                                                        brandGroups[brand] = [];
+                                                                                    }
+                                                                                    brandGroups[brand].push({
+                                                                                        phone: phone,
+                                                                                        price: priceNum,
+                                                                                        priceFormatted: formatPrice(priceNum),
+                                                                                        status: status,
+                                                                                    });
+                                                                                });
+
+                                                                        const sortedBrands = Object.keys(brandGroups).sort((a, b) =>
+                                                                            a.localeCompare(b, 'en', { sensitivity: 'base' })
+                                                                        );
+
+                                                                        if (sortedBrands.length === 0) {
+                                                                            brandAccordion.innerHTML = '';
+                                                                            noBrandData.style.display = 'block';
+                                                                            // Re-init accordion after clearing
+                                                                            reinitializeAccordion();
+                                                                            return;
+                                                                        }
+
+                                                                        noBrandData.style.display = 'none';
+
+                                                                        let accordionHTML = '';
+
+                                                                        sortedBrands.forEach((brand, brandIndex) => {
+                                                                                    const phones = brandGroups[brand];
+                                                                                    phones.sort((a, b) => b.price - a.price);
+
+                                                                                    const sanitizedId = brand.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+                                                                                    const collapseId = 'collapse-brand-' + sanitizedId;
+                                                                                    const headingId = 'heading-brand-' + sanitizedId;
+                                                                                    const badgeClass = getBrandBadgeClass(brand);
+                                                                                    const phoneCount = phones.length;
+                                                                                    const isFirst = (brandIndex === 0);
+
+                                                                                    accordionHTML += `
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="${headingId}">
+                                    <button class="accordion-button ${isFirst ? '' : 'collapsed'}"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#${collapseId}"
+                                            aria-expanded="${isFirst ? 'true' : 'false'}"
+                                            aria-controls="${collapseId}">
+                                        <span class="brand-badge ${badgeClass} me-2">${escapeHTML(brand)}</span>
+                                        <span class="text-muted">(${phoneCount} phone${phoneCount !== 1 ? 's' : ''})</span>
+                                    </button>
+                                </h2>
+                                <div id="${collapseId}"
+                                     class="accordion-collapse collapse ${isFirst ? 'show' : ''}"
+                                     aria-labelledby="${headingId}"
+                                     data-bs-parent="#brandAccordion">
+                                    <div class="accordion-body">
+                                        <ul class="list-group list-group-flush">
+                                            ${phones.map(p => `
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div class="phone-info">
+                                                    <span>${escapeHTML(p.phone)}</span>
+                                                    <span class="badge ${getStatusBadgeClass(p.status)} status-mini">${escapeHTML(p.status)}</span>
+                                                </div>
+                                                <span class="price">${p.priceFormatted}</span>
+                                            </li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>`;
+                                                                                });
+
+                                                                        brandAccordion.innerHTML = accordionHTML;
+                                                                        reinitializeAccordion(); // <-- Crucial fix: re‑init accordion after DOM change
+                                                                    }
+
+                                                                    // Helper: Reinitialize Bootstrap Accordion on #brandAccordion
+                                                                    function reinitializeAccordion() {
+                                                                        const accordionElement = document.getElementById('brandAccordion');
+                                                                        // Dispose previous instance if any (avoids memory leaks)
+                                                                        const existing = bootstrap.Accordion.getInstance(accordionElement);
+                                                                        if (existing) {
+                                                                            existing.dispose();
+                                                                        }
+                                                                        // Create a fresh Accordion instance
+                                                                        new bootstrap.Accordion(accordionElement);
+                                                                    }
+
+                                                                    function escapeHTML(str) {
+                                                                        const div = document.createElement('div');
+                                                                        div.textContent = str;
+                                                                        return div.innerHTML;
+                                                                    }
+
+                                                                    // ==================== UPDATE COUNTER & RENUMBER ====================
+                                                                    function updateCounter(visibleCount) {
+                                                                        countNumber.textContent = visibleCount;
+                                                                    }
+
+                                                                    function renumberRows(rows) {
+                                                                        rows.forEach((row, index) => {
+                                                                                    const firstCell = row.querySelector('td:first-child');
+                                                                                    if (firstCell) {
+                                                                                        firstCell.textContent = index + 1;
+                                                                                    }
+                                                                                });
+                                                                    }
+
+                                                                    // ==================== FILTER TABLE ====================
+                                                                    function filterTable() {
+                                                                        const query = searchInput.value.trim().toLowerCase();
+                                                                        const allRows = getAllRows();
+                                                                        let visibleRows = [];
+
+                                                                        if (query.length > 0) {
+                                                                            clearBtn.style.display = 'block';
+                                                                        } else {
+                                                                            clearBtn.style.display = 'none';
+                                                                        }
+
+                                                                        allRows.forEach(row => {
+                                                                                    const rowText = row.textContent.toLowerCase();
+                                                                                    const cells = Array.from(row.querySelectorAll('td'));
+                                                                                    const cellTexts = cells.map(cell => cell.textContent
+                                                                                        .toLowerCase());
+                                                                                    const matchesQuery = rowText.includes(query) || cellTexts
+                                                                                        .some(text => text.includes(query));
+
+                                                                                    if (matchesQuery) {
+                                                                                        row.style.display = '';
+                                                                                        visibleRows.push(row);
+                                                                                    } else {
+                                                                                        row.style.display = 'none';
+                                                                                    }
+                                                                                });
+
+                                                                        renumberRows(visibleRows);
+                                                                        updateCounter(visibleRows.length);
+
+                                                                        if (visibleRows.length === 0 && query.length > 0) {
+                                                                            noResults.style.display = 'block';
+                                                                            table.style.display = 'none';
+                                                                            resultCountDiv.style.display = 'none';
+                                                                        } else {
+                                                                            noResults.style.display = 'none';
+                                                                            table.style.display = '';
+                                                                            resultCountDiv.style.display = '';
+                                                                        }
+                                                                    }
+
+                                                                    // ==================== CLEAR SEARCH ====================
+                                                                    function clearSearch() {
+                                                                        searchInput.value = '';
+                                                                        clearBtn.style.display = 'none';
+                                                                        const allRows = getAllRows();
+                                                                        allRows.forEach((row, index) => {
+                                                                                    row.style.display = '';
+                                                                                    const firstCell = row.querySelector('td:first-child');
+                                                                                    if (firstCell) {
+                                                                                        firstCell.textContent = index + 1;
+                                                                                    }
+                                                                                });
+                                                                        updateCounter(allRows.length);
+                                                                        noResults.style.display = 'none';
+                                                                        table.style.display = '';
+                                                                        resultCountDiv.style.display = '';
+                                                                        searchInput.focus();
+                                                                    }
+
+                                                                    // ==================== ADD PHONE TO TABLE ====================
+                                                                    function addPhoneToTable(brand, phoneName, priceValue, statusText) {
+                                                                        const badgeClass = getBrandBadgeClass(brand);
+                                                                        const statusBadgeClass = getStatusBadgeClass(statusText);
+                                                                        const priceFormatted = formatPrice(priceValue);
+
+                                                                        const newRow = document.createElement('tr');
+                                                                        newRow.setAttribute('data-brand', brand);
+                                                                        newRow.setAttribute('data-phone', phoneName);
+                                                                        newRow.setAttribute('data-price', priceValue);
+                                                                        newRow.setAttribute('data-status', statusText);
+
+                                                                        newRow.innerHTML = `
+                                <td></td>
+                                <td><span class="brand-badge ${badgeClass}">${escapeHTML(brand)}</span></td>
+                                <td class="phone-name-cell">${escapeHTML(phoneName)}</td>
+                                <td><span class="price">${priceFormatted}</span></td>
+                                <td><span class="badge ${statusBadgeClass}">${escapeHTML(statusText)}</span></td>
+                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
+                            `;
+
+                                                                        tableBody.appendChild(newRow);
+
+                                                                        // Clear search so the new phone is visible
+                                                                        clearSearch();
+
+                                                                        // Rebuild brand lists with accordion re-initialization
+                                                                        buildBrandLists();
+
+                                                                        // Update counter
+                                                                        const allRows = getAllRows();
+                                                                        updateCounter(allRows.length);
+                                                                        renumberRows(allRows);
+                                                                    }
+
+                                                                    // ==================== DELETE PHONE ROW ====================
+                                                                    window.deletePhoneRow = function(buttonEl) {
+                                                                        const row = buttonEl.closest('tr');
+                                                                        if (!row) return;
+
+                                                                        const phoneName = row.getAttribute('data-phone') || 'this phone';
+                                                                        if (!confirm(`Are you sure you want to delete "${phoneName}"?`)) {
+                                                                            return;
+                                                                        }
+
+                                                                        row.remove();
+
+                                                                        if (searchInput.value.trim().length > 0) {
+                                                                            filterTable();
+                                                                        } else {
+                                                                            clearSearch();
+                                                                        }
+
+                                                                        buildBrandLists();
+
+                                                                        const allRows = getAllRows();
+                                                                        updateCounter(allRows.length);
+                                                                        renumberRows(allRows);
+                                                                    };
+
+                                                                    // ==================== SAVE PHONE BUTTON HANDLER ====================
+                                                                    savePhoneBtn.addEventListener('click', function() {
+                                                                        const brandVal = brandInput.value.trim();
+                                                                        const phoneVal = phoneNameInput.value.trim();
+                                                                        const priceVal = priceInput.value.trim();
+                                                                        const statusVal = statusSelect.value;
+
+                                                                        let isValid = true;
+
+                                                                        if (!brandVal) {
+                                                                            brandInput.classList.add('is-invalid');
+                                                                            isValid = false;
+                                                                        } else {
+                                                                            brandInput.classList.remove('is-invalid');
+                                                                        }
+
+                                                                        if (!phoneVal) {
+                                                                            phoneNameInput.classList.add('is-invalid');
+                                                                            isValid = false;
+                                                                        } else {
+                                                                            phoneNameInput.classList.remove('is-invalid');
+                                                                        }
+
+                                                                        const priceNum = parseInt(priceVal, 10);
+                                                                        if (!priceVal || isNaN(priceNum) || priceNum < 1 || priceNum > 99999) {
+                                                                            priceInput.classList.add('is-invalid');
+                                                                            isValid = false;
+                                                                        } else {
+                                                                            priceInput.classList.remove('is-invalid');
+                                                                        }
+
+                                                                        if (!isValid) return;
+
+                                                                        addPhoneToTable(brandVal, phoneVal, priceNum, statusVal);
+
+                                                                        addPhoneForm.reset();
+                                                                        brandInput.classList.remove('is-invalid');
+                                                                        phoneNameInput.classList.remove('is-invalid');
+                                                                        priceInput.classList.remove('is-invalid');
+
+                                                                        if (addPhoneModal) {
+                                                                            addPhoneModal.hide();
+                                                                        }
+                                                                    });
+
+                                                                    // ==================== RESET FORM ON MODAL OPEN ====================
+                                                                    if (addPhoneModalEl) {
+                                                                        addPhoneModalEl.addEventListener('show.bs.modal', function() {
+                                                                            addPhoneForm.reset();
+                                                                            brandInput.classList.remove('is-invalid');
+                                                                            phoneNameInput.classList.remove('is-invalid');
+                                                                            priceInput.classList.remove('is-invalid');
+                                                                        });
+
+                                                                        addPhoneModalEl.addEventListener('shown.bs.modal', function() {
+                                                                            brandInput.focus();
+                                                                        });
+
+                                                                        addPhoneModalEl.addEventListener('keydown', function(e) {
+                                                                                    if (e.key === 'Enter' && document.activeElement
+                                                                                        .closest('#addPhoneModal')) {
+                                                                                        e.preventDefault();
+                                                                                        savePhoneBtn.click();
+                                                                                    }
+                                                                                });
+                                                                    }
+
+                                                                    // ==================== GENERATE FULL HTML SOURCE ====================
+                                                                    function generateFullHTML() {
+                                                                        // Get the complete current HTML of the document
+                                                                        const fullHTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+                                                                        return fullHTML;
+                                                                    }
+
+                                                                    // ==================== COPY HTML BUTTON HANDLER ====================
+                                                                    copyHtmlBtn.addEventListener('click', function() {
+                                                                        // Generate the HTML and populate the textarea
+                                                                        const htmlSource = generateFullHTML();
+                                                                        sourceCodeTextarea.value = htmlSource;
+
+                                                                        // Reset the copy button text
+                                                                        copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
+                                                                        copyToClipboardBtn.disabled = false;
+
+                                                                        // Show the source code modal
+                                                                        if (sourceCodeModal) {
+                                                                            sourceCodeModal.show();
+                                                                        }
+                                                                    });
+
+                                                                    // ==================== COPY TO CLIPBOARD BUTTON HANDLER ====================
+                                                                    copyToClipboardBtn.addEventListener('click', function() {
+                                                                        const textarea = sourceCodeTextarea;
+                                                                        const htmlContent = textarea.value;
+
+                                                                        if (!htmlContent || htmlContent.trim().length === 0) {
+                                                                            return;
+                                                                        }
+
+                                                                        // Use the modern Clipboard API
+                                                                        if (navigator.clipboard && window.isSecureContext) {
+                                                                            navigator.clipboard.writeText(htmlContent).then(function() {
+                                                                                // Success feedback
+                                                                                copyToClipboardBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Copied!';
+                                                                                copyToClipboardBtn.disabled = true;
+                                                                                setTimeout(function() {
+                                                                                    copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
+                                                                                    copyToClipboardBtn.disabled = false;
+                                                                                }, 2000);
+                                                                            }).catch(function(err) {
+                                                                                // Fallback
+                                                                                fallbackCopy(textarea);
+                                                                            });
+                                                                        } else {
+                                                                            // Fallback for older browsers
+                                                                            fallbackCopy(textarea);
+                                                                        }
+                                                                    });
+
+                                                                    // Fallback copy method using execCommand
+                                                                    function fallbackCopy(textareaEl) {
+                                                                        try {
+                                                                            textareaEl.select();
+                                                                            textareaEl.setSelectionRange(0, 99999999); // For mobile devices
+                                                                            const successful = document.execCommand('copy');
+                                                                            if (successful) {
+                                                                                copyToClipboardBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Copied!';
+                                                                                copyToClipboardBtn.disabled = true;
+                                                                                setTimeout(function() {
+                                                                                    copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
+                                                                                    copyToClipboardBtn.disabled = false;
+                                                                                }, 2000);
+                                                                            } else {
+                                                                                alert('Failed to copy. Please select all text manually (Ctrl+A) and copy (Ctrl+C).');
+                                                                            }
+                                                                        } catch (e) {
+                                                                            alert('Failed to copy. Please select all text manually (Ctrl+A) and copy (Ctrl+C).');
+                                                                        }
+                                                                    }
+
+                                                                    // ==================== EVENT LISTENERS ====================
+                                                                    searchInput.addEventListener('input', filterTable);
+                                                                    clearBtn.addEventListener('click', clearSearch);
+
+                                                                    document.addEventListener('keydown', function(e) {
+                                                                        if (e.key === 'Escape' && document.activeElement ===
+                                                                            searchInput) {
+                                                                            clearSearch();
+                                                                        }
+                                                                    });
+
+                                                                    // Keyboard shortcut: Ctrl+Shift+C to open source code modal
+                                                                    document.addEventListener('keydown', function(e) {
+                                                                        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+                                                                            // Don't trigger if user is typing in an input (except when they want the shortcut)
+                                                                            const activeEl = document.activeElement;
+                                                                            if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA') && activeEl.id !== 'sourceCodeTextarea') {
+                                                                                return; // Let normal copy work in inputs
+                                                                            }
+                                                                            e.preventDefault();
+                                                                            const htmlSource = generateFullHTML();
+                                                                            sourceCodeTextarea.value = htmlSource;
+                                                                            copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
+                                                                            copyToClipboardBtn.disabled = false;
+                                                                            if (sourceCodeModal) {
+                                                                                sourceCodeModal.show();
+                                                                            }
+                                                                        }
+                                                                    });
+
+                                                                    // ==================== INITIALIZATION ====================
+                                                                    function init() {
+                                                                        const allRows = getAllRows();
+                                                                        updateCounter(allRows.length);
+                                                                        renumberRows(allRows);
+                                                                        buildBrandLists(); // This also calls reinitializeAccordion
+                                                                        clearBtn.style.display = 'none';
+                                                                        // Ensure source code textarea starts empty
+                                                                        if (sourceCodeTextarea) {
+                                                                            sourceCodeTextarea.value = '';
+                                                                        }
+                                                                    }
+
+                                                                    init();
+
+                                                                    // Expose for debugging if needed
+                                                                    window.refreshBrandLists = buildBrandLists;
+                                                                    window.addPhoneToTable = addPhoneToTable;
+                                                                    window.generateFullHTML = generateFullHTML;
+                                                                })();
+                                                            </script>
+                                                        </body>
+                                                        </html>
