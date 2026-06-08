@@ -1,1192 +1,603 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Prices - Full Screen & Dynamic Brand Lists</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>تحليل متقدم لضعف الإنترنت | قياسات DSL</title>
+    <!-- Google Fonts (دعم اللغة العربية) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (أيقونات حديثة) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        .main-card {
-            border: none;
-            border-radius: 0;
-            box-shadow: none;
-            background-color: #ffffff;
+        body {
+            background: linear-gradient(145deg, #e9f0fc 0%, #d9e3f0 100%);
+            font-family: 'Cairo', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            border-radius: 0 !important;
-            padding: 20px 24px;
-            border-bottom: 3px solid #e94560;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .card-header h3 {
-            margin: 0;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+        /* بطاقات رئيسية */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.2s ease;
         }
 
-        .btn-add-phone {
-            background: #e94560;
-            border: none;
-            color: #fff;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .btn-add-phone:hover {
-            background: #d13350;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
-            color: #fff;
-        }
-
-        .btn-copy-html {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            color: #fff;
-            font-weight: 600;
-            padding: 8px 18px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .btn-copy-html:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #fff;
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-        }
-
-        .search-box {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .search-box .form-control {
-            border-radius: 50px;
-            padding: 12px 20px 12px 45px;
-            border: 2px solid #e0e0e0;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            background-color: #fff;
-        }
-
-        .search-box .form-control:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 0 0.25rem rgba(233, 69, 96, 0.2);
-        }
-
-        .search-box .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #e94560;
-            font-size: 1.2rem;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .search-box .clear-btn {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-            cursor: pointer;
-            font-size: 1.2rem;
-            border: none;
-            background: none;
-            padding: 4px 8px;
-            border-radius: 50%;
-            transition: all 0.2s;
-            z-index: 10;
-            display: none;
-        }
-
-        .search-box .clear-btn:hover {
-            color: #e94560;
-            background-color: #fce4e8;
-        }
-
-        .table {
-            margin-bottom: 0;
-            border-collapse: separate;
-            border-spacing: 0;
-            width: 100%;
-        }
-
-        .table thead th {
-            background-color: #1a1a2e;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 14px 16px;
-            border: none;
+        .header {
             text-align: center;
-            vertical-align: middle;
+            margin-bottom: 1rem;
         }
 
-        .table tbody td {
-            padding: 12px 16px;
-            text-align: center;
-            vertical-align: middle;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 0.95rem;
-            transition: background-color 0.2s;
-        }
-
-        .phone-name-cell {
-            min-width: 220px;
-            white-space: nowrap;
-        }
-
-        .table tbody tr {
-            transition: all 0.3s ease;
-        }
-
-        .table tbody tr:hover {
-            background-color: #f8f9ff;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .brand-badge {
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0057a3, #0099cc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
             display: inline-block;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.82rem;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #2c5368;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .badge-img {
+            background: #eef2ff;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
             font-weight: 600;
-            letter-spacing: 0.3px;
+            color: #0066a0;
         }
 
-        /* Known brand badge colors */
-        .badge-apple {
-            background-color: #fce4e8;
-            color: #c0392b;
-        }
-        .badge-samsung {
-            background-color: #e3eafd;
-            color: #1e3799;
-        }
-        .badge-xiaomi {
-            background-color: #fff3e0;
-            color: #e67e22;
-        }
-        .badge-google {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-        .badge-oneplus {
-            background-color: #fce4ec;
-            color: #ad1457;
-        }
-        .badge-huawei {
-            background-color: #fbe9e7;
-            color: #bf360c;
-        }
-        .badge-oppo {
-            background-color: #e8f5e9;
-            color: #1b5e20;
-        }
-        .badge-vivo {
-            background-color: #e3f2fd;
-            color: #0d47a1;
-        }
-        .badge-motorola {
-            background-color: #f3e5f5;
-            color: #6a1b9a;
-        }
-        .badge-nokia {
-            background-color: #e0f7fa;
-            color: #006064;
-        }
-        .badge-sony {
-            background-color: #ede7f6;
-            color: #311b92;
-        }
-        .badge-realme {
-            background-color: #fff8e1;
-            color: #e65100;
-        }
-        .badge-honor {
-            background-color: #e8eaf6;
-            color: #1a237e;
-        }
-        .badge-asus {
-            background-color: #efebe9;
-            color: #3e2723;
-        }
-        .badge-other {
-            background-color: #f5f5f5;
-            color: #444;
+        /* جدول الإدخال العصري */
+        .stats-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px;
         }
 
-        .price {
+        .stats-table th {
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding-bottom: 10px;
+            color: #0a405c;
+            text-align: center;
+            background: transparent;
+        }
+
+        .stats-table td {
+            background: #f8fafd;
+            border-radius: 28px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02), inset 0 0 0 1px #ffffff80;
+            transition: all 0.2s;
+        }
+
+        .param-name {
             font-weight: 700;
             font-size: 1.05rem;
-            color: #1a1a2e;
-            white-space: nowrap;
-        }
-
-        .no-results {
+            color: #1f5e8c;
+            background: #eef3fc;
+            border-radius: 28px;
+            width: 180px;
             text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-        .no-results i {
-            font-size: 3rem;
-            display: block;
-            margin-bottom: 15px;
-            color: #ddd;
         }
 
-        .result-count {
-            font-size: 0.85rem;
-            color: #777;
-            margin-bottom: 10px;
-        }
-        .result-count span {
-            font-weight: 700;
-            color: #e94560;
+        .param-name i {
+            margin-left: 8px;
+            color: #0077be;
         }
 
-        .table-responsive {
-            overflow-x: auto;
+        .input-cell {
+            text-align: center;
         }
 
-        /* Brand grouped lists section */
-        .brand-lists {
-            background: #fff;
-            padding: 20px;
-            margin-top: 2rem;
-            border-top: 2px solid #dee2e6;
-        }
-
-        .accordion-button:not(.collapsed) {
-            background-color: #f8f9ff;
-            color: #1a1a2e;
+        .input-cell input {
+            width: 110px;
+            padding: 10px 8px;
+            font-size: 1rem;
+            font-family: 'Cairo', monospace;
             font-weight: 600;
+            text-align: center;
+            border: 1.5px solid #cbdbe6;
+            border-radius: 40px;
+            background: white;
+            transition: 0.2s;
+            color: #022b3e;
         }
 
-        .accordion-button:focus {
-            box-shadow: none;
-            border-color: #e94560;
+        .input-cell input:focus {
+            outline: none;
+            border-color: #0099cc;
+            box-shadow: 0 0 0 3px rgba(0, 153, 204, 0.2);
         }
 
-        .list-group-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .unit {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #5f7f9e;
+            margin-right: 5px;
         }
 
-        .list-group-item .phone-info {
-            display: flex;
+        .reset-btn {
+            background: #1e6f9f;
+            border: none;
+            color: white;
+            font-family: 'Cairo';
+            font-weight: 600;
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
         }
 
-        .list-group-item .status-mini {
+        .reset-btn:hover {
+            background: #0a5a83;
+            transform: translateY(-2px);
+        }
+
+        /* لوحة التشخيص */
+        .diagnostic-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .diagnosis-box {
+            flex: 1.2;
+            background: #ffffffd9;
+            border-radius: 32px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.1);
+            border-right: 8px solid #ff8c42;
+        }
+
+        .recommend-box {
+            flex: 1.8;
+            background: #ffffffd9;
+            border-radius: 32px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.1);
+            border-right: 8px solid #2ba14b;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 3px solid #dee5ed;
+            padding-bottom: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.8rem;
+            color: #fe8327;
+        }
+
+        .cause-list {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+
+        .cause-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1rem;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .cause-list li i {
+            margin-top: 4px;
+            font-size: 1.25rem;
+            color: #e67e22;
+        }
+
+        .rec-list {
+            list-style: none;
+        }
+
+        .rec-list li {
+            margin-bottom: 1rem;
+            background: #f5f9fe;
+            padding: 10px 16px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 550;
+            transition: 0.1s;
+        }
+
+        .rec-list li i {
+            width: 28px;
+            font-size: 1.3rem;
+            color: #1d8f4a;
+        }
+
+        .alert-badge {
+            background: #fee2e2;
+            color: #b91c1c;
+            border-radius: 40px;
+            padding: 3px 12px;
             font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 10px;
+            font-weight: 700;
+            margin-right: 10px;
         }
 
-        .delete-row-btn {
-            color: #ccc;
-            cursor: pointer;
-            font-size: 0.9rem;
-            border: none;
-            background: none;
-            padding: 2px 6px;
-            border-radius: 50%;
-            transition: all 0.2s;
-            opacity: 0;
+        .good-badge {
+            background: #dff9e6;
+            color: #167d3f;
         }
 
-        .table tbody tr:hover .delete-row-btn {
-            opacity: 1;
+        .speed-warning {
+            background: #fff1e0;
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-top: 15px;
         }
 
-        .delete-row-btn:hover {
-            color: #e94560;
-            background-color: #fce4e8;
-        }
-
-        /* Source code modal textarea */
-        #sourceCodeTextarea {
-            font-family: 'Courier New', Consolas, monospace;
+        footer {
+            text-align: center;
             font-size: 0.8rem;
-            resize: vertical;
-            background-color: #1e1e2e;
-            color: #d4d4d4;
-            border: 1px solid #444;
-            line-height: 1.5;
+            color: #4f6f8f;
+            margin-top: 1.2rem;
         }
 
-        #sourceCodeTextarea:focus {
-            background-color: #1e1e2e;
-            color: #d4d4d4;
-            box-shadow: 0 0 0 0.25rem rgba(233, 69, 96, 0.25);
-            border-color: #e94560;
-        }
-
-        @media (max-width: 768px) {
-            .card-header {
-                padding: 15px;
+        @media (max-width: 780px) {
+            body {
+                padding: 1rem;
             }
-            .card-header h3 {
-                font-size: 1.2rem;
+            .glass-card {
+                padding: 1rem;
             }
-            .btn-add-phone {
-                padding: 8px 14px;
+            .stats-table td, .stats-table th {
+                display: table-cell;
+            }
+            .input-cell input {
+                width: 85px;
+                font-size: 0.8rem;
+                padding: 8px 4px;
+            }
+            .diagnostic-panel {
+                flex-direction: column;
+            }
+            .param-name {
                 font-size: 0.85rem;
-            }
-            .btn-copy-html {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-            .table thead th,
-            .table tbody td {
-                font-size: 0.8rem;
-                padding: 8px 6px;
-            }
-            .phone-name-cell {
-                min-width: 150px;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- Full‑screen container without side padding -->
-    <div class="container-fluid p-0">
-        <!-- Main card -->
-        <div class="main-card">
-            <!-- Card Header -->
-            <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <h3><i class="bi bi-phone-fill me-2"></i>Smartphone Prices</h3>
-                <div class="d-flex align-items-center gap-3 flex-wrap">
-                    <small class="text-white-50">Last updated: May 2026</small>
-                    <button class="btn btn-copy-html" id="copyHtmlBtn" title="Get full HTML source code with all added phones">
-                        <i class="bi bi-clipboard me-1"></i> Copy HTML
-                    </button>
-                    <button class="btn btn-add-phone" data-bs-toggle="modal" data-bs-target="#addPhoneModal" title="Add a new phone">
-                        <i class="bi bi-plus-circle me-1"></i> Add Phone
-                    </button>
-                </div>
-            </div>
-
-            <!-- Card Body -->
-            <div class="card-body p-4">
-                <!-- Search Box -->
-                <div class="search-box">
-                    <i class="bi bi-search search-icon"></i>
-                    <input type="text"
-                    id="searchInput"
-                    class="form-control"
-                    placeholder="Search for a phone... (name, brand, or price)"
-                    autocomplete="off">
-                    <button class="clear-btn" id="clearBtn" title="Clear search">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </div>
-
-                <!-- Result Counter -->
-                <div class="result-count" id="resultCount">
-                    Phones displayed: <span id="countNumber">10</span>
-                </div>
-
-                <!-- Full‑width table -->
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle" id="phoneTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Brand</th>
-                                <th scope="col" class="phone-name-cell">Phone Name</th>
-                                <th scope="col">Price (USD)</th>
-                                <th scope="col">Status</th>
-                                <th scope="col" style="width:40px;"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <tr data-brand="Apple" data-phone="iPhone 16 Pro Max" data-price="1199" data-status="Available">
-                                <td>1</td>
-                                <td><span class="brand-badge badge-apple">Apple</span></td>
-                                <td class="phone-name-cell">iPhone 16 Pro Max</td>
-                                <td><span class="price">$1,199</span></td>
-                                <td><span class="badge bg-success">Available</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Samsung" data-phone="Galaxy S25 Ultra" data-price="1299" data-status="Available">
-                                <td>2</td>
-                                <td><span class="brand-badge badge-samsung">Samsung</span></td>
-                                <td class="phone-name-cell">Galaxy S25 Ultra</td>
-                                <td><span class="price">$1,299</span></td>
-                                <td><span class="badge bg-success">Available</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Apple" data-phone="iPhone 16" data-price="799" data-status="Available">
-                                <td>3</td>
-                                <td><span class="brand-badge badge-apple">Apple</span></td>
-                                <td class="phone-name-cell">iPhone 16</td>
-                                <td><span class="price">$799</span></td>
-                                <td><span class="badge bg-success">Available</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Xiaomi" data-phone="Xiaomi 15 Pro" data-price="749" data-status="Temporarily Out">
-                                <td>4</td>
-                                <td><span class="brand-badge badge-xiaomi">Xiaomi</span></td>
-                                <td class="phone-name-cell">Xiaomi 15 Pro</td>
-                                <td><span class="price">$749</span></td>
-                                <td><span class="badge bg-warning text-dark">Temporarily Out</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Samsung" data-phone="Galaxy Z Fold 6" data-price="1799" data-status="Available">
-                                <td>5</td>
-                                <td><span class="brand-badge badge-samsung">Samsung</span></td>
-                                <td class="phone-name-cell">Galaxy Z Fold 6</td>
-                                <td><span class="price">$1,799</span></td>
-                                <td><span class="badge bg-success">Available</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Google" data-phone="Pixel 9 Pro" data-price="999" data-status="Available">
-                                <td>6</td>
-                                <td><span class="brand-badge badge-google">Google</span></td>
-                                <td class="phone-name-cell">Pixel 9 Pro</td>
-                                <td><span class="price">$999</span></td>
-                                <td><span class="badge bg-success">Available</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="OnePlus" data-phone="OnePlus 13" data-price="699" data-status="Available">
-                                <td>7</td>
-                                <td><span class="brand-badge badge-oneplus">OnePlus</span></td>
-                                <td class="phone-name-cell">OnePlus 13</td>
-                                <td><span class="price">$699</span></td>
-                                <td><span class="badge bg-success">Available</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Apple" data-phone="iPhone SE (4th Gen)" data-price="499" data-status="New">
-                                <td>8</td>
-                                <td><span class="brand-badge badge-apple">Apple</span></td>
-                                <td class="phone-name-cell">iPhone SE (4th Gen)</td>
-                                <td><span class="price">$499</span></td>
-                                <td><span class="badge bg-info">New</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Xiaomi" data-phone="Redmi Note 14 Pro+" data-price="399" data-status="Available">
-                                <td>9</td>
-                                <td><span class="brand-badge badge-xiaomi">Xiaomi</span></td>
-                                <td class="phone-name-cell">Redmi Note 14 Pro+</td>
-                                <td><span class="price">$399</span></td>
-                                <td><span class="badge bg-success">Available</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            <tr data-brand="Samsung" data-phone="Galaxy A56" data-price="449" data-status="15% Off">
-                                <td>10</td>
-                                <td><span class="brand-badge badge-samsung">Samsung</span></td>
-                                <td class="phone-name-cell">Galaxy A56</td>
-                                <td><span class="price">$449</span></td>
-                                <td><span class="badge bg-danger">15% Off</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- No Results Message -->
-                <div class="no-results text-center" id="noResults" style="display: none;">
-                    <i class="bi bi-emoji-frown"></i>
-                    <h5>No matching results</h5>
-                    <p>Try searching with a different keyword</p>
-                </div>
-            </div>
+<div class="container">
+    <div class="glass-card">
+        <div class="header">
+            <h1><i class="fas fa-chart-line"></i> تشخيص ضعف الشبكة (DSL)</h1>
+            <p>بناءً على قيم الصورة المرفقة | تحليل دقيق للمعطيات وحلول عملية</p>
+            <div class="badge-img"><i class="fas fa-tachometer-alt"></i> قراءات المودم الفعلية من لقطة الشاشة</div>
         </div>
 
-        <!-- Brand Grouped Lists (Dynamically Generated Accordion) -->
-        <div class="brand-lists" id="brandListsSection">
-            <h4 class="mb-3"><i class="bi bi-collection me-2"></i>Phones by Brand</h4>
-            <div class="accordion" id="brandAccordion">
-                <!-- Dynamically populated by JavaScript -->
-            </div>
-            <div id="noBrandData" class="text-center text-muted py-4" style="display:none;">
-                <i class="bi bi-inbox" style="font-size:2rem;"></i>
-                <p class="mt-2">No phones in the table yet. Add some phones to see them grouped by brand.</p>
-            </div>
+        <!-- جدول القيم القابل للتعديل + إظهار القيم الأصلية -->
+        <div style="overflow-x: auto;">
+            <table class="stats-table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th><i class="fas fa-arrow-down"></i> اتجاه الرفع (Upstream)</th>
+                    <th><i class="fas fa-arrow-up"></i> اتجاه التنزيل (Downstream)</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="param-name"><i class="fas fa-signal"></i> هامش SNR (dB)</td>
+                        <td class="input-cell"><input type="number" step="0.1" id="snrDown" value="21.5"> <span class="unit">dB</span></td>
+                        <td class="input-cell"><input type="number" step="0.1" id="snrUp" value="14.9"> <span class="unit">dB</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name"><i class="fas fa-waveform"></i> توهين الخط (dB)</td>
+                        <td class="input-cell"><input type="number" step="0.1" id="attnDown" value="28.4"> <span class="unit">dB</span></td>
+                        <td class="input-cell"><input type="number" step="0.1" id="attnUp" value="15.2"> <span class="unit">dB</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name"><i class="fas fa-tachometer-alt"></i> السرعة الفعلية (kbps)</td>
+                        <td class="input-cell"><input type="number" id="rateDown" value="4096"> <span class="unit">kbps</span></td>
+                        <td class="input-cell"><input type="number" id="rateUp" value="1022"> <span class="unit">kbps</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name"><i class="fas fa-rocket"></i> السرعة القصوى (kbps)</td>
+                        <td class="input-cell"><input type="number" id="maxDown" value="12720"> <span class="unit">kbps</span></td>
+                        <td class="input-cell"><input type="number" id="maxUp" value="1254"> <span class="unit">kbps</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name"><i class="fas fa-bolt"></i> قدرة الإرسال (dBm)</td>
+                        <td class="input-cell"><input type="number" step="0.1" id="powerDown" value="18.7"> <span class="unit">dBm</span></td>
+                        <td class="input-cell"><input type="number" step="0.1" id="powerUp" value="12.5"> <span class="unit">dBm</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name"><i class="fas fa-exclamation-triangle"></i> أخطاء CRC</td>
+                        <td class="input-cell"><input type="number" id="crcDown" value="0"> <span class="unit"></span></td>
+                        <td class="input-cell"><input type="number" id="crcUp" value="1886"> <span class="unit"></span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <!-- Footer -->
-        <div class="text-center mt-3 pb-3 text-muted" style="font-size: 0.85rem;">
-            <i class="bi bi-shield-check me-1"></i> Prices are approximate and subject to change depending on the store and region
+        <div style="display: flex; justify-content: left; margin-top: 10px;">
+            <button class="reset-btn" id="resetBtn"><i class="fas fa-undo-alt"></i> استعادة القيم الأصلية (من الصورة)</button>
         </div>
     </div>
 
-    <!-- ==================== ADD PHONE MODAL ==================== -->
-    <div class="modal fade" id="addPhoneModal" tabindex="-1" aria-labelledby="addPhoneModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color:#fff;">
-                    <h5 class="modal-title" id="addPhoneModalLabel">
-                        <i class="bi bi-plus-circle me-2"></i>Add New Phone
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addPhoneForm" novalidate>
-                        <div class="mb-3">
-                            <label for="brandInput" class="form-label fw-semibold">Brand <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="brandInput"
-                            list="brandSuggestions"
-                            placeholder="e.g. Apple, Samsung, Huawei..."
-                            required
-                            autocomplete="off">
-                            <datalist id="brandSuggestions">
-                                <option value="Apple">
-                                    <option value="Samsung">
-                                        <option value="Xiaomi">
-                                            <option value="Google">
-                                                <option value="OnePlus">
-                                                    <option value="Huawei">
-                                                        <option value="Oppo">
-                                                            <option value="Vivo">
-                                                                <option value="Motorola">
-                                                                    <option value="Nokia">
-                                                                        <option value="Sony">
-                                                                            <option value="Realme">
-                                                                                <option value="Honor">
-                                                                                    <option value="Asus">
-                                                                                    </datalist>
-                                                                                    <div class="invalid-feedback">Please enter a brand name.</div>
-                                                                                </div>
-                                                                                <div class="mb-3">
-                                                                                    <label for="phoneNameInput" class="form-label fw-semibold">Phone Name <span class="text-danger">*</span></label>
-                                                                                    <input type="text" class="form-control" id="phoneNameInput"
-                                                                                    placeholder="e.g. Galaxy S25 Ultra"
-                                                                                    required>
-                                                                                    <div class="invalid-feedback">Please enter the phone name.</div>
-                                                                                </div>
-                                                                                <div class="mb-3">
-                                                                                    <label for="priceInput" class="form-label fw-semibold">Price (USD) <span class="text-danger">*</span></label>
-                                                                                    <div class="input-group">
-                                                                                        <span class="input-group-text">$</span>
-                                                                                        <input type="number" class="form-control" id="priceInput"
-                                                                                        placeholder="e.g. 999"
-                                                                                        min="1" max="99999" step="1"
-                                                                                        required>
-                                                                                        <div class="invalid-feedback">Please enter a valid price (1 - 99,999).</div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="mb-3">
-                                                                                    <label for="statusSelect" class="form-label fw-semibold">Status</label>
-                                                                                    <select class="form-select" id="statusSelect">
-                                                                                        <option value="Available" data-badge="bg-success">Available</option>
-                                                                                        <option value="New" data-badge="bg-info">New</option>
-                                                                                        <option value="Temporarily Out" data-badge="bg-warning text-dark">Temporarily Out</option>
-                                                                                        <option value="15% Off" data-badge="bg-danger">15% Off</option>
-                                                                                        <option value="Pre-order" data-badge="bg-primary">Pre-order</option>
-                                                                                        <option value="Discontinued" data-badge="bg-secondary">Discontinued</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                            <button type="button" class="btn btn-add-phone" id="savePhoneBtn">
-                                                                                <i class="bi bi-check-lg me-1"></i> Add Phone
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- ==================== END ADD PHONE MODAL ==================== -->
-
-                                                            <!-- ==================== SOURCE CODE MODAL ==================== -->
-                                                            <div class="modal fade" id="sourceCodeModal" tabindex="-1" aria-labelledby="sourceCodeModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-xl modal-dialog-centered">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color:#fff;">
-                                                                            <h5 class="modal-title" id="sourceCodeModalLabel">
-                                                                                <i class="bi bi-code-slash me-2"></i>Full HTML Source Code
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <div class="alert alert-info py-2 mb-3 small">
-                                                                                <i class="bi bi-info-circle me-1"></i> This is the <strong>complete HTML code</strong> including all phones you added. You can copy it and save as an <code>.html</code> file. When you open that file, all your added phones will be there.
-                                                                            </div>
-                                                                            <textarea id="sourceCodeTextarea" class="form-control" rows="22" readonly spellcheck="false" aria-label="Full HTML source code"></textarea>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                            <button type="button" class="btn btn-add-phone" id="copyToClipboardBtn">
-                                                                                <i class="bi bi-clipboard me-1"></i> Copy to Clipboard
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- ==================== END SOURCE CODE MODAL ==================== -->
-
-                                                            <!-- Bootstrap 5 JS Bundle -->
-                                                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-                                                            </script>
-
-                                                            <script>
-                                                                (function() {
-                                                                    // ==================== DOM REFERENCES ====================
-                                                                    const searchInput = document.getElementById('searchInput');
-                                                                    const clearBtn = document.getElementById('clearBtn');
-                                                                    const tableBody = document.getElementById('tableBody');
-                                                                    const noResults = document.getElementById('noResults');
-                                                                    const table = document.getElementById('phoneTable');
-                                                                    const countNumber = document.getElementById('countNumber');
-                                                                    const resultCountDiv = document.getElementById('resultCount');
-                                                                    const brandAccordion = document.getElementById('brandAccordion');
-                                                                    const noBrandData = document.getElementById('noBrandData');
-                                                                    const addPhoneModalEl = document.getElementById('addPhoneModal');
-                                                                    const addPhoneForm = document.getElementById('addPhoneForm');
-                                                                    const savePhoneBtn = document.getElementById('savePhoneBtn');
-                                                                    const brandInput = document.getElementById('brandInput');
-                                                                    const phoneNameInput = document.getElementById('phoneNameInput');
-                                                                    const priceInput = document.getElementById('priceInput');
-                                                                    const statusSelect = document.getElementById('statusSelect');
-
-                                                                    // Source code modal references
-                                                                    const sourceCodeModalEl = document.getElementById('sourceCodeModal');
-                                                                    const sourceCodeTextarea = document.getElementById('sourceCodeTextarea');
-                                                                    const copyHtmlBtn = document.getElementById('copyHtmlBtn');
-                                                                    const copyToClipboardBtn = document.getElementById('copyToClipboardBtn');
-
-                                                                    let addPhoneModal = null;
-                                                                    if (addPhoneModalEl) {
-                                                                        addPhoneModal = new bootstrap.Modal(addPhoneModalEl);
-                                                                    }
-
-                                                                    let sourceCodeModal = null;
-                                                                    if (sourceCodeModalEl) {
-                                                                        sourceCodeModal = new bootstrap.Modal(sourceCodeModalEl);
-                                                                    }
-
-                                                                    // ==================== BRAND BADGE CLASS MAPPING ====================
-                                                                    const brandBadgeClassMap = {
-                                                                        'apple': 'badge-apple',
-                                                                        'samsung': 'badge-samsung',
-                                                                        'xiaomi': 'badge-xiaomi',
-                                                                        'google': 'badge-google',
-                                                                        'oneplus': 'badge-oneplus',
-                                                                        'huawei': 'badge-huawei',
-                                                                        'oppo': 'badge-oppo',
-                                                                        'vivo': 'badge-vivo',
-                                                                        'motorola': 'badge-motorola',
-                                                                        'nokia': 'badge-nokia',
-                                                                        'sony': 'badge-sony',
-                                                                        'realme': 'badge-realme',
-                                                                        'honor': 'badge-honor',
-                                                                        'asus': 'badge-asus',
-                                                                    };
-
-                                                                    const fallbackBadgeClasses = [
-                                                                        'badge-other', 'badge-apple', 'badge-samsung', 'badge-xiaomi',
-                                                                        'badge-google', 'badge-oneplus', 'badge-huawei', 'badge-oppo',
-                                                                        'badge-vivo', 'badge-motorola', 'badge-nokia', 'badge-sony',
-                                                                        'badge-realme', 'badge-honor', 'badge-asus',
-                                                                    ];
-
-                                                                    function getBrandBadgeClass(brandName) {
-                                                                        const key = brandName.trim().toLowerCase();
-                                                                        if (brandBadgeClassMap[key]) {
-                                                                            return brandBadgeClassMap[key];
-                                                                        }
-                                                                        let hash = 0;
-                                                                        for (let i = 0; i < key.length; i++) {
-                                                                            hash = ((hash << 5) - hash) + key.charCodeAt(i);
-                                                                            hash |= 0;
-                                                                        }
-                                                                        const idx = Math.abs(hash) % fallbackBadgeClasses.length;
-                                                                        return fallbackBadgeClasses[idx];
-                                                                    }
-
-                                                                    // ==================== STATUS BADGE CLASS MAPPING ====================
-                                                                    const statusBadgeClassMap = {
-                                                                        'Available': 'bg-success',
-                                                                        'New': 'bg-info',
-                                                                        'Temporarily Out': 'bg-warning text-dark',
-                                                                        '15% Off': 'bg-danger',
-                                                                        'Pre-order': 'bg-primary',
-                                                                        'Discontinued': 'bg-secondary',
-                                                                    };
-
-                                                                    function getStatusBadgeClass(statusText) {
-                                                                        return statusBadgeClassMap[statusText] || 'bg-secondary';
-                                                                    }
-
-                                                                    // ==================== FORMAT PRICE ====================
-                                                                    function formatPrice(priceValue) {
-                                                                        const num = parseInt(priceValue, 10);
-                                                                        if (isNaN(num)) return '$0';
-                                                                        return '$' + num.toLocaleString('en-US');
-                                                                    }
-
-                                                                    // ==================== GET ALL ROWS FROM TABLE ====================
-                                                                    function getAllRows() {
-                                                                        return Array.from(tableBody.querySelectorAll('tr'));
-                                                                    }
-
-                                                                    // ==================== BUILD BRAND LISTS ACCORDION (WITH RE-INIT) ====================
-                                                                    function buildBrandLists() {
-                                                                        const allRows = getAllRows();
-                                                                        const brandGroups = {};
-
-                                                                        allRows.forEach(row => {
-                                                                                    const brand = (row.getAttribute('data-brand') || '').trim();
-                                                                                    const phone = (row.getAttribute('data-phone') || '').trim();
-                                                                                    const priceRaw = row.getAttribute('data-price') || '0';
-                                                                                    const status = (row.getAttribute('data-status') || 'Available').trim();
-                                                                                    const priceNum = parseInt(priceRaw, 10) || 0;
-
-                                                                                    if (!brand || !phone) return;
-
-                                                                                    if (!brandGroups[brand]) {
-                                                                                        brandGroups[brand] = [];
-                                                                                    }
-                                                                                    brandGroups[brand].push({
-                                                                                        phone: phone,
-                                                                                        price: priceNum,
-                                                                                        priceFormatted: formatPrice(priceNum),
-                                                                                        status: status,
-                                                                                    });
-                                                                                });
-
-                                                                        const sortedBrands = Object.keys(brandGroups).sort((a, b) =>
-                                                                            a.localeCompare(b, 'en', { sensitivity: 'base' })
-                                                                        );
-
-                                                                        if (sortedBrands.length === 0) {
-                                                                            brandAccordion.innerHTML = '';
-                                                                            noBrandData.style.display = 'block';
-                                                                            // Re-init accordion after clearing
-                                                                            reinitializeAccordion();
-                                                                            return;
-                                                                        }
-
-                                                                        noBrandData.style.display = 'none';
-
-                                                                        let accordionHTML = '';
-
-                                                                        sortedBrands.forEach((brand, brandIndex) => {
-                                                                                    const phones = brandGroups[brand];
-                                                                                    phones.sort((a, b) => b.price - a.price);
-
-                                                                                    const sanitizedId = brand.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-                                                                                    const collapseId = 'collapse-brand-' + sanitizedId;
-                                                                                    const headingId = 'heading-brand-' + sanitizedId;
-                                                                                    const badgeClass = getBrandBadgeClass(brand);
-                                                                                    const phoneCount = phones.length;
-                                                                                    const isFirst = (brandIndex === 0);
-
-                                                                                    accordionHTML += `
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="${headingId}">
-                                    <button class="accordion-button ${isFirst ? '' : 'collapsed'}"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#${collapseId}"
-                                            aria-expanded="${isFirst ? 'true' : 'false'}"
-                                            aria-controls="${collapseId}">
-                                        <span class="brand-badge ${badgeClass} me-2">${escapeHTML(brand)}</span>
-                                        <span class="text-muted">(${phoneCount} phone${phoneCount !== 1 ? 's' : ''})</span>
-                                    </button>
-                                </h2>
-                                <div id="${collapseId}"
-                                     class="accordion-collapse collapse ${isFirst ? 'show' : ''}"
-                                     aria-labelledby="${headingId}"
-                                     data-bs-parent="#brandAccordion">
-                                    <div class="accordion-body">
-                                        <ul class="list-group list-group-flush">
-                                            ${phones.map(p => `
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <div class="phone-info">
-                                                    <span>${escapeHTML(p.phone)}</span>
-                                                    <span class="badge ${getStatusBadgeClass(p.status)} status-mini">${escapeHTML(p.status)}</span>
-                                                </div>
-                                                <span class="price">${p.priceFormatted}</span>
-                                            </li>`).join('')}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>`;
-                                                                                });
-
-                                                                        brandAccordion.innerHTML = accordionHTML;
-                                                                        reinitializeAccordion(); // <-- Crucial fix: re‑init accordion after DOM change
-                                                                    }
-
-                                                                    // Helper: Reinitialize Bootstrap Accordion on #brandAccordion
-                                                                    function reinitializeAccordion() {
-                                                                        const accordionElement = document.getElementById('brandAccordion');
-                                                                        // Dispose previous instance if any (avoids memory leaks)
-                                                                        const existing = bootstrap.Accordion.getInstance(accordionElement);
-                                                                        if (existing) {
-                                                                            existing.dispose();
-                                                                        }
-                                                                        // Create a fresh Accordion instance
-                                                                        new bootstrap.Accordion(accordionElement);
-                                                                    }
-
-                                                                    function escapeHTML(str) {
-                                                                        const div = document.createElement('div');
-                                                                        div.textContent = str;
-                                                                        return div.innerHTML;
-                                                                    }
-
-                                                                    // ==================== UPDATE COUNTER & RENUMBER ====================
-                                                                    function updateCounter(visibleCount) {
-                                                                        countNumber.textContent = visibleCount;
-                                                                    }
-
-                                                                    function renumberRows(rows) {
-                                                                        rows.forEach((row, index) => {
-                                                                                    const firstCell = row.querySelector('td:first-child');
-                                                                                    if (firstCell) {
-                                                                                        firstCell.textContent = index + 1;
-                                                                                    }
-                                                                                });
-                                                                    }
-
-                                                                    // ==================== FILTER TABLE ====================
-                                                                    function filterTable() {
-                                                                        const query = searchInput.value.trim().toLowerCase();
-                                                                        const allRows = getAllRows();
-                                                                        let visibleRows = [];
-
-                                                                        if (query.length > 0) {
-                                                                            clearBtn.style.display = 'block';
-                                                                        } else {
-                                                                            clearBtn.style.display = 'none';
-                                                                        }
-
-                                                                        allRows.forEach(row => {
-                                                                                    const rowText = row.textContent.toLowerCase();
-                                                                                    const cells = Array.from(row.querySelectorAll('td'));
-                                                                                    const cellTexts = cells.map(cell => cell.textContent
-                                                                                        .toLowerCase());
-                                                                                    const matchesQuery = rowText.includes(query) || cellTexts
-                                                                                        .some(text => text.includes(query));
-
-                                                                                    if (matchesQuery) {
-                                                                                        row.style.display = '';
-                                                                                        visibleRows.push(row);
-                                                                                    } else {
-                                                                                        row.style.display = 'none';
-                                                                                    }
-                                                                                });
-
-                                                                        renumberRows(visibleRows);
-                                                                        updateCounter(visibleRows.length);
-
-                                                                        if (visibleRows.length === 0 && query.length > 0) {
-                                                                            noResults.style.display = 'block';
-                                                                            table.style.display = 'none';
-                                                                            resultCountDiv.style.display = 'none';
-                                                                        } else {
-                                                                            noResults.style.display = 'none';
-                                                                            table.style.display = '';
-                                                                            resultCountDiv.style.display = '';
-                                                                        }
-                                                                    }
-
-                                                                    // ==================== CLEAR SEARCH ====================
-                                                                    function clearSearch() {
-                                                                        searchInput.value = '';
-                                                                        clearBtn.style.display = 'none';
-                                                                        const allRows = getAllRows();
-                                                                        allRows.forEach((row, index) => {
-                                                                                    row.style.display = '';
-                                                                                    const firstCell = row.querySelector('td:first-child');
-                                                                                    if (firstCell) {
-                                                                                        firstCell.textContent = index + 1;
-                                                                                    }
-                                                                                });
-                                                                        updateCounter(allRows.length);
-                                                                        noResults.style.display = 'none';
-                                                                        table.style.display = '';
-                                                                        resultCountDiv.style.display = '';
-                                                                        searchInput.focus();
-                                                                    }
-
-                                                                    // ==================== ADD PHONE TO TABLE ====================
-                                                                    function addPhoneToTable(brand, phoneName, priceValue, statusText) {
-                                                                        const badgeClass = getBrandBadgeClass(brand);
-                                                                        const statusBadgeClass = getStatusBadgeClass(statusText);
-                                                                        const priceFormatted = formatPrice(priceValue);
-
-                                                                        const newRow = document.createElement('tr');
-                                                                        newRow.setAttribute('data-brand', brand);
-                                                                        newRow.setAttribute('data-phone', phoneName);
-                                                                        newRow.setAttribute('data-price', priceValue);
-                                                                        newRow.setAttribute('data-status', statusText);
-
-                                                                        newRow.innerHTML = `
-                                <td></td>
-                                <td><span class="brand-badge ${badgeClass}">${escapeHTML(brand)}</span></td>
-                                <td class="phone-name-cell">${escapeHTML(phoneName)}</td>
-                                <td><span class="price">${priceFormatted}</span></td>
-                                <td><span class="badge ${statusBadgeClass}">${escapeHTML(statusText)}</span></td>
-                                <td><button class="delete-row-btn" title="Delete" onclick="deletePhoneRow(this)"><i class="bi bi-trash"></i></button></td>
-                            `;
-
-                                                                        tableBody.appendChild(newRow);
-
-                                                                        // Clear search so the new phone is visible
-                                                                        clearSearch();
-
-                                                                        // Rebuild brand lists with accordion re-initialization
-                                                                        buildBrandLists();
-
-                                                                        // Update counter
-                                                                        const allRows = getAllRows();
-                                                                        updateCounter(allRows.length);
-                                                                        renumberRows(allRows);
-                                                                    }
-
-                                                                    // ==================== DELETE PHONE ROW ====================
-                                                                    window.deletePhoneRow = function(buttonEl) {
-                                                                        const row = buttonEl.closest('tr');
-                                                                        if (!row) return;
-
-                                                                        const phoneName = row.getAttribute('data-phone') || 'this phone';
-                                                                        if (!confirm(`Are you sure you want to delete "${phoneName}"?`)) {
-                                                                            return;
-                                                                        }
-
-                                                                        row.remove();
-
-                                                                        if (searchInput.value.trim().length > 0) {
-                                                                            filterTable();
-                                                                        } else {
-                                                                            clearSearch();
-                                                                        }
-
-                                                                        buildBrandLists();
-
-                                                                        const allRows = getAllRows();
-                                                                        updateCounter(allRows.length);
-                                                                        renumberRows(allRows);
-                                                                    };
-
-                                                                    // ==================== SAVE PHONE BUTTON HANDLER ====================
-                                                                    savePhoneBtn.addEventListener('click', function() {
-                                                                        const brandVal = brandInput.value.trim();
-                                                                        const phoneVal = phoneNameInput.value.trim();
-                                                                        const priceVal = priceInput.value.trim();
-                                                                        const statusVal = statusSelect.value;
-
-                                                                        let isValid = true;
-
-                                                                        if (!brandVal) {
-                                                                            brandInput.classList.add('is-invalid');
-                                                                            isValid = false;
-                                                                        } else {
-                                                                            brandInput.classList.remove('is-invalid');
-                                                                        }
-
-                                                                        if (!phoneVal) {
-                                                                            phoneNameInput.classList.add('is-invalid');
-                                                                            isValid = false;
-                                                                        } else {
-                                                                            phoneNameInput.classList.remove('is-invalid');
-                                                                        }
-
-                                                                        const priceNum = parseInt(priceVal, 10);
-                                                                        if (!priceVal || isNaN(priceNum) || priceNum < 1 || priceNum > 99999) {
-                                                                            priceInput.classList.add('is-invalid');
-                                                                            isValid = false;
-                                                                        } else {
-                                                                            priceInput.classList.remove('is-invalid');
-                                                                        }
-
-                                                                        if (!isValid) return;
-
-                                                                        addPhoneToTable(brandVal, phoneVal, priceNum, statusVal);
-
-                                                                        addPhoneForm.reset();
-                                                                        brandInput.classList.remove('is-invalid');
-                                                                        phoneNameInput.classList.remove('is-invalid');
-                                                                        priceInput.classList.remove('is-invalid');
-
-                                                                        if (addPhoneModal) {
-                                                                            addPhoneModal.hide();
-                                                                        }
-                                                                    });
-
-                                                                    // ==================== RESET FORM ON MODAL OPEN ====================
-                                                                    if (addPhoneModalEl) {
-                                                                        addPhoneModalEl.addEventListener('show.bs.modal', function() {
-                                                                            addPhoneForm.reset();
-                                                                            brandInput.classList.remove('is-invalid');
-                                                                            phoneNameInput.classList.remove('is-invalid');
-                                                                            priceInput.classList.remove('is-invalid');
-                                                                        });
-
-                                                                        addPhoneModalEl.addEventListener('shown.bs.modal', function() {
-                                                                            brandInput.focus();
-                                                                        });
-
-                                                                        addPhoneModalEl.addEventListener('keydown', function(e) {
-                                                                                    if (e.key === 'Enter' && document.activeElement
-                                                                                        .closest('#addPhoneModal')) {
-                                                                                        e.preventDefault();
-                                                                                        savePhoneBtn.click();
-                                                                                    }
-                                                                                });
-                                                                    }
-
-                                                                    // ==================== GENERATE FULL HTML SOURCE ====================
-                                                                    function generateFullHTML() {
-                                                                        // Get the complete current HTML of the document
-                                                                        const fullHTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-                                                                        return fullHTML;
-                                                                    }
-
-                                                                    // ==================== COPY HTML BUTTON HANDLER ====================
-                                                                    copyHtmlBtn.addEventListener('click', function() {
-                                                                        // Generate the HTML and populate the textarea
-                                                                        const htmlSource = generateFullHTML();
-                                                                        sourceCodeTextarea.value = htmlSource;
-
-                                                                        // Reset the copy button text
-                                                                        copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
-                                                                        copyToClipboardBtn.disabled = false;
-
-                                                                        // Show the source code modal
-                                                                        if (sourceCodeModal) {
-                                                                            sourceCodeModal.show();
-                                                                        }
-                                                                    });
-
-                                                                    // ==================== COPY TO CLIPBOARD BUTTON HANDLER ====================
-                                                                    copyToClipboardBtn.addEventListener('click', function() {
-                                                                        const textarea = sourceCodeTextarea;
-                                                                        const htmlContent = textarea.value;
-
-                                                                        if (!htmlContent || htmlContent.trim().length === 0) {
-                                                                            return;
-                                                                        }
-
-                                                                        // Use the modern Clipboard API
-                                                                        if (navigator.clipboard && window.isSecureContext) {
-                                                                            navigator.clipboard.writeText(htmlContent).then(function() {
-                                                                                // Success feedback
-                                                                                copyToClipboardBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Copied!';
-                                                                                copyToClipboardBtn.disabled = true;
-                                                                                setTimeout(function() {
-                                                                                    copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
-                                                                                    copyToClipboardBtn.disabled = false;
-                                                                                }, 2000);
-                                                                            }).catch(function(err) {
-                                                                                // Fallback
-                                                                                fallbackCopy(textarea);
-                                                                            });
-                                                                        } else {
-                                                                            // Fallback for older browsers
-                                                                            fallbackCopy(textarea);
-                                                                        }
-                                                                    });
-
-                                                                    // Fallback copy method using execCommand
-                                                                    function fallbackCopy(textareaEl) {
-                                                                        try {
-                                                                            textareaEl.select();
-                                                                            textareaEl.setSelectionRange(0, 99999999); // For mobile devices
-                                                                            const successful = document.execCommand('copy');
-                                                                            if (successful) {
-                                                                                copyToClipboardBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Copied!';
-                                                                                copyToClipboardBtn.disabled = true;
-                                                                                setTimeout(function() {
-                                                                                    copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
-                                                                                    copyToClipboardBtn.disabled = false;
-                                                                                }, 2000);
-                                                                            } else {
-                                                                                alert('Failed to copy. Please select all text manually (Ctrl+A) and copy (Ctrl+C).');
-                                                                            }
-                                                                        } catch (e) {
-                                                                            alert('Failed to copy. Please select all text manually (Ctrl+A) and copy (Ctrl+C).');
-                                                                        }
-                                                                    }
-
-                                                                    // ==================== EVENT LISTENERS ====================
-                                                                    searchInput.addEventListener('input', filterTable);
-                                                                    clearBtn.addEventListener('click', clearSearch);
-
-                                                                    document.addEventListener('keydown', function(e) {
-                                                                        if (e.key === 'Escape' && document.activeElement ===
-                                                                            searchInput) {
-                                                                            clearSearch();
-                                                                        }
-                                                                    });
-
-                                                                    // Keyboard shortcut: Ctrl+Shift+C to open source code modal
-                                                                    document.addEventListener('keydown', function(e) {
-                                                                        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
-                                                                            // Don't trigger if user is typing in an input (except when they want the shortcut)
-                                                                            const activeEl = document.activeElement;
-                                                                            if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA') && activeEl.id !== 'sourceCodeTextarea') {
-                                                                                return; // Let normal copy work in inputs
-                                                                            }
-                                                                            e.preventDefault();
-                                                                            const htmlSource = generateFullHTML();
-                                                                            sourceCodeTextarea.value = htmlSource;
-                                                                            copyToClipboardBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy to Clipboard';
-                                                                            copyToClipboardBtn.disabled = false;
-                                                                            if (sourceCodeModal) {
-                                                                                sourceCodeModal.show();
-                                                                            }
-                                                                        }
-                                                                    });
-
-                                                                    // ==================== INITIALIZATION ====================
-                                                                    function init() {
-                                                                        const allRows = getAllRows();
-                                                                        updateCounter(allRows.length);
-                                                                        renumberRows(allRows);
-                                                                        buildBrandLists(); // This also calls reinitializeAccordion
-                                                                        clearBtn.style.display = 'none';
-                                                                        // Ensure source code textarea starts empty
-                                                                        if (sourceCodeTextarea) {
-                                                                            sourceCodeTextarea.value = '';
-                                                                        }
-                                                                    }
-
-                                                                    init();
-
-                                                                    // Expose for debugging if needed
-                                                                    window.refreshBrandLists = buildBrandLists;
-                                                                    window.addPhoneToTable = addPhoneToTable;
-                                                                    window.generateFullHTML = generateFullHTML;
-                                                                })();
-                                                            </script>
-                                                        </body>
-                                                        </html>
+    <!-- لوحة التحليل والتوصيات -->
+    <div class="diagnostic-panel">
+        <div class="diagnosis-box">
+            <div class="section-title">
+                <i class="fas fa-microscope"></i>
+                <span>تحليل الأسباب الرئيسية لضعف الشبكة</span>
+            </div>
+            <div id="causeContainer">
+                <!-- يتم ملء المحتوى ديناميكيًا بواسطة JS -->
+                <ul class="cause-list">
+                    <li><i class="fas fa-spinner fa-pulse"></i> جارٍ تحليل القراءات...</li>
+                </ul>
+            </div>
+            <div id="extraNote" class="speed-warning" style="display: none;"></div>
+        </div>
+        <div class="recommend-box">
+            <div class="section-title">
+                <i class="fas fa-tools"></i>
+                <span>خطوات إصلاح المشكلة ✨</span>
+            </div>
+            <div id="recommendContainer">
+                <ul class="rec-list">
+                    <li><i class="fas fa-cog"></i> جارٍ اقتراح الحلول حسب القيم المدخلة...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <i class="fas fa-info-circle"></i> استناداً إلى قراءات المودم في الصورة: SNR مرتفع، سرعة تنزيل أقل من المتاح، أخطاء CRC عالية في الرفع ← هذه المؤشرات تحدد جذور المشكلة.
+    </footer>
+</div>
+
+<script>
+    // الحصول على المراجع
+    const snrDownInp = document.getElementById('snrDown');
+    const snrUpInp = document.getElementById('snrUp');
+    const attnDownInp = document.getElementById('attnDown');
+    const attnUpInp = document.getElementById('attnUp');
+    const rateDownInp = document.getElementById('rateDown');
+    const rateUpInp = document.getElementById('rateUp');
+    const maxDownInp = document.getElementById('maxDown');
+    const maxUpInp = document.getElementById('maxUp');
+    const powerDownInp = document.getElementById('powerDown');
+    const powerUpInp = document.getElementById('powerUp');
+    const crcDownInp = document.getElementById('crcDown');
+    const crcUpInp = document.getElementById('crcUp');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // القيم الافتراضية من الصورة
+    const defaultValues = {
+        snrDown: 21.5, snrUp: 14.9,
+        attnDown: 28.4, attnUp: 15.2,
+        rateDown: 4096, rateUp: 1022,
+        maxDown: 12720, maxUp: 1254,
+        powerDown: 18.7, powerUp: 12.5,
+        crcDown: 0, crcUp: 1886
+    };
+
+    // دالة التحديث الكامل للتشخيص
+    function updateDiagnosis() {
+        // قراءة القيم الحالية
+        const snrDown = parseFloat(snrDownInp.value);
+        const snrUp = parseFloat(snrUpInp.value);
+        const attnDown = parseFloat(attnDownInp.value);
+        const attnUp = parseFloat(attnUpInp.value);
+        const rateDown = parseFloat(rateDownInp.value);
+        const rateUp = parseFloat(rateUpInp.value);
+        const maxDown = parseFloat(maxDownInp.value);
+        const maxUp = parseFloat(maxUpInp.value);
+        const powerDown = parseFloat(powerDownInp.value);
+        const powerUp = parseFloat(powerUpInp.value);
+        const crcDown = parseInt(crcDownInp.value, 10);
+        const crcUp = parseInt(crcUpInp.value, 10);
+
+        // حساب النسب المئوية للسرعة
+        let downEfficiency = (rateDown / maxDown) * 100;
+        let upEfficiency = (rateUp / maxUp) * 100;
+        if (isNaN(downEfficiency)) downEfficiency = 0;
+        if (isNaN(upEfficiency)) upEfficiency = 0;
+
+        // تحليل الأسباب (الخلاصات)
+        let mainCauses = [];
+        let technicalDetails = [];
+
+        // 1- مشكلة أخطاء CRC في upstream (الأكثر خطورة)
+        if (crcUp > 800) {
+            mainCauses.push(`🚨 <strong>ارتفاع كارثي لأخطاء CRC في اتجاه الرفع (${crcUp} خطأ)</strong> — مؤشر واضح على وجود تداخل كهربائي، سوء توصيل، أو فلتر هاتف تالف. حتى مع هامش SNR جيد، هذه الأخطاء تسبب فقدان حزم وتباطؤ شديد.`);
+            technicalDetails.push("أخطاء CRC في الرفع تتسبب في إعادة إرسال مستمر → زمن استجابة عالي، انقطاعات، وسرعة تصفح ضعيفة.");
+        } else if (crcUp > 200) {
+            mainCauses.push(`⚠️ <strong>ارتفاع ملحوظ في أخطاء CRC العلوية (${crcUp})</strong> — خط الهاتف غير مستقر، يفضل فحص الأسلاك والمرشحات.`);
+            technicalDetails.push("الأخطاء تؤثر بشكل كبير على الأداء التفاعلي (الألعاب، المكالمات الصوتية).");
+        } else if (crcUp > 30) {
+            mainCauses.push(`📉 وجود أخطاء CRC بمعدل ${crcUp} في الرفع، قد تتفاقم مع الوقت، أنصح بمراقبة الاستقرار.`);
+        }
+
+        // 2- ضعف سرعة التنزيل (Data rate أقل بكثير من Max rate)
+        if (downEfficiency < 50 && rateDown < maxDown * 0.7) {
+            mainCauses.push(`🐌 <strong>سرعة التنزيل الفعلية منخفضة جداً (${rateDown} كيلوبت/ث) مقابل السرعة القصوى للخط ${maxDown} كيلوبت/ث (${downEfficiency.toFixed(1)}% فقط)</strong>. حتى مع هامش SNR مرتفع جداً (${snrDown} dB) وتوهين معتدل (${attnDown} dB) مما يشير إلى أن المشكلة ليست ضوضاء بل غالباً <strong>تحديد سرعة من قبل مزود الخدمة (ISP Profile) أو إعدادات مودم غير مثالية</strong>.`);
+            technicalDetails.push("هامش SNR كبير جداً (>20dB) يعني الخط هادئ جداً لكن السرعة محدودة اصطناعياً → يرجى طلب رفع البروفايل أو ضبط وضع التعديل ADSL2+.");
+        } else if (downEfficiency < 70 && rateDown < 8000) {
+            mainCauses.push(`⚡ السرعة الفعلية للتنزيل (${rateDown} kbps) أقل من إمكانية الخط (الحد الأقصى ${maxDown} kbps). نسبة الاستفادة ${downEfficiency.toFixed(1)}%، يستدعي فحص إعدادات المودم أو الاتصال بمزود الخدمة.`);
+        }
+
+        // 3- حالة خاصة: SNR مرتفع جداً قد يخفض السرعة إذا كان الهدف مرتفعا (تفسير إضافي)
+        if (snrDown > 20 && downEfficiency < 55 && attnDown < 40) {
+            mainCauses.push(`🎯 هامش SNR في التنزيل مرتفع جداً (${snrDown} dB) مما يعني أن المودم يضحي بالسرعة للحفاظ على استقرار مفرط. يمكن خفض "Target SNR Margin" عبر إعدادات المودم أو طلب الدعم الفني لرفع السرعة.`);
+        }
+
+        // 4- فحص التوهين (ليست مشكلة رئيسية هنا لكن نذكر)
+        if (attnDown > 55) {
+            mainCauses.push(`📡 توهين عالي في التنزيل (${attnDown} dB) → بعد المسافة عن المقسم يؤدي لضعف السرعة. لكن قيمتك ${attnDown} مقبولة، ومع ذلك تأكد من جودة الأسلاك.`);
+        }
+
+        // 5- ملاحظة حول أخطاء CRC صفر في التنزيل شيء جيد
+        if (crcDown === 0) {
+            technicalDetails.push("✅ جانب التنزيل خالي من أخطاء CRC، مما يعني أن الضعف ليس بسبب التشويش على ترددات التنزيل.");
+        }
+
+        // 6- إذا لم يتم العثور على سبب رئيسي نضيف تلميحاً
+        if (mainCauses.length === 0 && crcUp <= 30 && downEfficiency > 70) {
+            mainCauses.push("📊 القيم تبدو جيدة نسبياً، قد يكون ضعف الشبكة ناتجاً عن ازدحام الشبكة الداخلية، أو جهاز الراوتر يحتاج إعادة تشغيل. جرب فحص كابل الإيثرنت أو الـ Wi-Fi.");
+        } else if (mainCauses.length === 0) {
+            mainCauses.push("🔍 تشير المعطيات إلى ضعف معتدل، راجع التوصيات لتحسين الأداء.");
+        }
+
+        // عرض الأسباب في واجهة السبب
+        const causeContainer = document.getElementById('causeContainer');
+        if (causeContainer) {
+            let html = `<ul class="cause-list">`;
+            for (let cause of mainCauses) {
+                html += `<li><i class="fas fa-circle-exclamation" style="color:#e67e22;"></i> ${cause}</li>`;
+            }
+            if (technicalDetails.length > 0) {
+                for (let det of technicalDetails) {
+                    html += `<li><i class="fas fa-info-circle" style="color:#2c7da0;"></i> ${det}</li>`;
+                }
+            }
+            // إظهار نسبة الكفاءة
+            html += `<li><i class="fas fa-chart-simple"></i> 📊 كفاءة التنزيل: ${downEfficiency.toFixed(1)}% &nbsp;| كفاءة الرفع: ${upEfficiency.toFixed(1)}%</li>`;
+            html += `</ul>`;
+            causeContainer.innerHTML = html;
+        }
+
+        // **************************
+        // بناء التوصيات العملية بناءً على القيم
+        // **************************
+        let recommendations = [];
+
+        // توصيات بناءً على CRC upstream
+        if (crcUp > 300) {
+            recommendations.push("🔌 <strong>استبدال جميع المرشحات ( microfilters )</strong> في خط الهاتف، واستخدم مرشحاً عالي الجودة عند مقبس المودم.");
+            recommendations.push("🧹 <strong>اختبر الخط من مقبس الخدمة الرئيسي (Master Socket)</strong> – افصل جميع الأجهزة المتفرعة وجرب المودم مباشرة للتأكد من عدم وجود تشويش داخلي.");
+            recommendations.push("⚡ <strong>أبعد المودم عن مصادر التداخل</strong> مثل شواحن الهواتف، أجهزة الميكروويف، ومصادر الطاقة القوية.");
+            recommendations.push("🔄 إذا لم تتحسن الأخطاء، <strong>تواصل مع مزود الخدمة لتفعيل وضع Interleaving</strong> (يقلل الأخطاء على حساب زيادة بسيطة في البينق).");
+        } else if (crcUp > 50) {
+            recommendations.push("📞 فحص الكابلات والموصلات بين المودم ومقبس الهاتف، واستبدال أي سلك تالف.");
+            recommendations.push("🧲 جرب تغيير مكان المودم بعيداً عن الأجهزة الإلكترونية.");
+        }
+
+        // توصيات متعلقة بانخفاض سرعة التنزيل (rate less than max)
+        if (downEfficiency < 60 && rateDown < maxDown * 0.75) {
+            recommendations.push("📡 <strong>ادخل إلى إعدادات المودم (192.168.1.1)</strong> وغيِّر وضع التعديل إلى <strong>'ADSL2+'</strong> أو 'Auto'، وأعد تشغيل الراوتر ليسحب سرعة أفضل.");
+            recommendations.push("📞 <strong>اتصل بمزود الخدمة (ISP)</strong> وأبلغهم أن السرعة الفعلية ${rateDown} أقل بكثير من القصوى ${maxDown}، واطلب إعادة تعيين البروفايل (Reset Profile) وخفض هامش SNR المستهدف إلى 6dB.");
+            recommendations.push("🛠️ جرب إجراء <strong>إعادة ضبط المصنع للمودم</strong> وتحديث البرنامج الثابت (Firmware) إن وجد.");
+            recommendations.push("📈 بعد إصلاح أخطاء CRC، يمكن أن يرتفع معدل التزامن تلقائياً; تأكد من حل التداخل أولاً.");
+        } else if (downEfficiency < 80 && rateDown < 10000) {
+            recommendations.push("⚙️ تحقق من كابل الهاتف الداخلي: استخدم كابل ثنائي مجدول قصير وعالي الجودة.");
+        }
+
+        // توصيات عامة إذا كان هامش SNR عالي جدا والسرعة محدودة
+        if (snrDown > 20 && downEfficiency < 65 && attnDown < 40) {
+            recommendations.push("🎯 طلب خفض 'Target SNR Margin' إلى 6 أو 9 ديسيبل لزيادة السرعة الفعلية بشكل كبير مع بقاء الخط مستقراً.");
+        }
+
+        // إذا كانت أخطاء CRC غير موجودة ومازالت السرعة ضعيفة
+        if (crcUp < 30 && downEfficiency < 55) {
+            recommendations.push("🧪 اختبر مودم آخر (مستعار) للتأكد من أن المشكلة ليست عطل hardware في المودم الحالي.");
+        }
+
+        // توصيات أساسية لكل الحالات تقريبًا
+        if (recommendations.length === 0) {
+            recommendations.push("🔄 قم بإعادة تشغيل الراوتر والمودم بشكل كامل (افصل التيار 30 ثانية).");
+            recommendations.push("🌐 تحديث إعدادات DNS إلى 1.1.1.1 أو 8.8.8.8 لتحسين الاستجابة.");
+            recommendations.push("📶 إذا كنت تستخدم الواي فاي، اختبر الاتصال عبر كابل إيثرنت لتحديد إذا كان الضعف لاسلكياً.");
+        } else {
+            // إضافة تذكير بأساسيات 
+            if (!recommendations.some(r => r.includes("إعادة تشغيل"))) 
+                recommendations.push("🔄 أعد تشغيل المودم بشكل كامل بعد أي تعديل في الأسلاك.");
+        }
+
+        // عرض التوصيات
+        const recommendContainer = document.getElementById('recommendContainer');
+        if (recommendContainer) {
+            let recHtml = `<ul class="rec-list">`;
+            for (let rec of recommendations) {
+                recHtml += `<li><i class="fas fa-check-circle"></i> ${rec}</li>`;
+            }
+            recHtml += `</ul>`;
+            // إضافة ملاحظة احترافية
+            recHtml += `<div style="margin-top: 20px; background:#eef6f0; border-radius: 26px; padding: 12px; font-size:0.85rem;"><i class="fas fa-lightbulb"></i> <strong>خلاصة الخبير:</strong> بناءً على المعطيات، المشكلة الرئيسية هي <strong>أخطاء CRC في اتجاه الرفع (${crcUp})</strong> وتقييد سرعة التنزيل رغم جودة الخط. ابدأ بالمرشحات والكابلات، ثم تواصل مع الدعم الفني لتعديل البروفايل.</div>`;
+            recommendContainer.innerHTML = recHtml;
+        }
+
+        // عرض ملاحظة إضافية في حالة السرعة المنخفضة مع SNR مرتفع
+        const extraNoteDiv = document.getElementById('extraNote');
+        if (snrDown > 19 && downEfficiency < 50 && attnDown < 38) {
+            extraNoteDiv.style.display = "block";
+            extraNoteDiv.innerHTML = `<i class="fas fa-chart-line"></i> 🔎 ملاحظة متقدمة: مع SNR=${snrDown}dB وتوهين ${attnDown}dB، من المتوقع سرعة تصل إلى ~10-12 ميجابت. السرعة الحالية ${rateDown} كيلوبت تشير إلى <strong>تحديد يدوي من مزود الخدمة</strong> أو وجود عطل في إعدادات المودم.`;
+        } else {
+            extraNoteDiv.style.display = "none";
+        }
+    }
+
+    // ربط المستمعات لجميع الحقول
+    const allInputs = [snrDownInp, snrUpInp, attnDownInp, attnUpInp, rateDownInp, rateUpInp, maxDownInp, maxUpInp, powerDownInp, powerUpInp, crcDownInp, crcUpInp];
+    allInputs.forEach(inp => {
+        inp.addEventListener('input', updateDiagnosis);
+    });
+
+    // زر إعادة القيم الأصلية
+    resetBtn.addEventListener('click', () => {
+        snrDownInp.value = defaultValues.snrDown;
+        snrUpInp.value = defaultValues.snrUp;
+        attnDownInp.value = defaultValues.attnDown;
+        attnUpInp.value = defaultValues.attnUp;
+        rateDownInp.value = defaultValues.rateDown;
+        rateUpInp.value = defaultValues.rateUp;
+        maxDownInp.value = defaultValues.maxDown;
+        maxUpInp.value = defaultValues.maxUp;
+        powerDownInp.value = defaultValues.powerDown;
+        powerUpInp.value = defaultValues.powerUp;
+        crcDownInp.value = defaultValues.crcDown;
+        crcUpInp.value = defaultValues.crcUp;
+        updateDiagnosis();
+    });
+
+    // التشغيل الأولي
+    updateDiagnosis();
+</script>
+</body>
+</html>
