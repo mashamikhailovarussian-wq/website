@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>تحليل متقدم لضعف الإنترنت | قياسات DSL</title>
-    <!-- Google Fonts (دعم اللغة العربية) -->
+    <title>تحليل متقدم لضعف الإنترنت | تشخيص خط DSL</title>
+    <!-- Google Fonts - دعم كامل للغة العربية -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 (أيقونات حديثة) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -16,10 +16,11 @@
         }
 
         body {
-            background: linear-gradient(145deg, #e9f0fc 0%, #d9e3f0 100%);
+            background: linear-gradient(135deg, #eef2f9 0%, #dce5f0 100%);
             font-family: 'Cairo', sans-serif;
             padding: 2rem 1.5rem;
-            color: #1a2c3e;
+            color: #1e2f3e;
+            min-height: 100vh;
         }
 
         .container {
@@ -27,144 +28,187 @@
             margin: 0 auto;
         }
 
-        /* بطاقات رئيسية */
+        /* بطاقات أنيقة */
         .glass-card {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.94);
             backdrop-filter: blur(2px);
-            border-radius: 40px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255,255,255,0.7) inset;
             padding: 1.8rem 2rem;
             margin-bottom: 2rem;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.8rem;
         }
 
         .header h1 {
             font-size: 2.2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #0057a3, #0099cc);
+            background: linear-gradient(120deg, #006699, #00a1b0);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            display: inline-block;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
         .header p {
             color: #2c5368;
             font-weight: 500;
-            margin-top: 0.5rem;
             font-size: 1rem;
+            margin-top: 0.5rem;
         }
 
-        .badge-img {
-            background: #eef2ff;
+        .badge-tip {
+            background: #eef3fc;
             display: inline-block;
-            padding: 0.2rem 1rem;
+            padding: 0.3rem 1.2rem;
             border-radius: 60px;
             font-size: 0.8rem;
             font-weight: 600;
-            color: #0066a0;
+            color: #0072a3;
+            margin-top: 0.6rem;
         }
 
-        /* جدول الإدخال العصري */
+        /* جدول موحد الأبعاد */
+        .stats-wrapper {
+            overflow-x: auto;
+            margin: 0.5rem 0 0.8rem 0;
+        }
+
         .stats-table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 0 12px;
+            border-spacing: 0 14px;
+            min-width: 620px;
         }
 
         .stats-table th {
-            font-weight: 700;
             font-size: 1.1rem;
-            padding-bottom: 10px;
-            color: #0a405c;
+            font-weight: 700;
+            padding: 0.8rem 0.5rem 0.8rem 0.5rem;
             text-align: center;
             background: transparent;
+            color: #0a4b6e;
+            border-bottom: 2px solid #cbdde9;
         }
 
         .stats-table td {
-            background: #f8fafd;
-            border-radius: 28px;
-            padding: 12px 16px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02), inset 0 0 0 1px #ffffff80;
-            transition: all 0.2s;
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 0.7rem 0.8rem;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.03), inset 0 0 0 1px #ffffffcc;
+            vertical-align: middle;
         }
 
+        /* عمود اسم المعلمة */
         .param-name {
             font-weight: 700;
-            font-size: 1.05rem;
-            color: #1f5e8c;
-            background: #eef3fc;
-            border-radius: 28px;
-            width: 180px;
+            font-size: 1rem;
+            color: #1c5a7f;
+            background: #eef4fa;
+            border-radius: 32px;
+            width: 200px;
             text-align: center;
+            letter-spacing: -0.2px;
         }
 
         .param-name i {
-            margin-left: 8px;
-            color: #0077be;
+            margin-left: 10px;
+            color: #0087b3;
+            font-size: 1.1rem;
         }
 
+        /* خلايا الإدخال */
         .input-cell {
             text-align: center;
+            background: #fefefe;
         }
 
         .input-cell input {
-            width: 110px;
-            padding: 10px 8px;
+            width: 130px;
+            padding: 10px 10px;
             font-size: 1rem;
             font-family: 'Cairo', monospace;
             font-weight: 600;
             text-align: center;
-            border: 1.5px solid #cbdbe6;
-            border-radius: 40px;
-            background: white;
-            transition: 0.2s;
+            border: 1.8px solid #d4e0ea;
+            border-radius: 60px;
+            background: #ffffff;
+            transition: all 0.2s;
             color: #022b3e;
         }
 
         .input-cell input:focus {
             outline: none;
-            border-color: #0099cc;
-            box-shadow: 0 0 0 3px rgba(0, 153, 204, 0.2);
+            border-color: #2b9bc2;
+            box-shadow: 0 0 0 3px rgba(43, 155, 194, 0.2);
+        }
+
+        .input-cell input::placeholder {
+            color: #a6bbce;
+            font-weight: 400;
+            font-size: 0.8rem;
         }
 
         .unit {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            color: #5f7f9e;
-            margin-right: 5px;
+            color: #567e9c;
+            margin-right: 6px;
         }
 
-        .reset-btn {
-            background: #1e6f9f;
+        /* مجموعة الأزرار */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-start;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
             border: none;
-            color: white;
-            font-family: 'Cairo';
+            font-family: 'Cairo', sans-serif;
             font-weight: 600;
             padding: 10px 28px;
             border-radius: 60px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 12px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+            background: #eef2f7;
+            color: #1f5e7e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        .reset-btn:hover {
-            background: #0a5a83;
+        .btn-primary {
+            background: #1c6f9b;
+            color: white;
+            box-shadow: 0 6px 14px rgba(28,111,155,0.25);
+        }
+
+        .btn-primary:hover {
+            background: #0f5980;
             transform: translateY(-2px);
         }
 
-        /* لوحة التشخيص */
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #abc0cf;
+            color: #2c6c8f;
+        }
+
+        .btn-outline:hover {
+            background: #e3edf6;
+            border-color: #5f9dbb;
+        }
+
+        /* لوحة التشخيص المقسمة بنسق متناسق */
         .diagnostic-panel {
             display: flex;
             flex-wrap: wrap;
@@ -174,41 +218,44 @@
 
         .diagnosis-box {
             flex: 1.2;
-            background: #ffffffd9;
-            border-radius: 32px;
-            padding: 1.5rem;
-            box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.1);
-            border-right: 8px solid #ff8c42;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 2rem;
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.1);
+            border-right: 6px solid #f39c12;
         }
 
         .recommend-box {
             flex: 1.8;
-            background: #ffffffd9;
-            border-radius: 32px;
-            padding: 1.5rem;
-            box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.1);
-            border-right: 8px solid #2ba14b;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 2rem;
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.1);
+            border-right: 6px solid #2ecc71;
         }
 
         .section-title {
             font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-bottom: 3px solid #dee5ed;
+            border-bottom: 3px solid #e2eaf1;
             padding-bottom: 10px;
         }
 
         .section-title i {
-            font-size: 1.8rem;
-            color: #fe8327;
+            font-size: 1.7rem;
+            color: #e67e22;
         }
 
-        .cause-list {
+        .recommend-box .section-title i {
+            color: #27ae60;
+        }
+
+        .cause-list, .rec-list {
             list-style: none;
-            margin-top: 0.8rem;
         }
 
         .cause-list li {
@@ -216,26 +263,25 @@
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            font-size: 1rem;
-            line-height: 1.45;
+            font-size: 0.98rem;
+            line-height: 1.5;
             font-weight: 500;
+            background: #fafcff;
+            padding: 0.6rem 0.8rem;
+            border-radius: 20px;
         }
 
         .cause-list li i {
-            margin-top: 4px;
-            font-size: 1.25rem;
+            margin-top: 3px;
+            font-size: 1.2rem;
             color: #e67e22;
         }
 
-        .rec-list {
-            list-style: none;
-        }
-
         .rec-list li {
-            margin-bottom: 1rem;
-            background: #f5f9fe;
-            padding: 10px 16px;
-            border-radius: 60px;
+            margin-bottom: 0.9rem;
+            background: #f8fbfe;
+            padding: 0.7rem 1rem;
+            border-radius: 40px;
             display: flex;
             align-items: center;
             gap: 14px;
@@ -244,60 +290,61 @@
         }
 
         .rec-list li i {
-            width: 28px;
-            font-size: 1.3rem;
-            color: #1d8f4a;
+            width: 30px;
+            font-size: 1.2rem;
+            color: #1f8a4c;
         }
 
-        .alert-badge {
-            background: #fee2e2;
-            color: #b91c1c;
-            border-radius: 40px;
-            padding: 3px 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-right: 10px;
+        .info-note {
+            background: #eef3fc;
+            border-radius: 1.5rem;
+            padding: 0.8rem 1.2rem;
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #1f6392;
         }
 
-        .good-badge {
-            background: #dff9e6;
-            color: #167d3f;
-        }
-
-        .speed-warning {
-            background: #fff1e0;
-            border-radius: 20px;
-            padding: 8px 15px;
-            margin-top: 15px;
+        .warning-message {
+            background: #fff2e5;
+            border-radius: 1.2rem;
+            padding: 0.8rem 1rem;
+            margin-top: 1rem;
+            border-right: 4px solid #f39c12;
         }
 
         footer {
             text-align: center;
-            font-size: 0.8rem;
-            color: #4f6f8f;
-            margin-top: 1.2rem;
+            font-size: 0.75rem;
+            color: #5e7e9a;
+            margin-top: 2rem;
+            border-top: 1px solid #cbdbe6;
+            padding-top: 1.2rem;
         }
 
-        @media (max-width: 780px) {
+        @media (max-width: 820px) {
             body {
                 padding: 1rem;
             }
             .glass-card {
-                padding: 1rem;
-            }
-            .stats-table td, .stats-table th {
-                display: table-cell;
+                padding: 1.2rem;
             }
             .input-cell input {
-                width: 85px;
-                font-size: 0.8rem;
-                padding: 8px 4px;
+                width: 100px;
+                font-size: 0.85rem;
+                padding: 8px 6px;
+            }
+            .param-name {
+                font-size: 0.85rem;
+                width: 150px;
             }
             .diagnostic-panel {
                 flex-direction: column;
             }
-            .param-name {
-                font-size: 0.85rem;
+            .section-title {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -306,298 +353,323 @@
 <div class="container">
     <div class="glass-card">
         <div class="header">
-            <h1><i class="fas fa-chart-line"></i> تشخيص ضعف الشبكة (DSL)</h1>
-            <p>بناءً على قيم الصورة المرفقة | تحليل دقيق للمعطيات وحلول عملية</p>
-            <div class="badge-img"><i class="fas fa-tachometer-alt"></i> قراءات المودم الفعلية من لقطة الشاشة</div>
+            <h1><i class="fas fa-chart-network"></i> تشخيص دقيق لضعف الإنترنت (DSL)</h1>
+            <p>أدخل قراءات المودم الخاصة بك — سنقوم بتحليل هامش SNR، التوهين، السرعات، أخطاء CRC وتقديم حلول احترافية</p>
+            <div class="badge-tip"><i class="fas fa-microchip"></i> استناداً إلى معايير ADSL / VDSL</div>
         </div>
 
-        <!-- جدول القيم القابل للتعديل + إظهار القيم الأصلية -->
-        <div style="overflow-x: auto;">
+        <div class="stats-wrapper">
             <table class="stats-table">
                 <thead>
                 <tr>
-                    <th></th>
-                    <th><i class="fas fa-arrow-down"></i> اتجاه الرفع (Upstream)</th>
-                    <th><i class="fas fa-arrow-up"></i> اتجاه التنزيل (Downstream)</th>
+                    <th style="width:30%"></th>
+                    <th><i class="fas fa-arrow-down"></i> اتجاه التنزيل (Downstream)</th>
+                    <th><i class="fas fa-arrow-up"></i> اتجاه الرفع (Upstream)</th>
                 </tr>
                 </thead>
                 <tbody>
+                    <!-- هامش SNR -->
                     <tr>
-                        <td class="param-name"><i class="fas fa-signal"></i> هامش SNR (dB)</td>
-                        <td class="input-cell"><input type="number" step="0.1" id="snrDown" value="21.5"> <span class="unit">dB</span></td>
-                        <td class="input-cell"><input type="number" step="0.1" id="snrUp" value="14.9"> <span class="unit">dB</span></td>
+                        <td class="param-name"><i class="fas fa-waveform"></i> هامش SNR (dB)</td>
+                        <td class="input-cell"><input type="number" step="0.1" id="snrDown" placeholder="مثال: 21.5"> <span class="unit">dB</span></td>
+                        <td class="input-cell"><input type="number" step="0.1" id="snrUp" placeholder="مثال: 14.9"> <span class="unit">dB</span></td>
                     </tr>
+                    <!-- توهين الخط -->
                     <tr>
-                        <td class="param-name"><i class="fas fa-waveform"></i> توهين الخط (dB)</td>
-                        <td class="input-cell"><input type="number" step="0.1" id="attnDown" value="28.4"> <span class="unit">dB</span></td>
-                        <td class="input-cell"><input type="number" step="0.1" id="attnUp" value="15.2"> <span class="unit">dB</span></td>
+                        <td class="param-name"><i class="fas fa-chart-line"></i> توهين الخط (dB)</td>
+                        <td class="input-cell"><input type="number" step="0.1" id="attnDown" placeholder="28.4"> <span class="unit">dB</span></td>
+                        <td class="input-cell"><input type="number" step="0.1" id="attnUp" placeholder="15.2"> <span class="unit">dB</span></td>
                     </tr>
+                    <!-- السرعة الفعلية -->
                     <tr>
                         <td class="param-name"><i class="fas fa-tachometer-alt"></i> السرعة الفعلية (kbps)</td>
-                        <td class="input-cell"><input type="number" id="rateDown" value="4096"> <span class="unit">kbps</span></td>
-                        <td class="input-cell"><input type="number" id="rateUp" value="1022"> <span class="unit">kbps</span></td>
+                        <td class="input-cell"><input type="number" id="rateDown" placeholder="4096"> <span class="unit">kbps</span></td>
+                        <td class="input-cell"><input type="number" id="rateUp" placeholder="1022"> <span class="unit">kbps</span></td>
                     </tr>
+                    <!-- السرعة القصوى الممكنة -->
                     <tr>
                         <td class="param-name"><i class="fas fa-rocket"></i> السرعة القصوى (kbps)</td>
-                        <td class="input-cell"><input type="number" id="maxDown" value="12720"> <span class="unit">kbps</span></td>
-                        <td class="input-cell"><input type="number" id="maxUp" value="1254"> <span class="unit">kbps</span></td>
+                        <td class="input-cell"><input type="number" id="maxDown" placeholder="12720"> <span class="unit">kbps</span></td>
+                        <td class="input-cell"><input type="number" id="maxUp" placeholder="1254"> <span class="unit">kbps</span></td>
                     </tr>
+                    <!-- قدرة الإرسال -->
                     <tr>
                         <td class="param-name"><i class="fas fa-bolt"></i> قدرة الإرسال (dBm)</td>
-                        <td class="input-cell"><input type="number" step="0.1" id="powerDown" value="18.7"> <span class="unit">dBm</span></td>
-                        <td class="input-cell"><input type="number" step="0.1" id="powerUp" value="12.5"> <span class="unit">dBm</span></td>
+                        <td class="input-cell"><input type="number" step="0.1" id="powerDown" placeholder="18.7"> <span class="unit">dBm</span></td>
+                        <td class="input-cell"><input type="number" step="0.1" id="powerUp" placeholder="12.5"> <span class="unit">dBm</span></td>
                     </tr>
+                    <!-- أخطاء CRC -->
                     <tr>
                         <td class="param-name"><i class="fas fa-exclamation-triangle"></i> أخطاء CRC</td>
-                        <td class="input-cell"><input type="number" id="crcDown" value="0"> <span class="unit"></span></td>
-                        <td class="input-cell"><input type="number" id="crcUp" value="1886"> <span class="unit"></span></td>
+                        <td class="input-cell"><input type="number" id="crcDown" placeholder="0"> <span class="unit"></span></td>
+                        <td class="input-cell"><input type="number" id="crcUp" placeholder="1886"> <span class="unit"></span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div style="display: flex; justify-content: left; margin-top: 10px;">
-            <button class="reset-btn" id="resetBtn"><i class="fas fa-undo-alt"></i> استعادة القيم الأصلية (من الصورة)</button>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="clearBtn"><i class="fas fa-eraser"></i> مسح جميع الحقول</button>
+            <button class="btn btn-outline" id="exampleHintBtn"><i class="fas fa-lightbulb"></i> مثال توضيحي (بدون حفظ)</button>
+        </div>
+        <div class="info-note">
+            <i class="fas fa-info-circle"></i> قم بإدخال قيمك الحالية — سيقوم النظام بتحليل ضعف الشبكة بناءً على معايير DSL الفعلية.
         </div>
     </div>
 
-    <!-- لوحة التحليل والتوصيات -->
+    <!-- لوحة النتائج والتشخيص -->
     <div class="diagnostic-panel">
         <div class="diagnosis-box">
             <div class="section-title">
                 <i class="fas fa-microscope"></i>
-                <span>تحليل الأسباب الرئيسية لضعف الشبكة</span>
+                <span>تحليل أسباب ضعف الشبكة</span>
             </div>
             <div id="causeContainer">
-                <!-- يتم ملء المحتوى ديناميكيًا بواسطة JS -->
                 <ul class="cause-list">
-                    <li><i class="fas fa-spinner fa-pulse"></i> جارٍ تحليل القراءات...</li>
+                    <li><i class="fas fa-arrow-left"></i> انتظار إدخال البيانات ... قم بتعبئة القيم أعلاه للحصول على تشخيص دقيق.</li>
                 </ul>
             </div>
-            <div id="extraNote" class="speed-warning" style="display: none;"></div>
+            <div id="extraNote" class="warning-message" style="display: none;"></div>
         </div>
         <div class="recommend-box">
             <div class="section-title">
                 <i class="fas fa-tools"></i>
-                <span>خطوات إصلاح المشكلة ✨</span>
+                <span>📌 خطوات الإصلاح والتحسين</span>
             </div>
             <div id="recommendContainer">
                 <ul class="rec-list">
-                    <li><i class="fas fa-cog"></i> جارٍ اقتراح الحلول حسب القيم المدخلة...</li>
+                    <li><i class="fas fa-edit"></i> سوف تظهر التوصيات بعد إدخال القيم (SNR، السرعات، CRC...)</li>
                 </ul>
             </div>
         </div>
     </div>
     <footer>
-        <i class="fas fa-info-circle"></i> استناداً إلى قراءات المودم في الصورة: SNR مرتفع، سرعة تنزيل أقل من المتاح، أخطاء CRC عالية في الرفع ← هذه المؤشرات تحدد جذور المشكلة.
+        <i class="fas fa-chart-simple"></i> التحليل يستند إلى هامش SNR، التوهين، الفرق بين السرعة الفعلية والقصوى، وأخطاء CRC — للتشخيص المهني لأعطال DSL.
     </footer>
 </div>
 
 <script>
-    // الحصول على المراجع
-    const snrDownInp = document.getElementById('snrDown');
-    const snrUpInp = document.getElementById('snrUp');
-    const attnDownInp = document.getElementById('attnDown');
-    const attnUpInp = document.getElementById('attnUp');
-    const rateDownInp = document.getElementById('rateDown');
-    const rateUpInp = document.getElementById('rateUp');
-    const maxDownInp = document.getElementById('maxDown');
-    const maxUpInp = document.getElementById('maxUp');
-    const powerDownInp = document.getElementById('powerDown');
-    const powerUpInp = document.getElementById('powerUp');
-    const crcDownInp = document.getElementById('crcDown');
-    const crcUpInp = document.getElementById('crcUp');
-    const resetBtn = document.getElementById('resetBtn');
+    // الحصول على جميع عناصر الإدخال
+    const snrDown = document.getElementById('snrDown');
+    const snrUp = document.getElementById('snrUp');
+    const attnDown = document.getElementById('attnDown');
+    const attnUp = document.getElementById('attnUp');
+    const rateDown = document.getElementById('rateDown');
+    const rateUp = document.getElementById('rateUp');
+    const maxDown = document.getElementById('maxDown');
+    const maxUp = document.getElementById('maxUp');
+    const powerDown = document.getElementById('powerDown');
+    const powerUp = document.getElementById('powerUp');
+    const crcDown = document.getElementById('crcDown');
+    const crcUp = document.getElementById('crcUp');
 
-    // القيم الافتراضية من الصورة
-    const defaultValues = {
-        snrDown: 21.5, snrUp: 14.9,
-        attnDown: 28.4, attnUp: 15.2,
-        rateDown: 4096, rateUp: 1022,
-        maxDown: 12720, maxUp: 1254,
-        powerDown: 18.7, powerUp: 12.5,
-        crcDown: 0, crcUp: 1886
-    };
+    const clearBtn = document.getElementById('clearBtn');
+    const exampleHintBtn = document.getElementById('exampleHintBtn');
 
-    // دالة التحديث الكامل للتشخيص
-    function updateDiagnosis() {
-        // قراءة القيم الحالية
-        const snrDown = parseFloat(snrDownInp.value);
-        const snrUp = parseFloat(snrUpInp.value);
-        const attnDown = parseFloat(attnDownInp.value);
-        const attnUp = parseFloat(attnUpInp.value);
-        const rateDown = parseFloat(rateDownInp.value);
-        const rateUp = parseFloat(rateUpInp.value);
-        const maxDown = parseFloat(maxDownInp.value);
-        const maxUp = parseFloat(maxUpInp.value);
-        const powerDown = parseFloat(powerDownInp.value);
-        const powerUp = parseFloat(powerUpInp.value);
-        const crcDown = parseInt(crcDownInp.value, 10);
-        const crcUp = parseInt(crcUpInp.value, 10);
+    // دالة مساعدة لقراءة القيم مع التحقق من الصلاحية
+    function getValidNumber(inputElement, defaultValue = null) {
+        let val = parseFloat(inputElement.value.trim());
+        if (isNaN(val)) return defaultValue;
+        return val;
+    }
 
-        // حساب النسب المئوية للسرعة
-        let downEfficiency = (rateDown / maxDown) * 100;
-        let upEfficiency = (rateUp / maxUp) * 100;
-        if (isNaN(downEfficiency)) downEfficiency = 0;
-        if (isNaN(upEfficiency)) upEfficiency = 0;
+    // دالة التشخيص الأساسية
+    function analyzeAndUpdate() {
+        // قراءة البيانات (قد تكون فارغة)
+        const snrDownVal = getValidNumber(snrDown);
+        const snrUpVal = getValidNumber(snrUp);
+        const attnDownVal = getValidNumber(attnDown);
+        const attnUpVal = getValidNumber(attnUp);
+        const rateDownVal = getValidNumber(rateDown);
+        const rateUpVal = getValidNumber(rateUp);
+        const maxDownVal = getValidNumber(maxDown);
+        const maxUpVal = getValidNumber(maxUp);
+        const powerDownVal = getValidNumber(powerDown);
+        const powerUpVal = getValidNumber(powerUp);
+        const crcDownVal = getValidNumber(crcDown);
+        const crcUpVal = getValidNumber(crcUp);
 
-        // تحليل الأسباب (الخلاصات)
-        let mainCauses = [];
+        // التحقق من وجود أي بيانات حقيقية (على الأقل بعض الحقول)
+        const hasAnyData = [snrDownVal, snrUpVal, attnDownVal, attnUpVal, rateDownVal, rateUpVal, maxDownVal, maxUpVal, crcDownVal, crcUpVal].some(v => v !== null);
+        if (!hasAnyData) {
+            document.getElementById('causeContainer').innerHTML = `<ul class="cause-list"><li><i class="fas fa-arrow-left"></i> يرجى إدخال بيانات المودم (مثل هامش SNR، السرعات، CRC) للحصول على تحليل دقيق.</li></ul>`;
+            document.getElementById('recommendContainer').innerHTML = `<ul class="rec-list"><li><i class="fas fa-edit"></i> سيتم اقتراح حلول مخصصة بعد إدخال القيم الظاهرة في صورة المودم أو جهاز الراوتر.</li></ul>`;
+            document.getElementById('extraNote').style.display = 'none';
+            return;
+        }
+
+        // حساب كفاءة السرعة (إذا توفرت القيم)
+        let downEfficiency = null, upEfficiency = null;
+        if (rateDownVal !== null && maxDownVal !== null && maxDownVal > 0) {
+            downEfficiency = (rateDownVal / maxDownVal) * 100;
+        }
+        if (rateUpVal !== null && maxUpVal !== null && maxUpVal > 0) {
+            upEfficiency = (rateUpVal / maxUpVal) * 100;
+        }
+
+        // بناء قائمة الأسباب التشخيصية
+        let causes = [];
         let technicalDetails = [];
 
-        // 1- مشكلة أخطاء CRC في upstream (الأكثر خطورة)
-        if (crcUp > 800) {
-            mainCauses.push(`🚨 <strong>ارتفاع كارثي لأخطاء CRC في اتجاه الرفع (${crcUp} خطأ)</strong> — مؤشر واضح على وجود تداخل كهربائي، سوء توصيل، أو فلتر هاتف تالف. حتى مع هامش SNR جيد، هذه الأخطاء تسبب فقدان حزم وتباطؤ شديد.`);
-            technicalDetails.push("أخطاء CRC في الرفع تتسبب في إعادة إرسال مستمر → زمن استجابة عالي، انقطاعات، وسرعة تصفح ضعيفة.");
-        } else if (crcUp > 200) {
-            mainCauses.push(`⚠️ <strong>ارتفاع ملحوظ في أخطاء CRC العلوية (${crcUp})</strong> — خط الهاتف غير مستقر، يفضل فحص الأسلاك والمرشحات.`);
-            technicalDetails.push("الأخطاء تؤثر بشكل كبير على الأداء التفاعلي (الألعاب، المكالمات الصوتية).");
-        } else if (crcUp > 30) {
-            mainCauses.push(`📉 وجود أخطاء CRC بمعدل ${crcUp} في الرفع، قد تتفاقم مع الوقت، أنصح بمراقبة الاستقرار.`);
+        // 1. فحص أخطاء CRC في الرفع (الأكثر تأثيرًا)
+        if (crcUpVal !== null && crcUpVal > 800) {
+            causes.push(`🚨 <strong>ارتفاع حاد في أخطاء CRC للرفع (${crcUpVal} خطأ)</strong> — يشير إلى تداخل كهربائي، مرشحات هاتف تالفة أو أسلاك رديئة. حتى مع وجود SNR جيد، هذه الأخطاء تسبب انقطاعات وضعفاً واضحاً.`);
+            technicalDetails.push("أخطاء CRC تعني فقدان حزم البيانات وإعادة الإرسال، مما يرفع البينغ ويخفض الأداء.");
+        } else if (crcUpVal !== null && crcUpVal > 200) {
+            causes.push(`⚠️ <strong>أخطاء CRC مرتفعة في الرفع (${crcUpVal})</strong> — عدم استقرار في خط الهاتف، يفضل فحص الكابلات والمرشحات فوراً.`);
+        } else if (crcUpVal !== null && crcUpVal > 20 && crcUpVal <= 200) {
+            causes.push(`📉 وجود أخطاء CRC بمعدل ${crcUpVal} في اتجاه الرفع، قد تتفاقم مع الوقت. يوصى بمراقبة الاستقرار.`);
         }
 
-        // 2- ضعف سرعة التنزيل (Data rate أقل بكثير من Max rate)
-        if (downEfficiency < 50 && rateDown < maxDown * 0.7) {
-            mainCauses.push(`🐌 <strong>سرعة التنزيل الفعلية منخفضة جداً (${rateDown} كيلوبت/ث) مقابل السرعة القصوى للخط ${maxDown} كيلوبت/ث (${downEfficiency.toFixed(1)}% فقط)</strong>. حتى مع هامش SNR مرتفع جداً (${snrDown} dB) وتوهين معتدل (${attnDown} dB) مما يشير إلى أن المشكلة ليست ضوضاء بل غالباً <strong>تحديد سرعة من قبل مزود الخدمة (ISP Profile) أو إعدادات مودم غير مثالية</strong>.`);
-            technicalDetails.push("هامش SNR كبير جداً (>20dB) يعني الخط هادئ جداً لكن السرعة محدودة اصطناعياً → يرجى طلب رفع البروفايل أو ضبط وضع التعديل ADSL2+.");
-        } else if (downEfficiency < 70 && rateDown < 8000) {
-            mainCauses.push(`⚡ السرعة الفعلية للتنزيل (${rateDown} kbps) أقل من إمكانية الخط (الحد الأقصى ${maxDown} kbps). نسبة الاستفادة ${downEfficiency.toFixed(1)}%، يستدعي فحص إعدادات المودم أو الاتصال بمزود الخدمة.`);
+        // 2. ضعف سرعة التنزيل الفعلية مقارنة بالحد الأقصى
+        if (downEfficiency !== null && downEfficiency < 55 && rateDownVal !== null && maxDownVal !== null) {
+            causes.push(`🐌 <strong>سرعة التنزيل الفعلية منخفضة جداً (${rateDownVal} كيلوبت/ث) مقابل السرعة القصوى (${maxDownVal} كيلوبت/ث)</strong> — الكفاءة ${downEfficiency.toFixed(1)}% فقط. مع هامش SNR${snrDownVal !== null ? ' ('+snrDownVal+' dB)' : ''} قد يكون هناك تحديد للسرعة من مزود الخدمة أو إعدادات مودم غير مناسبة.`);
+            technicalDetails.push("هامش SNR مرتفع جداً (أكثر من 20dB) يعني خط هادئ لكن السرعة محدودة اصطناعياً → يفضل طلب رفع البروفايل.");
+        } else if (downEfficiency !== null && downEfficiency < 75 && rateDownVal !== null) {
+            causes.push(`⚡ كفاءة التنزيل ${downEfficiency.toFixed(1)}% فقط، السرعة الحالية أقل من إمكانية الخط.`);
         }
 
-        // 3- حالة خاصة: SNR مرتفع جداً قد يخفض السرعة إذا كان الهدف مرتفعا (تفسير إضافي)
-        if (snrDown > 20 && downEfficiency < 55 && attnDown < 40) {
-            mainCauses.push(`🎯 هامش SNR في التنزيل مرتفع جداً (${snrDown} dB) مما يعني أن المودم يضحي بالسرعة للحفاظ على استقرار مفرط. يمكن خفض "Target SNR Margin" عبر إعدادات المودم أو طلب الدعم الفني لرفع السرعة.`);
+        // 3. تحليل خاص: SNR مرتفع جداً قد يحد السرعة
+        if (snrDownVal !== null && snrDownVal > 20 && downEfficiency !== null && downEfficiency < 60 && attnDownVal !== null && attnDownVal < 40) {
+            causes.push(`🎯 هامش SNR في التنزيل عالٍ جداً (${snrDownVal} dB) مما يجعل المودم يحافظ على استقرار مفرط على حساب السرعة. يمكن خفض "Target SNR Margin" للحصول على أداء أعلى.`);
         }
 
-        // 4- فحص التوهين (ليست مشكلة رئيسية هنا لكن نذكر)
-        if (attnDown > 55) {
-            mainCauses.push(`📡 توهين عالي في التنزيل (${attnDown} dB) → بعد المسافة عن المقسم يؤدي لضعف السرعة. لكن قيمتك ${attnDown} مقبولة، ومع ذلك تأكد من جودة الأسلاك.`);
+        // 4. التوهين إن كان مرتفعاً
+        if (attnDownVal !== null && attnDownVal > 55) {
+            causes.push(`📡 توهين عالي في التنزيل (${attnDownVal} dB) → بعد المسافة عن السنترال يسبب ضعفاً. تحقق من جودة الأسلاك الداخلية.`);
+        } else if (attnUpVal !== null && attnUpVal > 40) {
+            causes.push(`⚠️ توهين الرفع ${attnUpVal} dB قد يؤثر على سرعة الرفع واستقراره.`);
         }
 
-        // 5- ملاحظة حول أخطاء CRC صفر في التنزيل شيء جيد
-        if (crcDown === 0) {
-            technicalDetails.push("✅ جانب التنزيل خالي من أخطاء CRC، مما يعني أن الضعف ليس بسبب التشويش على ترددات التنزيل.");
+        // 5. ملاحظة حول CRC للتنزيل (إذا كان صفر فهذا جيد)
+        if (crcDownVal !== null && crcDownVal === 0) {
+            technicalDetails.push("✅ جهة التنزيل خالية من أخطاء CRC → التشويش ليس على ترددات التنزيل.");
+        } else if (crcDownVal !== null && crcDownVal > 50) {
+            causes.push(`⚠️ وجود أخطاء CRC في التنزيل (${crcDownVal}) مما يعني تداخلاً يؤثر على جودة الخط.`);
         }
 
-        // 6- إذا لم يتم العثور على سبب رئيسي نضيف تلميحاً
-        if (mainCauses.length === 0 && crcUp <= 30 && downEfficiency > 70) {
-            mainCauses.push("📊 القيم تبدو جيدة نسبياً، قد يكون ضعف الشبكة ناتجاً عن ازدحام الشبكة الداخلية، أو جهاز الراوتر يحتاج إعادة تشغيل. جرب فحص كابل الإيثرنت أو الـ Wi-Fi.");
-        } else if (mainCauses.length === 0) {
-            mainCauses.push("🔍 تشير المعطيات إلى ضعف معتدل، راجع التوصيات لتحسين الأداء.");
+        // إذا لم يتم العثور على أسباب واضحة
+        if (causes.length === 0 && (downEfficiency === null || downEfficiency >= 75)) {
+            if (crcUpVal !== null && crcUpVal < 30)
+                causes.push("📊 القيم تبدو جيدة نسبياً. إذا كان الإنترنت لا يزال ضعيفاً، راجع ازدحام الشبكة الداخلية أو ضعف إشارة الواي فاي.");
+            else
+                causes.push("🔍 لم يتم رصد خلل واضح في المعطيات الأساسية، راجع التوصيات العامة لتحسين الأداء.");
         }
 
-        // عرض الأسباب في واجهة السبب
+        // عرض قسم الأسباب
         const causeContainer = document.getElementById('causeContainer');
-        if (causeContainer) {
-            let html = `<ul class="cause-list">`;
-            for (let cause of mainCauses) {
-                html += `<li><i class="fas fa-circle-exclamation" style="color:#e67e22;"></i> ${cause}</li>`;
-            }
-            if (technicalDetails.length > 0) {
-                for (let det of technicalDetails) {
-                    html += `<li><i class="fas fa-info-circle" style="color:#2c7da0;"></i> ${det}</li>`;
-                }
-            }
-            // إظهار نسبة الكفاءة
-            html += `<li><i class="fas fa-chart-simple"></i> 📊 كفاءة التنزيل: ${downEfficiency.toFixed(1)}% &nbsp;| كفاءة الرفع: ${upEfficiency.toFixed(1)}%</li>`;
-            html += `</ul>`;
-            causeContainer.innerHTML = html;
+        let causesHtml = `<ul class="cause-list">`;
+        for (let c of causes) {
+            causesHtml += `<li><i class="fas fa-circle-exclamation"></i> ${c}</li>`;
         }
+        if (technicalDetails.length > 0) {
+            for (let dt of technicalDetails) {
+                causesHtml += `<li><i class="fas fa-info-circle" style="color:#2c7da0;"></i> ${dt}</li>`;
+            }
+        }
+        if (downEfficiency !== null) {
+            causesHtml += `<li><i class="fas fa-chart-simple"></i> 📊 كفاءة التنزيل: ${downEfficiency.toFixed(1)}% ${upEfficiency !== null ? `| كفاءة الرفع: ${upEfficiency.toFixed(1)}%` : ''}</li>`;
+        } else {
+            causesHtml += `<li><i class="fas fa-chart-simple"></i> أدخل السرعة الفعلية والسرعة القصوى لحساب الكفاءة.</li>`;
+        }
+        causesHtml += `</ul>`;
+        causeContainer.innerHTML = causesHtml;
 
-        // **************************
-        // بناء التوصيات العملية بناءً على القيم
-        // **************************
+        // بناء التوصيات
         let recommendations = [];
 
-        // توصيات بناءً على CRC upstream
-        if (crcUp > 300) {
-            recommendations.push("🔌 <strong>استبدال جميع المرشحات ( microfilters )</strong> في خط الهاتف، واستخدم مرشحاً عالي الجودة عند مقبس المودم.");
-            recommendations.push("🧹 <strong>اختبر الخط من مقبس الخدمة الرئيسي (Master Socket)</strong> – افصل جميع الأجهزة المتفرعة وجرب المودم مباشرة للتأكد من عدم وجود تشويش داخلي.");
-            recommendations.push("⚡ <strong>أبعد المودم عن مصادر التداخل</strong> مثل شواحن الهواتف، أجهزة الميكروويف، ومصادر الطاقة القوية.");
-            recommendations.push("🔄 إذا لم تتحسن الأخطاء، <strong>تواصل مع مزود الخدمة لتفعيل وضع Interleaving</strong> (يقلل الأخطاء على حساب زيادة بسيطة في البينق).");
-        } else if (crcUp > 50) {
-            recommendations.push("📞 فحص الكابلات والموصلات بين المودم ومقبس الهاتف، واستبدال أي سلك تالف.");
-            recommendations.push("🧲 جرب تغيير مكان المودم بعيداً عن الأجهزة الإلكترونية.");
+        // توصيات بناءً على CRC
+        if (crcUpVal !== null && crcUpVal > 300) {
+            recommendations.push("🔌 <strong>استبدال جميع المرشحات ( microfilters )</strong> على خط الهاتف، ويفضل استخدام مرشح عالي الجودة عند مقبس المودم.");
+            recommendations.push("🧹 <strong>اختبار الخط من المقبس الرئيسي</strong> (Master Socket) — افصل جميع الأجهزة الطرفية وشغّل المودم مباشرة.");
+            recommendations.push("⚡ إبعاد المودم عن أجهزة التلفزيون، الشواحن، ومصادر التداخل الكهرومغناطيسي.");
+            recommendations.push("🔄 التواصل مع مزود الخدمة لتفعيل Interleaving عميق إذا استمرت الأخطاء.");
+        } else if (crcUpVal !== null && crcUpVal > 50) {
+            recommendations.push("📞 فحص كابل الهاتف والموصلات واستبدال أي سلك تالف.");
+            recommendations.push("🧲 نقل المودم إلى موقع آخر بعيداً عن الأجهزة الإلكترونية.");
         }
 
-        // توصيات متعلقة بانخفاض سرعة التنزيل (rate less than max)
-        if (downEfficiency < 60 && rateDown < maxDown * 0.75) {
-            recommendations.push("📡 <strong>ادخل إلى إعدادات المودم (192.168.1.1)</strong> وغيِّر وضع التعديل إلى <strong>'ADSL2+'</strong> أو 'Auto'، وأعد تشغيل الراوتر ليسحب سرعة أفضل.");
-            recommendations.push("📞 <strong>اتصل بمزود الخدمة (ISP)</strong> وأبلغهم أن السرعة الفعلية ${rateDown} أقل بكثير من القصوى ${maxDown}، واطلب إعادة تعيين البروفايل (Reset Profile) وخفض هامش SNR المستهدف إلى 6dB.");
-            recommendations.push("🛠️ جرب إجراء <strong>إعادة ضبط المصنع للمودم</strong> وتحديث البرنامج الثابت (Firmware) إن وجد.");
-            recommendations.push("📈 بعد إصلاح أخطاء CRC، يمكن أن يرتفع معدل التزامن تلقائياً; تأكد من حل التداخل أولاً.");
-        } else if (downEfficiency < 80 && rateDown < 10000) {
-            recommendations.push("⚙️ تحقق من كابل الهاتف الداخلي: استخدم كابل ثنائي مجدول قصير وعالي الجودة.");
+        // توصيات متعلقة بضعف السرعة
+        if (downEfficiency !== null && downEfficiency < 65 && rateDownVal !== null && maxDownVal !== null) {
+            recommendations.push("📡 <strong>دخول إعدادات المودم</strong> (192.168.1.1) وتغيير وضع التشغيل إلى ADSL2+ أو VDSL حسب الخط، وإعادة التشغيل.");
+            recommendations.push("📞 <strong>الاتصال بمزود الخدمة</strong> وطلب إعادة تعيين البروفايل (Reset Profile) وخفض هامش SNR المستهدف إلى 6-9dB لزيادة السرعة.");
+            recommendations.push("🛠️ تجربة إعادة ضبط المصنع للمودم وتحديث البرنامج الثابت إن أمكن.");
+        } else if (downEfficiency !== null && downEfficiency < 85 && rateDownVal !== null) {
+            recommendations.push("⚙️ تحقق من كابل الإنترنت الداخلي واستخدم كابل قصير مجدول عالي الجودة.");
         }
 
-        // توصيات عامة إذا كان هامش SNR عالي جدا والسرعة محدودة
-        if (snrDown > 20 && downEfficiency < 65 && attnDown < 40) {
-            recommendations.push("🎯 طلب خفض 'Target SNR Margin' إلى 6 أو 9 ديسيبل لزيادة السرعة الفعلية بشكل كبير مع بقاء الخط مستقراً.");
+        if (snrDownVal !== null && snrDownVal > 19 && downEfficiency !== null && downEfficiency < 70 && attnDownVal !== null && attnDownVal < 45) {
+            recommendations.push("🎯 طلب خفض 'Target SNR Margin' بشكل رسمي من الدعم الفني لرفع السرعة مع بقاء الخط مستقراً.");
         }
 
-        // إذا كانت أخطاء CRC غير موجودة ومازالت السرعة ضعيفة
-        if (crcUp < 30 && downEfficiency < 55) {
-            recommendations.push("🧪 اختبر مودم آخر (مستعار) للتأكد من أن المشكلة ليست عطل hardware في المودم الحالي.");
-        }
-
-        // توصيات أساسية لكل الحالات تقريبًا
+        // توصيات إضافية عامة
         if (recommendations.length === 0) {
-            recommendations.push("🔄 قم بإعادة تشغيل الراوتر والمودم بشكل كامل (افصل التيار 30 ثانية).");
-            recommendations.push("🌐 تحديث إعدادات DNS إلى 1.1.1.1 أو 8.8.8.8 لتحسين الاستجابة.");
-            recommendations.push("📶 إذا كنت تستخدم الواي فاي، اختبر الاتصال عبر كابل إيثرنت لتحديد إذا كان الضعف لاسلكياً.");
+            recommendations.push("🔄 إعادة تشغيل المودم والراوتر (فصل التيار لمدة 30 ثانية) لحل أي مشاكل مؤقتة.");
+            recommendations.push("🌐 تغيير DNS إلى 1.1.1.1 أو 8.8.8.8 لتحسين زمن الاستجابة.");
+            recommendations.push("📶 اختبار السرعة عبر كابل إيثرنت بدلاً من الواي فاي لتحديد موقع المشكلة.");
         } else {
-            // إضافة تذكير بأساسيات 
             if (!recommendations.some(r => r.includes("إعادة تشغيل"))) 
-                recommendations.push("🔄 أعد تشغيل المودم بشكل كامل بعد أي تعديل في الأسلاك.");
+                recommendations.push("🔄 أعد تشغيل المودم بعد تطبيق أي تعديل على الأسلاك أو المرشحات.");
         }
 
         // عرض التوصيات
         const recommendContainer = document.getElementById('recommendContainer');
-        if (recommendContainer) {
-            let recHtml = `<ul class="rec-list">`;
-            for (let rec of recommendations) {
-                recHtml += `<li><i class="fas fa-check-circle"></i> ${rec}</li>`;
-            }
-            recHtml += `</ul>`;
-            // إضافة ملاحظة احترافية
-            recHtml += `<div style="margin-top: 20px; background:#eef6f0; border-radius: 26px; padding: 12px; font-size:0.85rem;"><i class="fas fa-lightbulb"></i> <strong>خلاصة الخبير:</strong> بناءً على المعطيات، المشكلة الرئيسية هي <strong>أخطاء CRC في اتجاه الرفع (${crcUp})</strong> وتقييد سرعة التنزيل رغم جودة الخط. ابدأ بالمرشحات والكابلات، ثم تواصل مع الدعم الفني لتعديل البروفايل.</div>`;
-            recommendContainer.innerHTML = recHtml;
+        let recHtml = `<ul class="rec-list">`;
+        for (let rec of recommendations) {
+            recHtml += `<li><i class="fas fa-wrench"></i> ${rec}</li>`;
         }
+        recHtml += `</ul><div class="info-note" style="margin-top: 1rem;"><i class="fas fa-microphone-alt"></i> <strong>خلاصة الخبير:</strong> الأولوية القصوى هي معالجة أخطاء CRC (إن وجدت) ثم تحسين إعدادات السرعة بالتعاون مع مزود الخدمة.</div>`;
+        recommendContainer.innerHTML = recHtml;
 
-        // عرض ملاحظة إضافية في حالة السرعة المنخفضة مع SNR مرتفع
+        // ملاحظة إضافية عن السرعة والـ SNR
         const extraNoteDiv = document.getElementById('extraNote');
-        if (snrDown > 19 && downEfficiency < 50 && attnDown < 38) {
+        if (snrDownVal !== null && downEfficiency !== null && downEfficiency < 55 && attnDownVal !== null && attnDownVal < 45 && snrDownVal > 18) {
             extraNoteDiv.style.display = "block";
-            extraNoteDiv.innerHTML = `<i class="fas fa-chart-line"></i> 🔎 ملاحظة متقدمة: مع SNR=${snrDown}dB وتوهين ${attnDown}dB، من المتوقع سرعة تصل إلى ~10-12 ميجابت. السرعة الحالية ${rateDown} كيلوبت تشير إلى <strong>تحديد يدوي من مزود الخدمة</strong> أو وجود عطل في إعدادات المودم.`;
+            extraNoteDiv.innerHTML = `<i class="fas fa-chart-line"></i> 🔎 ملاحظة فنية: مع SNR=${snrDownVal}dB وتوهين منخفض نسبياً، من المفترض وصول سرعة أعلى بكثير. يبدو أن هناك تحديداً للسرعة من قبل ISP. تواصل معهم واطلب رفع البروفايل.`;
+        } else if (crcUpVal !== null && crcUpVal > 500) {
+            extraNoteDiv.style.display = "block";
+            extraNoteDiv.innerHTML = `<i class="fas fa-shield-alt"></i> 🛡️ الأولوية الآن: إصلاح أخطاء CRC في الرفع — بدون ذلك لن تستقر السرعة. راجع جميع التوصيات المتعلقة بالكابلات والمرشحات.`;
         } else {
             extraNoteDiv.style.display = "none";
         }
     }
 
-    // ربط المستمعات لجميع الحقول
-    const allInputs = [snrDownInp, snrUpInp, attnDownInp, attnUpInp, rateDownInp, rateUpInp, maxDownInp, maxUpInp, powerDownInp, powerUpInp, crcDownInp, crcUpInp];
-    allInputs.forEach(inp => {
-        inp.addEventListener('input', updateDiagnosis);
+    // مسح جميع الحقول
+    function clearAllFields() {
+        const allInputs = [snrDown, snrUp, attnDown, attnUp, rateDown, rateUp, maxDown, maxUp, powerDown, powerUp, crcDown, crcUp];
+        allInputs.forEach(inp => { inp.value = ''; });
+        analyzeAndUpdate();
+    }
+
+    // دالة تعبئة مثال توضيحي (قيم حقيقية توضح المشكلة) ولكن بدون حفظ تلقائي كقيم افتراضية - فقط للشرح
+    function fillExample() {
+        // نضع مثالاً مستلهماً من الصورة لكن المستخدم يمكنه تعديله: قيم نموذجية لخط ضعيف CRC
+        snrDown.value = '21.5';
+        snrUp.value = '14.9';
+        attnDown.value = '28.4';
+        attnUp.value = '15.2';
+        rateDown.value = '4096';
+        rateUp.value = '1022';
+        maxDown.value = '12720';
+        maxUp.value = '1254';
+        powerDown.value = '18.7';
+        powerUp.value = '12.5';
+        crcDown.value = '0';
+        crcUp.value = '1886';
+        analyzeAndUpdate();
+    }
+
+    // ربط الأحداث لكل المدخلات (تحديث فوري)
+    const allFields = [snrDown, snrUp, attnDown, attnUp, rateDown, rateUp, maxDown, maxUp, powerDown, powerUp, crcDown, crcUp];
+    allFields.forEach(field => {
+        field.addEventListener('input', analyzeAndUpdate);
     });
 
-    // زر إعادة القيم الأصلية
-    resetBtn.addEventListener('click', () => {
-        snrDownInp.value = defaultValues.snrDown;
-        snrUpInp.value = defaultValues.snrUp;
-        attnDownInp.value = defaultValues.attnDown;
-        attnUpInp.value = defaultValues.attnUp;
-        rateDownInp.value = defaultValues.rateDown;
-        rateUpInp.value = defaultValues.rateUp;
-        maxDownInp.value = defaultValues.maxDown;
-        maxUpInp.value = defaultValues.maxUp;
-        powerDownInp.value = defaultValues.powerDown;
-        powerUpInp.value = defaultValues.powerUp;
-        crcDownInp.value = defaultValues.crcDown;
-        crcUpInp.value = defaultValues.crcUp;
-        updateDiagnosis();
-    });
+    clearBtn.addEventListener('click', clearAllFields);
+    exampleHintBtn.addEventListener('click', fillExample);
 
-    // التشغيل الأولي
-    updateDiagnosis();
+    // تحليل أولي (لا توجد قيم افتراضية)
+    analyzeAndUpdate();
 </script>
 </body>
 </html>
