@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>تحليل متقدم لضعف الإنترنت | تشخيص خط DSL</title>
-    <!-- Google Fonts - دعم كامل للغة العربية -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (أيقونات حديثة) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Android & Phone News | TechPulse</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <style>
+        /* ─── Root Variables ─── */
+        :root {
+            --ripple-color-1: rgba(13, 110, 253, 0.5);
+            --ripple-color-2: rgba(102, 16, 242, 0.45);
+            --ripple-color-3: rgba(220, 53, 69, 0.4);
+            --ripple-color-4: rgba(40, 167, 69, 0.4);
+            --wave-speed: 8s;
+            --orb-speed: 20s;
+            --gradient-1: linear-gradient(135deg, #0d6efd, #6610f2, #dc3545);
+            --gradient-2: linear-gradient(135deg, #fd7e14, #dc3545, #6610f2);
+            --gradient-3: linear-gradient(135deg, #28a745, #0d6efd, #6610f2);
+            --gradient-4: linear-gradient(135deg, #e83e8c, #fd7e14, #ffc107);
+            --gradient-5: linear-gradient(135deg, #20c997, #0d6efd, #6f42c1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,660 +31,2219 @@
         }
 
         body {
-            background: linear-gradient(135deg, #eef2f9 0%, #dce5f0 100%);
-            font-family: 'Cairo', sans-serif;
-            padding: 2rem 1.5rem;
-            color: #1e2f3e;
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8f9fa;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* بطاقات أنيقة */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(2px);
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255,255,255,0.7) inset;
-            padding: 1.8rem 2rem;
-            margin-bottom: 2rem;
-            transition: all 0.2s;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 1.8rem;
-        }
-
-        .header h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(120deg, #006699, #00a1b0);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.3px;
-        }
-
-        .header p {
-            color: #2c5368;
-            font-weight: 500;
-            font-size: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .badge-tip {
-            background: #eef3fc;
-            display: inline-block;
-            padding: 0.3rem 1.2rem;
-            border-radius: 60px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #0072a3;
-            margin-top: 0.6rem;
-        }
-
-        /* جدول موحد الأبعاد */
-        .stats-wrapper {
-            overflow-x: auto;
-            margin: 0.5rem 0 0.8rem 0;
-        }
-
-        .stats-table {
+        /* ───── Circuit Pattern Overlay ───── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 14px;
-            min-width: 620px;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(13, 110, 253, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(102, 16, 242, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(220, 53, 69, 0.02) 0%, transparent 50%),
+                repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(13, 110, 253, 0.01) 20px,
+                    rgba(13, 110, 253, 0.01) 21px),
+                repeating-linear-gradient(-45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(102, 16, 242, 0.01) 20px,
+                    rgba(102, 16, 242, 0.01) 21px);
+            pointer-events: none;
+            z-index: -3;
         }
 
-        .stats-table th {
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 0.8rem 0.5rem 0.8rem 0.5rem;
-            text-align: center;
-            background: transparent;
-            color: #0a4b6e;
-            border-bottom: 2px solid #cbdde9;
+        /* ───── تموجات خلفية عامة ───── */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(13, 110, 253, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, rgba(102, 16, 242, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(220, 53, 69, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 10%, rgba(40, 167, 69, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(253, 126, 20, 0.03) 0%, transparent 40%),
+                radial-gradient(ellipse at 10% 70%, rgba(232, 62, 140, 0.03) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -2;
+            animation: bgRipples 18s ease-in-out infinite alternate;
         }
 
-        .stats-table td {
-            background: #ffffff;
-            border-radius: 32px;
-            padding: 0.7rem 0.8rem;
-            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.03), inset 0 0 0 1px #ffffffcc;
-            vertical-align: middle;
+        @keyframes bgRipples {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            25% {
+                transform: translate(1%, -1%) scale(1.02) rotate(1deg);
+            }
+            50% {
+                transform: translate(-1%, 1%) scale(1.04) rotate(-1deg);
+            }
+            75% {
+                transform: translate(0.5%, 0.5%) scale(1.01) rotate(0.5deg);
+            }
+            100% {
+                transform: translate(-0.5%, -0.5%) scale(1.03) rotate(-0.5deg);
+            }
         }
 
-        /* عمود اسم المعلمة */
-        .param-name {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #1c5a7f;
-            background: #eef4fa;
-            border-radius: 32px;
-            width: 200px;
-            text-align: center;
-            letter-spacing: -0.2px;
+        /* ─── Navbar ─── */
+        .navbar {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, #1c1c1e 0%, #141416 100%) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        .param-name i {
-            margin-left: 10px;
-            color: #0087b3;
-            font-size: 1.1rem;
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.7rem;
+            letter-spacing: -0.5px;
+            position: relative;
+            background: var(--gradient-1);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brandGradientShift 4s ease infinite;
         }
 
-        /* خلايا الإدخال */
-        .input-cell {
-            text-align: center;
-            background: #fefefe;
+        @keyframes brandGradientShift {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
-        .input-cell input {
-            width: 130px;
-            padding: 10px 10px;
-            font-size: 1rem;
-            font-family: 'Cairo', monospace;
-            font-weight: 600;
-            text-align: center;
-            border: 1.8px solid #d4e0ea;
-            border-radius: 60px;
-            background: #ffffff;
-            transition: all 0.2s;
-            color: #022b3e;
+        .navbar-brand::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #0d6efd, #6610f2, #dc3545, #fd7e14, #28a745, #0d6efd);
+            background-size: 300% 100%;
+            border-radius: 4px;
+            animation: brandWave 3s ease infinite;
         }
 
-        .input-cell input:focus {
-            outline: none;
-            border-color: #2b9bc2;
-            box-shadow: 0 0 0 3px rgba(43, 155, 194, 0.2);
+        @keyframes brandWave {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
-        .input-cell input::placeholder {
-            color: #a6bbce;
-            font-weight: 400;
-            font-size: 0.8rem;
+        .navbar-brand i {
+            -webkit-text-fill-color: initial;
+            color: #0d6efd;
         }
 
-        .unit {
-            font-size: 0.75rem;
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
             font-weight: 500;
-            color: #567e9c;
-            margin-right: 6px;
+            color: rgba(255, 255, 255, 0.75) !important;
         }
 
-        /* مجموعة الأزرار */
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-start;
-            margin-top: 1.2rem;
-            flex-wrap: wrap;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #0d6efd, #6610f2, #dc3545);
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
-        .btn {
-            border: none;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
-            padding: 10px 28px;
-            border-radius: 60px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #eef2f7;
-            color: #1f5e7e;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 70%;
+        }
+        .nav-link:hover {
+            color: #fff !important;
         }
 
-        .btn-primary {
-            background: #1c6f9b;
+        /* ───── Hero Section ───── */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(135deg, #0d6efd 0%, #6610f2 35%, #dc3545 65%, #fd7e14 100%);
+            background-size: 500% 500%;
             color: white;
-            box-shadow: 0 6px 14px rgba(28,111,155,0.25);
+            padding: 5rem 0 5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 0 3rem 3rem;
+            box-shadow: 0 15px 40px rgba(13, 110, 253, 0.35);
+            animation: heroGradientShift 12s ease infinite;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        .btn-primary:hover {
-            background: #0f5980;
+        @keyframes heroGradientShift {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 50% 0%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            75% {
+                background-position: 50% 100%;
+            }
+        }
+
+        /* ───── دوائر تموجية في الهيرو ───── */
+        .hero-ripple {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            animation: rippleExpand 6s ease-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-ripple:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+        .hero-ripple:nth-child(2) {
+            width: 140px;
+            height: 140px;
+            top: 50%;
+            left: 75%;
+            animation-delay: 1.5s;
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+        .hero-ripple:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 70%;
+            left: 25%;
+            animation-delay: 3s;
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+        .hero-ripple:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            top: 10%;
+            left: 55%;
+            animation-delay: 4.5s;
+            border-color: rgba(253, 126, 20, 0.3);
+        }
+        .hero-ripple:nth-child(5) {
+            width: 60px;
+            height: 60px;
+            top: 35%;
+            left: 40%;
+            animation-delay: 2s;
+            border-color: rgba(232, 62, 140, 0.35);
+        }
+        .hero-ripple:nth-child(6) {
+            width: 120px;
+            height: 120px;
+            top: 80%;
+            left: 65%;
+            animation-delay: 5s;
+            border-color: rgba(32, 201, 151, 0.3);
+        }
+        .hero-ripple:nth-child(7) {
+            width: 200px;
+            height: 200px;
+            top: 5%;
+            left: 85%;
+            animation-delay: 0.8s;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .hero-ripple:nth-child(8) {
+            width: 70px;
+            height: 70px;
+            top: 60%;
+            left: 5%;
+            animation-delay: 3.8s;
+            border-color: rgba(255, 193, 7, 0.3);
+        }
+
+        @keyframes rippleExpand {
+            0% {
+                transform: scale(0.5);
+                opacity: 0.8;
+                border-width: 3px;
+            }
+            50% {
+                transform: scale(2.5);
+                opacity: 0.15;
+                border-width: 1px;
+            }
+            100% {
+                transform: scale(4.5);
+                opacity: 0;
+                border-width: 0.5px;
+            }
+        }
+
+        /* ───── نقاط عائمة ───── */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(50px);
+            animation: floatOrb var(--orb-speed) ease-in-out infinite;
+        }
+
+        .floating-orb.orb-1 {
+            width: 220px;
+            height: 220px;
+            background: rgba(255, 215, 0, 0.15);
+            top: 20%;
+            left: 15%;
+            --orb-speed: 18s;
+            animation-delay: 0s;
+        }
+        .floating-orb.orb-2 {
+            width: 170px;
+            height: 170px;
+            background: rgba(253, 126, 20, 0.2);
+            top: 60%;
+            left: 70%;
+            --orb-speed: 22s;
+            animation-delay: -5s;
+        }
+        .floating-orb.orb-3 {
+            width: 260px;
+            height: 260px;
+            background: rgba(40, 167, 69, 0.12);
+            top: 40%;
+            left: 45%;
+            --orb-speed: 25s;
+            animation-delay: -10s;
+        }
+        .floating-orb.orb-4 {
+            width: 140px;
+            height: 140px;
+            background: rgba(232, 62, 140, 0.15);
+            top: 10%;
+            left: 80%;
+            --orb-speed: 20s;
+            animation-delay: -3s;
+        }
+        .floating-orb.orb-5 {
+            width: 190px;
+            height: 190px;
+            background: rgba(13, 110, 253, 0.12);
+            top: 75%;
+            left: 10%;
+            --orb-speed: 23s;
+            animation-delay: -8s;
+        }
+
+        @keyframes floatOrb {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            20% {
+                transform: translate(50px, -40px) scale(1.15);
+            }
+            40% {
+                transform: translate(-30px, 25px) scale(0.9);
+            }
+            60% {
+                transform: translate(35px, 40px) scale(1.1);
+            }
+            80% {
+                transform: translate(-40px, -20px) scale(0.95);
+            }
+        }
+
+        /* ───── أيقونات صغيرة عائمة (هواتف + دوائر) ───── */
+        .floating-icon {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatIcon 14s ease-in-out infinite;
+            color: #fff;
+        }
+
+        .floating-icon:nth-child(9) {
+            top: 12%;
+            left: 20%;
+            font-size: 2.5rem;
+            animation-delay: 0s;
+            opacity: 0.12;
+        }
+        .floating-icon:nth-child(10) {
+            top: 75%;
+            left: 85%;
+            font-size: 2rem;
+            animation-delay: -4s;
+            opacity: 0.1;
+        }
+        .floating-icon:nth-child(11) {
+            top: 30%;
+            left: 90%;
+            font-size: 3rem;
+            animation-delay: -8s;
+            opacity: 0.08;
+        }
+        .floating-icon:nth-child(12) {
+            top: 85%;
+            left: 15%;
+            font-size: 2.2rem;
+            animation-delay: -12s;
+            opacity: 0.1;
+        }
+        .floating-icon:nth-child(13) {
+            top: 50%;
+            left: 5%;
+            font-size: 1.6rem;
+            animation-delay: -6s;
+            opacity: 0.12;
+        }
+        .floating-icon:nth-child(14) {
+            top: 8%;
+            left: 60%;
+            font-size: 2.8rem;
+            animation-delay: -10s;
+            opacity: 0.09;
+        }
+
+        @keyframes floatIcon {
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(20px, -15px) rotate(5deg) scale(1.1);
+            }
+            50% {
+                transform: translate(-15px, 20px) rotate(-3deg) scale(0.95);
+            }
+            75% {
+                transform: translate(10px, -10px) rotate(4deg) scale(1.05);
+            }
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            font-weight: 800;
+            font-size: 3.2rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section h1 .highlight-text {
+            background: linear-gradient(135deg, #ffd700, #ff6b00, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brandGradientShift 3s ease infinite;
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section .btn {
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .hero-section .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ───── Wave Divider ───── */
+        .wave-divider {
+            position: relative;
+            margin-top: -2rem;
+            z-index: 3;
+        }
+
+        .wave-divider svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .wave-divider .wave-path {
+            animation: waveShift 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveShift {
+            0% {
+                d: path('M0,40 C150,80 350,0 500,40 C650,80 850,0 1000,40 C1150,80 1350,0 1500,40 L1500,100 L0,100 Z');
+            }
+            100% {
+                d: path('M0,50 C150,10 350,70 500,30 C650,10 850,60 1000,50 C1150,20 1350,70 1500,30 L1500,100 L0,100 Z');
+            }
+        }
+
+        /* ───── Filter Bar ───── */
+        .filter-bar .btn {
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-color: rgba(13, 110, 253, 0.2);
+            color: #495057;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .filter-bar .btn.active {
+            background: linear-gradient(135deg, #0d6efd, #6610f2, #dc3545);
+            background-size: 300% 300%;
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 25px rgba(13, 110, 253, 0.4);
+            animation: btnGradientPulse 4s ease infinite;
+        }
+
+        .filter-bar .btn:not(.active):hover {
+            border-color: #0d6efd;
+            color: #0d6efd;
+            background: rgba(13, 110, 253, 0.08);
+            box-shadow: 0 0 20px rgba(13, 110, 253, 0.15);
             transform: translateY(-2px);
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #abc0cf;
-            color: #2c6c8f;
+        @keyframes btnGradientPulse {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
-        .btn-outline:hover {
-            background: #e3edf6;
-            border-color: #5f9dbb;
+        /* ───── البطاقات ───── */
+        .card {
+            border: none;
+            border-radius: 1.4rem;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2),
+                box-shadow 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
-        /* لوحة التشخيص المقسمة بنسق متناسق */
-        .diagnostic-panel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: space-between;
-        }
-
-        .diagnosis-box {
-            flex: 1.2;
-            background: rgba(255, 255, 255, 0.96);
-            border-radius: 2rem;
-            padding: 1.6rem 1.8rem;
-            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.1);
-            border-right: 6px solid #f39c12;
-        }
-
-        .recommend-box {
-            flex: 1.8;
-            background: rgba(255, 255, 255, 0.96);
-            border-radius: 2rem;
-            padding: 1.6rem 1.8rem;
-            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.1);
-            border-right: 6px solid #2ecc71;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 3px solid #e2eaf1;
-            padding-bottom: 10px;
-        }
-
-        .section-title i {
-            font-size: 1.7rem;
-            color: #e67e22;
-        }
-
-        .recommend-box .section-title i {
-            color: #27ae60;
-        }
-
-        .cause-list, .rec-list {
-            list-style: none;
-        }
-
-        .cause-list li {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-size: 0.98rem;
-            line-height: 1.5;
-            font-weight: 500;
-            background: #fafcff;
-            padding: 0.6rem 0.8rem;
-            border-radius: 20px;
-        }
-
-        .cause-list li i {
-            margin-top: 3px;
-            font-size: 1.2rem;
-            color: #e67e22;
-        }
-
-        .rec-list li {
-            margin-bottom: 0.9rem;
-            background: #f8fbfe;
-            padding: 0.7rem 1rem;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-weight: 550;
-            transition: 0.1s;
-        }
-
-        .rec-list li i {
-            width: 30px;
-            font-size: 1.2rem;
-            color: #1f8a4c;
-        }
-
-        .info-note {
-            background: #eef3fc;
+        /* ───── تموج الحدود عند التحويم ───── */
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
             border-radius: 1.5rem;
-            padding: 0.8rem 1.2rem;
-            margin-top: 1.2rem;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #1f6392;
+            padding: 3px;
+            background: conic-gradient(from 0deg,
+                    transparent,
+                    rgba(13, 110, 253, 0.5),
+                    rgba(102, 16, 242, 0.5),
+                    rgba(220, 53, 69, 0.5),
+                    rgba(40, 167, 69, 0.5),
+                    rgba(253, 126, 20, 0.5),
+                    rgba(232, 62, 140, 0.5),
+                    rgba(13, 110, 253, 0.5),
+                    transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+            animation: borderRotate 5s linear infinite;
+            animation-play-state: paused;
         }
 
-        .warning-message {
-            background: #fff2e5;
-            border-radius: 1.2rem;
-            padding: 0.8rem 1rem;
-            margin-top: 1rem;
-            border-right: 4px solid #f39c12;
+        .card:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
-        footer {
-            text-align: center;
+        @keyframes borderRotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
+                0 0 50px rgba(13, 110, 253, 0.08);
+        }
+
+        /* ───── تأثير تموج عند التحويم داخل البطاقة ───── */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(13, 110, 253, 0.10) 0%,
+                    rgba(102, 16, 242, 0.06) 40%,
+                    rgba(220, 53, 69, 0.04) 70%,
+                    transparent 100%);
+            transform: translate(-50%, -50%);
+            transition: width 0.8s ease-out, height 0.8s ease-out, opacity 0.8s ease-out;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card:hover::after {
+            width: 700px;
+            height: 700px;
+            opacity: 1;
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 230px;
+            z-index: 1;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.07);
+        }
+
+        /* ───── Overlay Badge ───── */
+        .card-img-overlay-text {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, rgba(13, 110, 253, 0.92), rgba(102, 16, 242, 0.88));
+            background-size: 200% 200%;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 0.3em 1.2em;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            text-transform: uppercase;
+            animation: badgeShimmer 3s ease infinite;
+        }
+
+        @keyframes badgeShimmer {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .card-img-overlay-text.new-badge {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.92), rgba(255, 107, 107, 0.88));
+            background-size: 200% 200%;
+            left: auto;
+            right: 15px;
+            animation: pulseBadge 1.8s infinite, badgeShimmer 2.5s ease infinite;
+        }
+
+        @keyframes pulseBadge {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 18px rgba(220, 53, 69, 0);
+            }
+        }
+
+        /* ───── أيقونة صغيرة في زاوية البطاقة ───── */
+        .card-corner-icon {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 2.8rem;
+            opacity: 0.08;
+            z-index: 1;
+            pointer-events: none;
+            color: #0d6efd;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            background: var(--gradient-1);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brandGradientShift 5s ease infinite;
+            display: inline;
+        }
+
+        .card-text {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        /* ───── Tags ───── */
+        .tag-badge {
             font-size: 0.75rem;
-            color: #5e7e9a;
-            margin-top: 2rem;
-            border-top: 1px solid #cbdbe6;
-            padding-top: 1.2rem;
+            font-weight: 600;
+            padding: 0.2em 0.9em;
+            border-radius: 20px;
+            margin-right: 0.4rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 1px solid rgba(13, 110, 253, 0.15);
         }
 
-        @media (max-width: 820px) {
-            body {
-                padding: 1rem;
+        .tag-badge.tag-samsung {
+            background: rgba(13, 110, 253, 0.10);
+            color: #0d6efd;
+            border-color: rgba(13, 110, 253, 0.2);
+        }
+        .tag-badge.tag-google {
+            background: rgba(234, 67, 53, 0.10);
+            color: #ea4335;
+            border-color: rgba(234, 67, 53, 0.2);
+        }
+        .tag-badge.tag-oneplus {
+            background: rgba(235, 0, 40, 0.10);
+            color: #eb0028;
+            border-color: rgba(235, 0, 40, 0.2);
+        }
+        .tag-badge.tag-xiaomi {
+            background: rgba(255, 105, 0, 0.10);
+            color: #ff6900;
+            border-color: rgba(255, 105, 0, 0.2);
+        }
+        .tag-badge.tag-nothing {
+            background: rgba(255, 59, 48, 0.10);
+            color: #ff3b30;
+            border-color: rgba(255, 59, 48, 0.2);
+        }
+        .tag-badge.tag-android-update {
+            background: rgba(52, 168, 83, 0.10);
+            color: #28a745;
+            border-color: rgba(52, 168, 83, 0.2);
+        }
+
+        .tag-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ───── Author Avatar ───── */
+        .author-avatar-sm {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+            flex-shrink: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover .author-avatar-sm {
+            transform: scale(1.12);
+            box-shadow: 0 0 20px rgba(13, 110, 253, 0.3);
+        }
+
+        .author-avatar-lg {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+            flex-shrink: 0;
+        }
+
+        .author-info-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .author-info-box::after {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(13, 110, 253, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            animation: boxOrb 7s ease-in-out infinite;
+        }
+
+        @keyframes boxOrb {
+            0%,
+            100% {
+                transform: translate(0, 0);
             }
-            .glass-card {
-                padding: 1.2rem;
+            50% {
+                transform: translate(-20px, 20px);
             }
-            .input-cell input {
-                width: 100px;
-                font-size: 0.85rem;
-                padding: 8px 6px;
+        }
+
+        .author-name-sm {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #212529;
+            line-height: 1.2;
+        }
+
+        .author-name-lg {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #212529;
+        }
+
+        .author-bio {
+            font-size: 0.85rem;
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        .author-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #28a745;
+            margin-right: 4px;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.5);
             }
-            .param-name {
-                font-size: 0.85rem;
-                width: 150px;
+            50% {
+                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
             }
-            .diagnostic-panel {
-                flex-direction: column;
+        }
+
+        /* ───── Quick Info Button ───── */
+        .btn-quick-info {
+            border-radius: 50px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.9rem;
+            font-weight: 600;
+            background: rgba(108, 117, 125, 0.08);
+            color: #6c757d;
+            border: 1px solid rgba(108, 117, 125, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-quick-info:hover {
+            background: rgba(13, 110, 253, 0.12);
+            color: #0d6efd;
+            border-color: rgba(13, 110, 253, 0.4);
+            box-shadow: 0 0 20px rgba(13, 110, 253, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* ───── Read More Button ───── */
+        .btn-primary.btn-sm.rounded-pill {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d6efd, #6610f2, #dc3545);
+            background-size: 300% 300%;
+            border: none;
+            animation: btnGradientPulse 5s ease infinite;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary.btn-sm.rounded-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(13, 110, 253, 0.45);
+        }
+
+        .btn-primary.btn-sm.rounded-pill:active {
+            transform: scale(0.95);
+        }
+
+        /* ───── Ripple effect ───── */
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: clickRipple 0.6s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes clickRipple {
+            to {
+                transform: scale(4.5);
+                opacity: 0;
             }
-            .section-title {
+        }
+
+        /* ───── Popover ───── */
+        .popover {
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            animation: popIn 0.25s ease-out;
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popover-header {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 700;
+            border-radius: 1rem 1rem 0 0;
+        }
+
+        .popover-body {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        /* ───── Modal ───── */
+        .modal-content {
+            border-radius: 1.5rem;
+            border: none;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(13, 110, 253, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .modal-content::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 16, 242, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+            border-radius: 0.8rem;
+        }
+
+        .carousel-indicators button {
+            background-color: #0d6efd;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicators button.active {
+            background-color: #6610f2;
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        .article-full-content {
+            white-space: normal;
+            line-height: 1.9;
+            color: #333;
+        }
+
+        .article-full-content h5 {
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .article-full-content ul,
+        .article-full-content ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-full-content ul li,
+        .article-full-content ol li {
+            margin-bottom: 0.4rem;
+        }
+
+        .article-full-content .highlight-box {
+            background: linear-gradient(135deg, #e8f0fe 0%, #f0e6ff 100%);
+            border-left: 5px solid #0d6efd;
+            border-radius: 0 1rem 1rem 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-full-content .highlight-box::after {
+            content: '📱';
+            position: absolute;
+            bottom: -10px;
+            right: 10px;
+            font-size: 3rem;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .article-full-content .danger-box {
+            background: #fff5f5;
+            border-left: 5px solid #dc3545;
+            border-radius: 0 1rem 1rem 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .article-full-content .success-box {
+            background: #f0fff4;
+            border-left: 5px solid #28a745;
+            border-radius: 0 1rem 1rem 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .article-full-content .warning-box {
+            background: #fffdf0;
+            border-left: 5px solid #ffc107;
+            border-radius: 0 1rem 1rem 0;
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .article-full-content .gradient-text {
+            background: linear-gradient(135deg, #0d6efd, #6610f2, #dc3545);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            animation: btnGradientPulse 3s ease infinite;
+        }
+
+        .article-full-content .tag-inline {
+            display: inline-block;
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            color: #fff;
+            padding: 0.15em 0.8em;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 0 0.2rem;
+        }
+
+        .article-full-content blockquote {
+            background: #f8f9fa;
+            border-left: 6px solid #6610f2;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.8rem 0.8rem 0;
+            font-style: italic;
+            color: #444;
+        }
+
+        .article-full-content code {
+            background: #212529;
+            color: #ffc107;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .article-full-content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem 1.2rem;
+            border-radius: 0.8rem;
+            overflow-x: auto;
+            margin: 1.2rem 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .table-comparison {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .table-comparison thead th {
+            background: linear-gradient(135deg, #212529, #343a40);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+        }
+
+        .table-comparison tbody td {
+            vertical-align: middle;
+            border-color: #eee;
+        }
+
+        .table-comparison tbody tr:hover {
+            background-color: #f1f3ff;
+        }
+
+        /* ───── Search Box ───── */
+        .search-box {
+            max-width: 380px;
+            border-radius: 50px;
+            padding-left: 1.2rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-box:focus {
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+            border-color: #0d6efd;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        .input-group-text {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 50px 0 0 50px;
+        }
+
+        /* ───── Footer ───── */
+        footer {
+            background: linear-gradient(135deg, #1c1c1e, #141416, #1c1c1e);
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0d6efd, #6610f2, #dc3545, #fd7e14, #28a745, #e83e8c, #0d6efd);
+            background-size: 400% 100%;
+            animation: brandWave 4s ease infinite;
+        }
+
+        footer .footer-icons i {
+            font-size: 1.6rem;
+            margin: 0 0.6rem;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        footer .footer-icons i:hover {
+            opacity: 0.9;
+            transform: scale(1.15);
+        }
+
+        /* ───── Fade In ───── */
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ───── Icon Circles ───── */
+        .icon-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .icon-circle:hover {
+            transform: scale(1.12);
+        }
+
+        .icon-circle.blue {
+            background: rgba(13, 110, 253, 0.12);
+            color: #0d6efd;
+        }
+        .icon-circle.green {
+            background: rgba(40, 167, 69, 0.12);
+            color: #28a745;
+        }
+        .icon-circle.purple {
+            background: rgba(111, 66, 193, 0.12);
+            color: #6610f2;
+        }
+        .icon-circle.orange {
+            background: rgba(253, 126, 20, 0.12);
+            color: #fd7e14;
+        }
+        .icon-circle.red {
+            background: rgba(220, 53, 69, 0.12);
+            color: #dc3545;
+        }
+        .icon-circle.pink {
+            background: rgba(232, 62, 140, 0.12);
+            color: #e83e8c;
+        }
+        .icon-circle.teal {
+            background: rgba(32, 201, 151, 0.12);
+            color: #20c997;
+        }
+        .icon-circle.yellow {
+            background: rgba(255, 193, 7, 0.12);
+            color: #ffc107;
+        }
+
+        /* ───── Scrollbar ───── */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0d6efd, #6610f2, #dc3545);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #0a58ca, #520dc2, #b02a37);
+        }
+
+        /* ───── Responsive ───── */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.0rem;
+            }
+            .hero-section p {
+                font-size: 1.0rem;
+            }
+            .hero-ripple {
+                display: none;
+            }
+            .floating-orb {
+                display: none;
+            }
+            .floating-icon {
+                display: none;
+            }
+            .card-img-wrapper {
+                height: 180px;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            .navbar-brand {
                 font-size: 1.3rem;
+            }
+            .filter-bar .btn {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 3rem 0 3rem;
+                border-radius: 0 0 2rem 2rem;
+            }
+            .hero-section h1 {
+                font-size: 1.6rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="glass-card">
-        <div class="header">
-            <h1><i class="fas fa-chart-network"></i> تشخيص دقيق لضعف الإنترنت (DSL)</h1>
-            <p>أدخل قراءات المودم الخاصة بك — سنقوم بتحليل هامش SNR، التوهين، السرعات، أخطاء CRC وتقديم حلول احترافية</p>
-            <div class="badge-tip"><i class="fas fa-microchip"></i> استناداً إلى معايير ADSL / VDSL</div>
-        </div>
 
-        <div class="stats-wrapper">
-            <table class="stats-table">
-                <thead>
-                <tr>
-                    <th style="width:30%"></th>
-                    <th><i class="fas fa-arrow-down"></i> اتجاه التنزيل (Downstream)</th>
-                    <th><i class="fas fa-arrow-up"></i> اتجاه الرفع (Upstream)</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <!-- هامش SNR -->
-                    <tr>
-                        <td class="param-name"><i class="fas fa-waveform"></i> هامش SNR (dB)</td>
-                        <td class="input-cell"><input type="number" step="0.1" id="snrDown" placeholder="مثال: 21.5"> <span class="unit">dB</span></td>
-                        <td class="input-cell"><input type="number" step="0.1" id="snrUp" placeholder="مثال: 14.9"> <span class="unit">dB</span></td>
-                    </tr>
-                    <!-- توهين الخط -->
-                    <tr>
-                        <td class="param-name"><i class="fas fa-chart-line"></i> توهين الخط (dB)</td>
-                        <td class="input-cell"><input type="number" step="0.1" id="attnDown" placeholder="28.4"> <span class="unit">dB</span></td>
-                        <td class="input-cell"><input type="number" step="0.1" id="attnUp" placeholder="15.2"> <span class="unit">dB</span></td>
-                    </tr>
-                    <!-- السرعة الفعلية -->
-                    <tr>
-                        <td class="param-name"><i class="fas fa-tachometer-alt"></i> السرعة الفعلية (kbps)</td>
-                        <td class="input-cell"><input type="number" id="rateDown" placeholder="4096"> <span class="unit">kbps</span></td>
-                        <td class="input-cell"><input type="number" id="rateUp" placeholder="1022"> <span class="unit">kbps</span></td>
-                    </tr>
-                    <!-- السرعة القصوى الممكنة -->
-                    <tr>
-                        <td class="param-name"><i class="fas fa-rocket"></i> السرعة القصوى (kbps)</td>
-                        <td class="input-cell"><input type="number" id="maxDown" placeholder="12720"> <span class="unit">kbps</span></td>
-                        <td class="input-cell"><input type="number" id="maxUp" placeholder="1254"> <span class="unit">kbps</span></td>
-                    </tr>
-                    <!-- قدرة الإرسال -->
-                    <tr>
-                        <td class="param-name"><i class="fas fa-bolt"></i> قدرة الإرسال (dBm)</td>
-                        <td class="input-cell"><input type="number" step="0.1" id="powerDown" placeholder="18.7"> <span class="unit">dBm</span></td>
-                        <td class="input-cell"><input type="number" step="0.1" id="powerUp" placeholder="12.5"> <span class="unit">dBm</span></td>
-                    </tr>
-                    <!-- أخطاء CRC -->
-                    <tr>
-                        <td class="param-name"><i class="fas fa-exclamation-triangle"></i> أخطاء CRC</td>
-                        <td class="input-cell"><input type="number" id="crcDown" placeholder="0"> <span class="unit"></span></td>
-                        <td class="input-cell"><input type="number" id="crcUp" placeholder="1886"> <span class="unit"></span></td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="bi bi-android2 me-2"></i>TechPulse</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-house-door me-1"></i>Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-phone me-1"></i>Phones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-android2 me-1"></i>Android</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-star me-1"></i>Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-envelope me-1"></i>Contact</a></li>
+                </ul>
+                <form class="d-flex ms-3" id="searchForm">
+                    <div class="input-group">
+                        <span class="input-group-text border-end-0 rounded-start-pill"><i class="bi bi-search"></i></span>
+                        <input class="form-control search-box border-start-0 rounded-end-pill" type="search" id="searchInput" placeholder="Search articles..." />
+                    </div>
+                </form>
+            </div>
         </div>
+    </nav>
 
-        <div class="action-buttons">
-            <button class="btn btn-primary" id="clearBtn"><i class="fas fa-eraser"></i> مسح جميع الحقول</button>
-            <button class="btn btn-outline" id="exampleHintBtn"><i class="fas fa-lightbulb"></i> مثال توضيحي (بدون حفظ)</button>
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="hero-section text-center">
+        <!-- دوائر تموجية -->
+        <div class="hero-ripple"></div>
+        <div class="hero-ripple"></div>
+        <div class="hero-ripple"></div>
+        <div class="hero-ripple"></div>
+        <div class="hero-ripple"></div>
+        <div class="hero-ripple"></div>
+        <div class="hero-ripple"></div>
+        <div class="hero-ripple"></div>
+
+        <!-- نقاط عائمة -->
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        <div class="floating-orb orb-4"></div>
+        <div class="floating-orb orb-5"></div>
+
+        <!-- أيقونات عائمة -->
+        <div class="floating-icon"><i class="bi bi-phone"></i></div>
+        <div class="floating-icon"><i class="bi bi-android2"></i></div>
+        <div class="floating-icon"><i class="bi bi-cpu"></i></div>
+        <div class="floating-icon"><i class="bi bi-wifi"></i></div>
+        <div class="floating-icon"><i class="bi bi-bluetooth"></i></div>
+        <div class="floating-icon"><i class="bi bi-chat-dots"></i></div>
+
+        <div class="container">
+            <h1 class="display-4 fw-bold">
+                <i class="bi bi-android2 me-3"></i>
+                Latest <span class="highlight-text">Android</span> &amp; <span class="highlight-text">Phone</span> News
+                <i class="bi bi-phone ms-3"></i>
+            </h1>
+            <p class="lead mb-3">
+                <i class="bi bi-lightning-charge me-2"></i>
+                Stay updated with the newest smartphones, Android features, and expert reviews.
+                <i class="bi bi-lightning-charge ms-2"></i>
+            </p>
+            <div class="mt-3">
+                <a href="#articles-section" class="btn btn-light btn-lg rounded-pill px-5 fw-semibold">
+                    <i class="bi bi-phone me-2"></i>Explore Articles <i class="bi bi-arrow-down-circle ms-2"></i>
+                </a>
+            </div>
         </div>
-        <div class="info-note">
-            <i class="fas fa-info-circle"></i> قم بإدخال قيمك الحالية — سيقوم النظام بتحليل ضعف الشبكة بناءً على معايير DSL الفعلية.
+    </section>
+
+    <!-- ===================== WAVE DIVIDER ===================== -->
+    <div class="wave-divider">
+        <svg viewBox="0 0 1500 100" preserveAspectRatio="none" style="height:50px;">
+            <path class="wave-path" d="M0,40 C150,80 350,0 500,40 C650,80 850,0 1000,40 C1150,80 1350,0 1500,40 L1500,100 L0,100 Z"
+            fill="#f8f9fa" />
+        </svg>
+    </div>
+
+    <!-- ===================== FILTER BAR ===================== -->
+    <div class="container filter-bar text-center mb-5" id="filterButtons">
+        <button class="btn btn-outline-primary active" data-filter="all"><i class="bi bi-grid me-1"></i>All</button>
+        <button class="btn btn-outline-primary" data-filter="samsung"><i class="bi bi-phone me-1"></i>Samsung</button>
+        <button class="btn btn-outline-primary" data-filter="google"><i class="bi bi-google me-1"></i>Google</button>
+        <button class="btn btn-outline-primary" data-filter="oneplus"><i class="bi bi-phone me-1"></i>OnePlus</button>
+        <button class="btn btn-outline-primary" data-filter="xiaomi"><i class="bi bi-phone me-1"></i>Xiaomi</button>
+        <button class="btn btn-outline-primary" data-filter="nothing"><i class="bi bi-phone me-1"></i>Nothing</button>
+        <button class="btn btn-outline-primary" data-filter="android-update"><i class="bi bi-android2 me-1"></i>Android Updates</button>
+    </div>
+
+    <!-- ===================== ARTICLES GRID ===================== -->
+    <div class="container" id="articles-section">
+        <div class="row g-4" id="articlesRow">
+            <!-- Dynamic cards injected here -->
         </div>
     </div>
 
-    <!-- لوحة النتائج والتشخيص -->
-    <div class="diagnostic-panel">
-        <div class="diagnosis-box">
-            <div class="section-title">
-                <i class="fas fa-microscope"></i>
-                <span>تحليل أسباب ضعف الشبكة</span>
-            </div>
-            <div id="causeContainer">
-                <ul class="cause-list">
-                    <li><i class="fas fa-arrow-left"></i> انتظار إدخال البيانات ... قم بتعبئة القيم أعلاه للحصول على تشخيص دقيق.</li>
-                </ul>
-            </div>
-            <div id="extraNote" class="warning-message" style="display: none;"></div>
-        </div>
-        <div class="recommend-box">
-            <div class="section-title">
-                <i class="fas fa-tools"></i>
-                <span>📌 خطوات الإصلاح والتحسين</span>
-            </div>
-            <div id="recommendContainer">
-                <ul class="rec-list">
-                    <li><i class="fas fa-edit"></i> سوف تظهر التوصيات بعد إدخال القيم (SNR، السرعات، CRC...)</li>
-                </ul>
+    <!-- ===================== ARTICLE MODAL ===================== -->
+    <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h3 class="modal-title fw-bold" id="articleModalLabel"><i class="bi bi-phone me-2"></i>Article Title</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+                    <div id="articleCarousel" class="carousel slide mb-4" data-bs-ride="false">
+                        <div class="carousel-indicators" id="carouselIndicators"></div>
+                        <div class="carousel-inner rounded-3 shadow-sm" id="carouselInner"></div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#articleCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <div class="author-info-box d-flex align-items-center mb-4" id="modalAuthorBox">
+                        <img src="" alt="Author Avatar" class="author-avatar-lg" id="modalAuthorAvatar" />
+                        <div class="ms-3">
+                            <h6 class="author-name-lg mb-1" id="modalAuthorName"><i class="bi bi-person-circle me-2"></i>Author Name</h6>
+                            <p class="author-bio mb-0" id="modalAuthorBio">Author short bio goes here.</p>
+                            <small class="text-muted" id="modalAuthorMeta"></small>
+                        </div>
+                    </div>
+                    <div class="article-full-content" id="articleFullContent"></div>
+                    <div class="mt-3 text-muted" id="articleMeta"></div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle me-1"></i>Close</button>
+                </div>
             </div>
         </div>
     </div>
-    <footer>
-        <i class="fas fa-chart-simple"></i> التحليل يستند إلى هامش SNR، التوهين، الفرق بين السرعة الفعلية والقصوى، وأخطاء CRC — للتشخيص المهني لأعطال DSL.
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="mt-5 py-4">
+        <div class="container text-center">
+            <div class="footer-icons mb-2">
+                <i class="bi bi-android2" style="color:#34a853;"></i>
+                <i class="bi bi-phone" style="color:#0d6efd;"></i>
+                <i class="bi bi-cpu" style="color:#fd7e14;"></i>
+                <i class="bi bi-wifi" style="color:#20c997;"></i>
+                <i class="bi bi-bluetooth" style="color:#0dcaf0;"></i>
+                <i class="bi bi-robot" style="color:#6610f2;"></i>
+                <i class="bi bi-stars" style="color:#ffc107;"></i>
+            </div>
+            <p class="mb-1">
+                <i class="bi bi-android2 me-2"></i><i class="bi bi-phone me-2"></i>
+                &copy; 2026 TechPulse &mdash; Android &amp; Phone News. All rights reserved.
+            </p>
+            <small class="text-muted">
+                <i class="bi bi-heart-fill text-danger me-1"></i>
+                Made with love for tech enthusiasts
+                <i class="bi bi-heart-fill text-danger ms-1"></i>
+            </small>
+        </div>
     </footer>
-</div>
 
-<script>
-    // الحصول على جميع عناصر الإدخال
-    const snrDown = document.getElementById('snrDown');
-    const snrUp = document.getElementById('snrUp');
-    const attnDown = document.getElementById('attnDown');
-    const attnUp = document.getElementById('attnUp');
-    const rateDown = document.getElementById('rateDown');
-    const rateUp = document.getElementById('rateUp');
-    const maxDown = document.getElementById('maxDown');
-    const maxUp = document.getElementById('maxUp');
-    const powerDown = document.getElementById('powerDown');
-    const powerUp = document.getElementById('powerUp');
-    const crcDown = document.getElementById('crcDown');
-    const crcUp = document.getElementById('crcUp');
+    <!-- ===================== BOOTSTRAP JS ===================== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
 
-    const clearBtn = document.getElementById('clearBtn');
-    const exampleHintBtn = document.getElementById('exampleHintBtn');
+    <!-- ===================== CUSTOM JAVASCRIPT ===================== -->
+    <script>
+        // ─────────────────────────────────────────────
+        // Articles Database (English) – with rich content
+        // ─────────────────────────────────────────────
+        const articles = [{
+            id: 1,
+            title: "Samsung Galaxy S25 Ultra: A New Era of Mobile Photography",
+            excerpt: "Samsung pushes smartphone camera limits with a 200MP sensor and advanced AI imaging.",
+            fullContent: `
+                    <h5><i class="bi bi-camera-fill me-2" style="color:#0d6efd;"></i>📸 Overview</h5>
+                    <p>The Samsung Galaxy S25 Ultra arrives with a <b>revolutionary 200MP main camera</b> that uses <i>advanced AI</i> to enhance low-light performance and zoom capabilities. The new <u>ProVisual Engine</u> delivers <span style="color: #0d6efd; font-weight: bold;">stunning color accuracy</span> and incredible detail. Paired with <strong>Android 15</strong> and <em>One UI 7</em>, it offers a seamless software experience with extended software support.</p>
+                    <p>But that's not all: <s>Older models had 45W charging</s>, now we get <mark>65W fast charging</mark>! <small class="text-muted">(charger sold separately)</small></p>
 
-    // دالة مساعدة لقراءة القيم مع التحقق من الصلاحية
-    function getValidNumber(inputElement, defaultValue = null) {
-        let val = parseFloat(inputElement.value.trim());
-        if (isNaN(val)) return defaultValue;
-        return val;
-    }
+                    <div class="highlight-box">
+                        <h6><i class="bi bi-stars me-2" style="color:#6610f2;"></i><span class="gradient-text">✨ Key Highlights</span></h6>
+                        <ul>
+                            <li><i class="bi bi-camera me-2" style="color:#0d6efd;"></i><b>200MP</b> main camera with AI enhancements</li>
+                            <li><i class="bi bi-shield-check me-2" style="color:#28a745;"></i><i>Titanium frame</i> for durability</li>
+                            <li><i class="bi bi-battery-charging me-2" style="color:#fd7e14;"></i><span style="text-decoration: line-through;">5000mAh</span> <span style="color: #28a745; font-weight: bold;">5500mAh battery</span> <sup style="color:#0d6efd;">NEW</sup></li>
+                            <li><i class="bi bi-droplet me-2" style="color:#0dcaf0;"></i>IP68 water & dust resistance <sub>(up to 1.5m for 30min)</sub></li>
+                        </ul>
+                    </div>
 
-    // دالة التشخيص الأساسية
-    function analyzeAndUpdate() {
-        // قراءة البيانات (قد تكون فارغة)
-        const snrDownVal = getValidNumber(snrDown);
-        const snrUpVal = getValidNumber(snrUp);
-        const attnDownVal = getValidNumber(attnDown);
-        const attnUpVal = getValidNumber(attnUp);
-        const rateDownVal = getValidNumber(rateDown);
-        const rateUpVal = getValidNumber(rateUp);
-        const maxDownVal = getValidNumber(maxDown);
-        const maxUpVal = getValidNumber(maxUp);
-        const powerDownVal = getValidNumber(powerDown);
-        const powerUpVal = getValidNumber(powerUp);
-        const crcDownVal = getValidNumber(crcDown);
-        const crcUpVal = getValidNumber(crcUp);
+                    <h5><i class="bi bi-trophy-fill me-2" style="color:#ffc107;"></i>🏆 Performance Rankings</h5>
+                    <ol>
+                        <li><span class="tag-inline">#1</span> Samsung Galaxy S25 Ultra – <a href="https://www.samsung.com" target="_blank" style="color: #0d6efd;"><i class="bi bi-box-arrow-up-right me-1"></i>Official site</a></li>
+                        <li><span class="tag-inline">#2</span> Google Pixel 9 Pro – <a href="https://store.google.com" target="_blank" style="color: #0d6efd;"><i class="bi bi-box-arrow-up-right me-1"></i>Learn more</a></li>
+                        <li><span class="tag-inline">#3</span> OnePlus 12 – <a href="https://www.oneplus.com" target="_blank" style="color: #0d6efd;"><i class="bi bi-box-arrow-up-right me-1"></i>Check it out</a></li>
+                    </ol>
 
-        // التحقق من وجود أي بيانات حقيقية (على الأقل بعض الحقول)
-        const hasAnyData = [snrDownVal, snrUpVal, attnDownVal, attnUpVal, rateDownVal, rateUpVal, maxDownVal, maxUpVal, crcDownVal, crcUpVal].some(v => v !== null);
-        if (!hasAnyData) {
-            document.getElementById('causeContainer').innerHTML = `<ul class="cause-list"><li><i class="fas fa-arrow-left"></i> يرجى إدخال بيانات المودم (مثل هامش SNR، السرعات، CRC) للحصول على تحليل دقيق.</li></ul>`;
-            document.getElementById('recommendContainer').innerHTML = `<ul class="rec-list"><li><i class="fas fa-edit"></i> سيتم اقتراح حلول مخصصة بعد إدخال القيم الظاهرة في صورة المودم أو جهاز الراوتر.</li></ul>`;
-            document.getElementById('extraNote').style.display = 'none';
-            return;
+                    <div class="success-box">
+                        <h6><i class="bi bi-battery-charging me-2" style="color:#28a745;"></i>🔋 Battery & Charging Specs</h6>
+                        <ul>
+                            <li><i class="bi bi-battery-full me-2" style="color:#28a745;"></i>Capacity: <b>5500mAh</b> <span style="color:#28a745;">(+10% vs previous gen)</span></li>
+                            <li><i class="bi bi-lightning-charge-fill me-2" style="color:#fd7e14;"></i>Wired charging: <ins style="color:#28a745;font-weight:bold;">65W</ins> (0–100% in 38 minutes)</li>
+                            <li><i class="bi bi-wifi me-2" style="color:#0d6efd;"></i>Wireless: 25W Fast Wireless Charging 2.0</li>
+                            <li><i class="bi bi-arrow-repeat me-2" style="color:#6610f2;"></i>Reverse wireless: 10W</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h6><i class="bi bi-exclamation-triangle-fill me-2" style="color:#ffc107;"></i>⚠️ Important Notes</h6>
+                        <ul>
+                            <li>Charger <b>not included</b> in the box <small>(environmental policy)</small></li>
+                            <li>Battery life varies based on usage patterns and settings</li>
+                            <li>Fast charging requires compatible 65W USB-PD charger</li>
+                        </ul>
+                    </div>
+
+                    <div class="danger-box">
+                        <h6><i class="bi bi-cpu-fill me-2" style="color:#dc3545;"></i>🔥 Performance Benchmarks</h6>
+                        <ol>
+                            <li><b>Geekbench 6:</b> Single-core: <span style="color:#dc3545;font-weight:bold;">2,847</span> | Multi-core: <span style="color:#dc3545;font-weight:bold;">9,123</span></li>
+                            <li><b>AnTuTu v10:</b> <span style="color:#dc3545;font-weight:bold;">1,892,450</span> points</li>
+                            <li><b>3DMark Wild Life Extreme:</b> <span style="color:#dc3545;font-weight:bold;">5,120</span> (sustained)</li>
+                        </ol>
+                    </div>
+
+                    <blockquote>
+                        <i class="bi bi-chat-quote-fill me-2" style="color:#6610f2;font-size:1.5rem;"></i>
+                        "The Galaxy S25 Ultra represents Samsung's boldest leap in mobile photography yet. The 200MP sensor combined with the new ProVisual AI engine sets a new benchmark for the industry."
+                        <br><small class="text-muted mt-2 d-block">— TechPulse Editorial Team</small>
+                    </blockquote>
+
+                    <h5><i class="bi bi-code-slash me-2" style="color:#6c757d;"></i>Developer Notes</h5>
+                    <p>The new <code>ProVisualEngine</code> API allows third-party apps to tap into Samsung's AI processing:</p>
+                    <pre><code>// Example: Access ProVisual Engine in your app
+            ProVisualEngine engine = ProVisualEngine.getInstance();
+            engine.setMode(ProVisualMode.NIGHT_ENHANCED);
+            engine.setHDR(true);
+            Bitmap result = engine.process(rawImage);</code></pre>
+
+                    <h5><i class="bi bi-palette-fill me-2" style="color:#fd7e14;"></i>🎨 Available Colors</h5>
+                    <ul>
+                        <li><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#1a1a1a;vertical-align:middle;margin-right:6px;"></span> <b>Titanium Black</b> – Classic & professional</li>
+                        <li><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#c0c0c0;vertical-align:middle;margin-right:6px;"></span> <b>Titanium Silver</b> – Sleek & modern</li>
+                        <li><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#f5e6d3;vertical-align:middle;margin-right:6px;"></span> <b>Titanium Gold</b> – Premium & luxurious</li>
+                        <li><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#2e4a2e;vertical-align:middle;margin-right:6px;"></span> <b>Titanium Green</b> – Unique & fresh</li>
+                    </ul>
+
+                    <p style="margin-top:1.5rem;">For more details, visit our <a href="#" style="color: #dc3545; text-decoration: underline;"><i class="bi bi-journal-text me-1"></i>in‑depth review</a>. Stay tuned! <i class="bi bi-hand-thumbs-up ms-1" style="color:#0d6efd;"></i></p>
+                `,
+            date: "May 8, 2026",
+            tags: ["samsung", "phones"],
+            thumbnail: "https://picsum.photos/seed/samsung25/600/400",
+            gallery: [
+                "https://picsum.photos/seed/s25gallery1/800/500",
+                "https://picsum.photos/seed/s25gallery2/800/500",
+                "https://picsum.photos/seed/s25gallery3/800/500"
+            ],
+            overlayText: "Samsung",
+            isNew: false,
+            quickInfo: {
+                author: "Ahmed Al-Rashid",
+                date: "May 8, 2026",
+                tags: "samsung, phones",
+                galleryCount: 3,
+                readTime: "5 min read"
+            },
+            authorName: "Ahmed Al-Rashid",
+            authorAvatar: "https://picsum.photos/seed/author-ahmed/150/150",
+            authorBio: "Senior tech reviewer with 8+ years of experience covering flagship smartphones and mobile photography."
+        }, {
+            id: 2,
+            title: "Google Pixel 9 Pro: The AI-Powered Android Experience",
+            excerpt: "Google integrates next-gen Tensor G5 chip with exclusive AI features that redefine smart assistance.",
+            fullContent: `
+                    <h5><i class="bi bi-cpu-fill me-2" style="color:#ea4335;"></i>🤖 Tensor G5: The AI Engine</h5>
+                    <p>The <b>Google Pixel 9 Pro</b> is built around the custom <span style="color:#ea4335;font-weight:bold;">Tensor G5</span> processor, Google's most powerful chip yet. Designed from the ground up for <i>on-device AI</i>, it accelerates real‑time language translation, on‑the‑fly photo editing, and a radically more conversational <span class="tag-inline">Google Assistant</span>. Everyday tasks feel instantaneous, while demanding AI workloads run locally for <u>better privacy</u>.</p>
+
+                    <div class="highlight-box">
+                        <h6><i class="bi bi-android2 me-2" style="color:#34a853;"></i><span class="gradient-text">✨ Pixel 9 Pro – Key Pillars</span></h6>
+                        <ul>
+                            <li><i class="bi bi-robot me-2" style="color:#ea4335;"></i><b>Tensor G5</b> with dedicated AI accelerator <sup style="color:#ea4335;">NEW</sup></li>
+                            <li><i class="bi bi-shield-lock-fill me-2" style="color:#4285f4;"></i><i>Titan M3</i> security chip – on‑device encryption</li>
+                            <li><i class="bi bi-sun-fill me-2" style="color:#fbbc04;"></i><span style="font-weight: bold;">2400-nit</span> Super Actua LTPO display</li>
+                            <li><i class="bi bi-clock-history me-2" style="color:#34a853;"></i>7 years of OS, security & Feature Drop updates <sub>(until 2033)</sub></li>
+                        </ul>
+                    </div>
+
+                    <h5><i class="bi bi-phone-fill me-2" style="color:#4285f4;"></i>📱 Display & Design</h5>
+                    <p>Google refines the iconic camera bar with a polished aluminum frame and matte glass back. The <b>6.7‑inch Super Actua LTPO OLED</b> panel adjusts from 1 Hz to 120 Hz seamlessly, reaching a peak brightness of <mark>2400 nits</mark> for perfect outdoor visibility.</p>
+                    <ul>
+                        <li><i class="bi bi-aspect-ratio me-2" style="color:#4285f4;"></i>6.7" LTPO OLED, 1344 × 2992 resolution</li>
+                        <li><i class="bi bi-sun me-2" style="color:#fbbc04;"></i>2400 nits peak brightness (HDR)</li>
+                        <li><i class="bi bi-shield-shaded me-2" style="color:#34a853;"></i>Gorilla Glass Victus 3 front & back</li>
+                        <li><i class="bi bi-droplet-fill me-2" style="color:#4285f4;"></i>IP68 water & dust resistance</li>
+                    </ul>
+
+                    <h5><i class="bi bi-camera-fill me-2" style="color:#34a853;"></i>📷 Pro-Grade Camera System</h5>
+                    <p>The triple camera array, tuned with computational photography magic, delivers unmatched versatility.</p>
+                    <ol>
+                        <li><i class="bi bi-camera me-2" style="color:#ea4335;"></i><b>50 MP</b> main (f/1.7, OIS, 2 µm pixel binning)</li>
+                        <li><i class="bi bi-camera-reels me-2" style="color:#fbbc04;"></i><b>48 MP</b> ultra‑wide (125° FOV, macro focus)</li>
+                        <li><i class="bi bi-zoom-in me-2" style="color:#4285f4;"></i><b>48 MP</b> telephoto (5× optical, 30× Super Res Zoom)</li>
+                        <li><i class="bi bi-person-circle me-2" style="color:#34a853;"></i><b>12 MP</b> front (autofocus, 4K60 video)</li>
+                    </ol>
+
+                    <div class="success-box">
+                        <h6><i class="bi bi-magic me-2" style="color:#34a853;"></i>🎨 AI Camera Features</h6>
+                        <ul>
+                            <li><i class="bi bi-stars me-2" style="color:#fbbc04;"></i><b>Magic Editor 2.0</b> – reposition subjects, change sky, erase distractions</li>
+                            <li><i class="bi bi-moon-stars me-2" style="color:#4285f4;"></i><b>Night Sight Video</b> – AI‑powered low‑light video recording</li>
+                            <li><i class="bi bi-person-bounding-box me-2" style="color:#ea4335;"></i><b>Face Unblur</b> – automatically sharpens moving faces</li>
+                            <li><i class="bi bi-camera-video me-2" style="color:#34a853;"></i><b>Audio Magic Eraser</b> – remove wind & background noise from videos</li>
+                        </ul>
+                    </div>
+
+                    <h5><i class="bi bi-cpu me-2" style="color:#ea4335;"></i>⚡ Performance & Battery</h5>
+                    <p>The Tensor G5 is manufactured on a 3 nm process, delivering a <b>35% CPU uplift</b> and <b>60% faster AI processing</b> compared to the previous generation. Paired with 12 GB of LPDDR5X RAM, multitasking is buttery smooth.</p>
+
+                    <div class="danger-box">
+                        <h6><i class="bi bi-speedometer2 me-2" style="color:#dc3545;"></i>🔥 Benchmark Scores (Geekbench 6)</h6>
+                        <ol>
+                            <li><b>Single‑core:</b> <span style="color:#dc3545;font-weight:bold;">2,410</span></li>
+                            <li><b>Multi‑core:</b> <span style="color:#dc3545;font-weight:bold;">8,750</span></li>
+                            <li><b>AI Benchmark (Tensor G5):</b> <span style="color:#dc3545;font-weight:bold;">1,450</span> points – top of class</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box">
+                        <h6><i class="bi bi-battery-charging me-2" style="color:#fbbc04;"></i>🔋 Battery & Charging</h6>
+                        <ul>
+                            <li><i class="bi bi-battery-full me-2" style="color:#34a853;"></i>Capacity: <b>5050 mAh</b> – all‑day endurance</li>
+                            <li><i class="bi bi-lightning-charge-fill me-2" style="color:#fbbc04;"></i>Wired: <ins style="color:#ea4335;font-weight:bold;">45W</ins> USB‑PD 3.0 (0–70% in 30 min)</li>
+                            <li><i class="bi bi-wifi me-2" style="color:#4285f4;"></i>Wireless: 23W Fast Wireless Charging</li>
+                            <li><i class="bi bi-arrow-repeat me-2" style="color:#34a853;"></i>Battery Share (reverse wireless): 5W</li>
+                        </ul>
+                    </div>
+
+                    <h5><i class="bi bi-android2 me-2" style="color:#34a853;"></i>📱 Software & AI Experience</h5>
+                    <p>Running <b>Android 15</b> with Pixel‑exclusive <mark>Feature Drops</mark>, the Pixel 9 Pro delivers a clean, bloat‑free interface with AI woven into every corner.</p>
+
+                    <table class="table table-comparison mt-3">
+                        <thead>
+                            <tr>
+                                <th><i class="bi bi-phone me-1"></i> Feature</th>
+                                <th><i class="bi bi-android2 me-1"></i> Pixel 9 Pro</th>
+                                <th><i class="bi bi-phone me-1"></i> Galaxy S25 Ultra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="bi bi-cpu me-1" style="color:#ea4335;"></i> Processor</td>
+                                <td><b>Tensor G5</b> (3 nm)</td>
+                                <td>Snapdragon 8 Gen 4 (3 nm)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-memory me-1" style="color:#4285f4;"></i> RAM</td>
+                                <td>12 GB LPDDR5X</td>
+                                <td>12 GB / 16 GB</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-clock-history me-1" style="color:#34a853;"></i> Updates</td>
+                                <td><span class="text-success fw-bold">7 years</span></td>
+                                <td><span class="text-primary fw-bold">5 years</span></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-battery-charging me-1" style="color:#fbbc04;"></i> Charging</td>
+                                <td>45W wired / 23W wireless</td>
+                                <td>65W wired / 25W wireless</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <blockquote>
+                        <i class="bi bi-chat-quote-fill me-2" style="color:#4285f4;font-size:1.5rem;"></i>
+                        "The Pixel 9 Pro is the most intelligent smartphone Google has ever made. Tensor G5 doesn't just speed up the phone – it transforms how you interact with it, making AI feel like a natural extension of Android."
+                        <br><small class="text-muted mt-2 d-block">— Sarah Mitchell, Android Analyst</small>
+                    </blockquote>
+
+                    <h5><i class="bi bi-code-slash me-2" style="color:#6c757d;"></i>👩‍💻 Developer Corner</h5>
+                    <p>Access the Tensor G5 NPU directly from your apps with the new <code>TensorAI</code> API:</p>
+                    <pre><code>// Run on‑device AI inference with Tensor G5
+            TensorAiSession session = TensorAi.createSession(context);
+            session.loadModel("image-enhancer.tflite");
+            Bitmap enhanced = session.process(inputBitmap, EnhanceMode.NIGHT);
+            session.close();</code></pre>
+
+                    <h5><i class="bi bi-palette-fill me-2" style="color:#34a853;"></i>🎨 Available Colors</h5>
+                    <ul>
+                        <li><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#1a1a1a;vertical-align:middle;margin-right:6px;"></span> <b>Obsidian</b> – classic black</li>
+                        <li><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#f8f9fa;vertical-align:middle;margin-right:6px;border:1px solid #ccc;"></span> <b>Porcelain</b> – warm white</li>
+                        <li><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#a2c8db;vertical-align:middle;margin-right:6px;"></span> <b>Bay</b> – soft blue</li>
+                    </ul>
+
+                    <p style="margin-top:1.5rem;"><i class="bi bi-hand-thumbs-up-fill me-1" style="color:#4285f4;"></i> The Pixel 9 Pro redefines what an AI‑first phone can be. For a deeper dive, check our <a href="#" style="color: #ea4335; text-decoration: underline;"><i class="bi bi-journal-text me-1"></i>full review</a>.</p>
+                `,
+            date: "May 10, 2026",
+            tags: ["google", "android-update", "phones"],
+            thumbnail: "https://picsum.photos/seed/pixel9pro/600/400",
+            gallery: [
+                "https://picsum.photos/seed/pixel9g1/800/500",
+                "https://picsum.photos/seed/pixel9g2/800/500",
+                "https://picsum.photos/seed/pixel9g3/800/500"
+            ],
+            overlayText: "Google",
+            isNew: true,
+            quickInfo: {
+                author: "Sarah Mitchell",
+                date: "May 10, 2026",
+                tags: "google, android-update, phones",
+                galleryCount: 3,
+                readTime: "4 min read"
+            },
+            authorName: "Sarah Mitchell",
+            authorAvatar: "https://picsum.photos/seed/author-sarah/150/150",
+            authorBio: "Android enthusiast and software analyst. Passionate about AI integration and clean user experiences."
+        }, {
+            id: 3,
+            title: "OnePlus 12 Review: Speed and Performance Redefined",
+            excerpt: "With Snapdragon 8 Gen 4 and 150W charging, OnePlus stays true to its 'Never Settle' motto.",
+            fullContent: `
+                    <h5><i class="bi bi-lightning-charge-fill me-2" style="color:#eb0028;"></i>⚡ Performance Beast</h5>
+                    <p>The OnePlus 12 continues the brand's focus on fast and smooth performance. The <b>Snapdragon 8 Gen 4</b> chipset combined with up to 16GB of RAM ensures buttery-smooth multitasking.</p>
+
+                    <h5><i class="bi bi-joystick me-2" style="color:#eb0028;"></i>🎮 Gaming Features</h5>
+                    <ul>
+                        <li>120Hz adaptive AMOLED (6.8-inch)</li>
+                        <li>HyperTouch response (1000Hz touch sampling)</li>
+                        <li>Advanced vapor chamber cooling</li>
+                    </ul>
+
+                    <h5><i class="bi bi-battery-charging me-2" style="color:#eb0028;"></i>🔋 Charging Speed Comparison</h5>
+                    <ol>
+                        <li>OnePlus 12: 150W SUPERVOOC – 0 to 100% in 18 min</li>
+                        <li>Xiaomi 14 Ultra: 90W – 0 to 100% in 28 min</li>
+                        <li>Samsung S25 Ultra: 65W – 0 to 100% in 38 min</li>
+                    </ol>
+
+                    <p>OxygenOS 15 based on Android 15 brings refined animations and useful customization.</p>
+                `,
+            date: "May 5, 2026",
+            tags: ["oneplus", "phones"],
+            thumbnail: "https://picsum.photos/seed/oneplus12/600/400",
+            gallery: [
+                "https://picsum.photos/seed/op12g1/800/500",
+                "https://picsum.photos/seed/op12g2/800/500",
+                "https://picsum.photos/seed/op12g3/800/500"
+            ],
+            overlayText: "OnePlus",
+            isNew: false,
+            quickInfo: {
+                author: "David Chen",
+                date: "May 5, 2026",
+                tags: "oneplus, phones",
+                galleryCount: 3,
+                readTime: "6 min read"
+            },
+            authorName: "David Chen",
+            authorAvatar: "https://picsum.photos/seed/author-david/150/150",
+            authorBio: "Mobile tech analyst specializing in performance benchmarks, battery tech, and fast-charging solutions."
+        }, {
+            id: 4,
+            title: "Xiaomi 14 Ultra: Pushing the Boundaries of Smartphone Innovation",
+            excerpt: "Leica optics and a 1-inch sensor make the Xiaomi 14 Ultra a photographer's dream.",
+            fullContent: `
+                    <h5><i class="bi bi-camera-fill me-2" style="color:#ff6900;"></i>📷 Leica Partnership</h5>
+                    <p>Xiaomi's partnership with Leica yields the impressive 14 Ultra, featuring a <b>1-inch 50MP main sensor</b> with variable aperture. The device excels in both day and night photography.</p>
+
+                    <h5><i class="bi bi-palette me-2" style="color:#ff6900;"></i>🎨 Color Profiles</h5>
+                    <ul>
+                        <li>Leica Authentic – true-to-life colors</li>
+                        <li>Leica Vibrant – punchy, social-media ready</li>
+                        <li>Pro Mode – full manual control</li>
+                    </ul>
+
+                    <h5><i class="bi bi-card-list me-2" style="color:#ff6900;"></i>📊 Specs at a Glance</h5>
+                    <ol>
+                        <li>Processor: Snapdragon 8 Gen 4</li>
+                        <li>Battery: 5300mAh</li>
+                        <li>Wired charging: 90W</li>
+                        <li>Wireless charging: 80W</li>
+                    </ol>
+
+                    <p>Its ceramic back and metal frame exude premium quality.</p>
+                `,
+            date: "April 28, 2026",
+            tags: ["xiaomi", "phones"],
+            thumbnail: "https://picsum.photos/seed/xiaomi14u/600/400",
+            gallery: [
+                "https://picsum.photos/seed/mi14ug1/800/500",
+                "https://picsum.photos/seed/mi14ug2/800/500",
+                "https://picsum.photos/seed/mi14ug3/800/500"
+            ],
+            overlayText: "Xiaomi",
+            isNew: false,
+            quickInfo: {
+                author: "Maria Lopez",
+                date: "April 28, 2026",
+                tags: "xiaomi, phones",
+                galleryCount: 3,
+                readTime: "5 min read"
+            },
+            authorName: "Maria Lopez",
+            authorAvatar: "https://picsum.photos/seed/author-maria/150/150",
+            authorBio: "Photography enthusiast and tech writer. Focused on camera-centric smartphones and Leica collaborations."
+        }, {
+            id: 5,
+            title: "Nothing Phone 2a: Unique Design Meets Clean Android",
+            excerpt: "The Glyph Interface returns with more functionality, paired with a near-stock Android 15.",
+            fullContent: `
+                    <h5><i class="bi bi-lightbulb-fill me-2" style="color:#ff3b30;"></i>💡 Glyph Interface 2.0</h5>
+                    <p>Nothing Phone 2a refines the iconic transparent design and Glyph LED system. New Glyph patterns can visualize notifications, timer countdowns, and even music volume.</p>
+
+                    <h5><i class="bi bi-gear-fill me-2" style="color:#ff3b30;"></i>🔧 Key Specifications</h5>
+                    <ul>
+                        <li>MediaTek Dimensity 8200 chip</li>
+                        <li>6.55-inch OLED display (120Hz)</li>
+                        <li>50MP dual rear cameras</li>
+                        <li>45W fast charging</li>
+                    </ul>
+
+                    <h5><i class="bi bi-check-circle-fill me-2" style="color:#28a745;"></i>✅ Pros & <i class="bi bi-x-circle-fill me-2" style="color:#dc3545;"></i>❌ Cons</h5>
+                    <ol>
+                        <li><b>Pros:</b> Unique design, clean OS, good value</li>
+                        <li><b>Cons:</b> No telephoto lens, average low-light video</li>
+                        <li><b>Verdict:</b> A stylish mid-ranger with character</li>
+                    </ol>
+
+                    <p>Battery life easily lasts a full day with 45W charging.</p>
+                `,
+            date: "May 2, 2026",
+            tags: ["nothing", "android-update", "phones"],
+            thumbnail: "https://picsum.photos/seed/nothing2a/600/400",
+            gallery: [
+                "https://picsum.photos/seed/nothingg1/800/500",
+                "https://picsum.photos/seed/nothingg2/800/500",
+                "https://picsum.photos/seed/nothingg3/800/500"
+            ],
+            overlayText: "Nothing",
+            isNew: true,
+            quickInfo: {
+                author: "James Walker",
+                date: "May 2, 2026",
+                tags: "nothing, android-update, phones",
+                galleryCount: 3,
+                readTime: "4 min read"
+            },
+            authorName: "James Walker",
+            authorAvatar: "https://picsum.photos/seed/author-james/150/150",
+            authorBio: "Design critic and tech reviewer. Loves unique industrial design and minimal software experiences."
+        }, {
+            id: 6,
+            title: "Android 15: Top Features You Should Know",
+            excerpt: "From satellite connectivity to private space, here are the standout features of Android 15.",
+            fullContent: `
+                    <h5><i class="bi bi-satellite-fill me-2" style="color:#0d6efd;"></i>🛰️ Satellite Connectivity</h5>
+                    <p>Android 15 introduces <b>satellite messaging support</b> allowing emergency texts even without cellular coverage.</p>
+
+                    <h5><i class="bi bi-shield-lock-fill me-2" style="color:#6610f2;"></i>🔒 Privacy & Security</h5>
+                    <ul>
+                        <li><b>Private Space</b> – hide apps and data with a separate profile</li>
+                        <li>Enhanced app permission controls</li>
+                        <li>Auto-reset permissions for unused apps</li>
+                    </ul>
+
+                    <h5><i class="bi bi-list-ol me-2" style="color:#28a745;"></i>📋 Top New Features (Ranked)</h5>
+                    <ol>
+                        <li>Satellite messaging</li>
+                        <li>Private Space</li>
+                        <li>Partial screen recording</li>
+                        <li>Improved foldable support</li>
+                        <li>Smarter battery management</li>
+                    </ol>
+
+                    <p>Developers also get new APIs for better camera and haptic feedback control.</p>
+                `,
+            date: "May 11, 2026",
+            tags: ["android-update"],
+            thumbnail: "https://picsum.photos/seed/android15/600/400",
+            gallery: [
+                "https://picsum.photos/seed/a15g1/800/500",
+                "https://picsum.photos/seed/a15g2/800/500",
+                "https://picsum.photos/seed/a15g3/800/500",
+                "https://picsum.photos/seed/a15g4/800/500",
+                "https://picsum.photos/seed/a15g5/800/500",
+            ],
+            overlayText: "Android 15",
+            isNew: true,
+            quickInfo: {
+                author: "Priya Sharma",
+                date: "May 11, 2026",
+                tags: "android-update",
+                galleryCount: 5,
+                readTime: "3 min read"
+            },
+            authorName: "Priya Sharma",
+            authorAvatar: "https://picsum.photos/seed/author-priya/150/150",
+            authorBio: "Software & OS specialist. Covers Android updates, developer features, and mobile security trends."
+        }];
+
+        // ─────────────────────────────────────────────
+        // DOM references
+        // ─────────────────────────────────────────────
+        const articlesRow = document.getElementById('articlesRow');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('#filterButtons .btn');
+        const articleModal = new bootstrap.Modal(document.getElementById('articleModal'));
+        const articleCarousel = new bootstrap.Carousel(document.getElementById('articleCarousel'), { interval: false });
+
+        let currentFilter = 'all';
+        let popoverInstances = [];
+
+        // ─────────────────────────────────────────────
+        // ✅ Ripple effect function
+        // ─────────────────────────────────────────────
+        function addRippleEffect(e) {
+            const btn = e.currentTarget;
+            const existingRipple = btn.querySelector('.ripple-effect');
+            if (existingRipple) existingRipple.remove();
+
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple-effect';
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            btn.appendChild(ripple);
+
+            ripple.addEventListener('animationend', () => ripple.remove());
         }
 
-        // حساب كفاءة السرعة (إذا توفرت القيم)
-        let downEfficiency = null, upEfficiency = null;
-        if (rateDownVal !== null && maxDownVal !== null && maxDownVal > 0) {
-            downEfficiency = (rateDownVal / maxDownVal) * 100;
-        }
-        if (rateUpVal !== null && maxUpVal !== null && maxUpVal > 0) {
-            upEfficiency = (rateUpVal / maxUpVal) * 100;
-        }
-
-        // بناء قائمة الأسباب التشخيصية
-        let causes = [];
-        let technicalDetails = [];
-
-        // 1. فحص أخطاء CRC في الرفع (الأكثر تأثيرًا)
-        if (crcUpVal !== null && crcUpVal > 800) {
-            causes.push(`🚨 <strong>ارتفاع حاد في أخطاء CRC للرفع (${crcUpVal} خطأ)</strong> — يشير إلى تداخل كهربائي، مرشحات هاتف تالفة أو أسلاك رديئة. حتى مع وجود SNR جيد، هذه الأخطاء تسبب انقطاعات وضعفاً واضحاً.`);
-            technicalDetails.push("أخطاء CRC تعني فقدان حزم البيانات وإعادة الإرسال، مما يرفع البينغ ويخفض الأداء.");
-        } else if (crcUpVal !== null && crcUpVal > 200) {
-            causes.push(`⚠️ <strong>أخطاء CRC مرتفعة في الرفع (${crcUpVal})</strong> — عدم استقرار في خط الهاتف، يفضل فحص الكابلات والمرشحات فوراً.`);
-        } else if (crcUpVal !== null && crcUpVal > 20 && crcUpVal <= 200) {
-            causes.push(`📉 وجود أخطاء CRC بمعدل ${crcUpVal} في اتجاه الرفع، قد تتفاقم مع الوقت. يوصى بمراقبة الاستقرار.`);
+        // ─────────────────────────────────────────────
+        // ✅ Attach ripple to all buttons
+        // ─────────────────────────────────────────────
+        function attachRippleToButtons() {
+            document.querySelectorAll('.btn-primary, .btn-light, .btn-outline-primary, .btn-quick-info, .btn-secondary, .read-more-btn, .filter-bar .btn')
+                .forEach(btn => {
+                    btn.removeEventListener('click', addRippleEffect);
+                    btn.addEventListener('click', addRippleEffect);
+                });
         }
 
-        // 2. ضعف سرعة التنزيل الفعلية مقارنة بالحد الأقصى
-        if (downEfficiency !== null && downEfficiency < 55 && rateDownVal !== null && maxDownVal !== null) {
-            causes.push(`🐌 <strong>سرعة التنزيل الفعلية منخفضة جداً (${rateDownVal} كيلوبت/ث) مقابل السرعة القصوى (${maxDownVal} كيلوبت/ث)</strong> — الكفاءة ${downEfficiency.toFixed(1)}% فقط. مع هامش SNR${snrDownVal !== null ? ' ('+snrDownVal+' dB)' : ''} قد يكون هناك تحديد للسرعة من مزود الخدمة أو إعدادات مودم غير مناسبة.`);
-            technicalDetails.push("هامش SNR مرتفع جداً (أكثر من 20dB) يعني خط هادئ لكن السرعة محدودة اصطناعياً → يفضل طلب رفع البروفايل.");
-        } else if (downEfficiency !== null && downEfficiency < 75 && rateDownVal !== null) {
-            causes.push(`⚡ كفاءة التنزيل ${downEfficiency.toFixed(1)}% فقط، السرعة الحالية أقل من إمكانية الخط.`);
+        // ─────────────────────────────────────────────
+        // Popovers
+        // ─────────────────────────────────────────────
+        function initializePopovers() {
+            popoverInstances.forEach(p => p.dispose());
+            popoverInstances = [];
+            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+            popoverTriggerList.forEach(el => {
+                const popover = new bootstrap.Popover(el, {
+                    trigger: 'focus',
+                    html: true,
+                    placement: 'top',
+                    customClass: '',
+                });
+                popoverInstances.push(popover);
+            });
         }
 
-        // 3. تحليل خاص: SNR مرتفع جداً قد يحد السرعة
-        if (snrDownVal !== null && snrDownVal > 20 && downEfficiency !== null && downEfficiency < 60 && attnDownVal !== null && attnDownVal < 40) {
-            causes.push(`🎯 هامش SNR في التنزيل عالٍ جداً (${snrDownVal} dB) مما يجعل المودم يحافظ على استقرار مفرط على حساب السرعة. يمكن خفض "Target SNR Margin" للحصول على أداء أعلى.`);
-        }
+        // ─────────────────────────────────────────────
+        // Render article cards
+        // ─────────────────────────────────────────────
+        function renderArticles(filter = 'all', searchQuery = '') {
+            articlesRow.innerHTML = '';
+            const filtered = articles.filter(article => {
+                const matchesTag = filter === 'all' || article.tags.includes(filter);
+                const matchesSearch = searchQuery === '' ||
+                    article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesTag && matchesSearch;
+            });
 
-        // 4. التوهين إن كان مرتفعاً
-        if (attnDownVal !== null && attnDownVal > 55) {
-            causes.push(`📡 توهين عالي في التنزيل (${attnDownVal} dB) → بعد المسافة عن السنترال يسبب ضعفاً. تحقق من جودة الأسلاك الداخلية.`);
-        } else if (attnUpVal !== null && attnUpVal > 40) {
-            causes.push(`⚠️ توهين الرفع ${attnUpVal} dB قد يؤثر على سرعة الرفع واستقراره.`);
-        }
-
-        // 5. ملاحظة حول CRC للتنزيل (إذا كان صفر فهذا جيد)
-        if (crcDownVal !== null && crcDownVal === 0) {
-            technicalDetails.push("✅ جهة التنزيل خالية من أخطاء CRC → التشويش ليس على ترددات التنزيل.");
-        } else if (crcDownVal !== null && crcDownVal > 50) {
-            causes.push(`⚠️ وجود أخطاء CRC في التنزيل (${crcDownVal}) مما يعني تداخلاً يؤثر على جودة الخط.`);
-        }
-
-        // إذا لم يتم العثور على أسباب واضحة
-        if (causes.length === 0 && (downEfficiency === null || downEfficiency >= 75)) {
-            if (crcUpVal !== null && crcUpVal < 30)
-                causes.push("📊 القيم تبدو جيدة نسبياً. إذا كان الإنترنت لا يزال ضعيفاً، راجع ازدحام الشبكة الداخلية أو ضعف إشارة الواي فاي.");
-            else
-                causes.push("🔍 لم يتم رصد خلل واضح في المعطيات الأساسية، راجع التوصيات العامة لتحسين الأداء.");
-        }
-
-        // عرض قسم الأسباب
-        const causeContainer = document.getElementById('causeContainer');
-        let causesHtml = `<ul class="cause-list">`;
-        for (let c of causes) {
-            causesHtml += `<li><i class="fas fa-circle-exclamation"></i> ${c}</li>`;
-        }
-        if (technicalDetails.length > 0) {
-            for (let dt of technicalDetails) {
-                causesHtml += `<li><i class="fas fa-info-circle" style="color:#2c7da0;"></i> ${dt}</li>`;
+            if (filtered.length === 0) {
+                articlesRow.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <i class="bi bi-inbox display-1 text-muted"></i>
+                            <h4 class="mt-3"><i class="bi bi-emoji-frown me-2"></i>No articles found</h4>
+                            <p class="text-muted">Try adjusting your search or filter.</p>
+                        </div>`;
+                attachRippleToButtons();
+                return;
             }
+
+            filtered.forEach((article, index) => {
+                const col = document.createElement('div');
+                col.className = 'col-lg-4 col-md-6 fade-in';
+                col.style.animationDelay = `${index * 0.1}s`;
+
+                const popoverContent = `
+                        <div style="font-size:0.85rem;">
+                            <p class="mb-1"><strong><i class="bi bi-person me-1"></i> Author:</strong> ${article.quickInfo.author}</p>
+                            <p class="mb-1"><strong><i class="bi bi-calendar3 me-1"></i> Date:</strong> ${article.quickInfo.date}</p>
+                            <p class="mb-1"><strong><i class="bi bi-tags me-1"></i> Tags:</strong> ${article.quickInfo.tags}</p>
+                            <p class="mb-1"><strong><i class="bi bi-images me-1"></i> Gallery:</strong> ${article.quickInfo.galleryCount} images</p>
+                            <p class="mb-0"><strong><i class="bi bi-clock me-1"></i> Read time:</strong> ${article.quickInfo.readTime}</p>
+                        </div>
+                    `;
+
+                // Build tag classes
+                const tagClasses = article.tags.map(t => `tag-${t}`).join(' ');
+
+                // Choose a random corner icon
+                const cornerIcons = ['bi-phone', 'bi-android2', 'bi-cpu', 'bi-wifi', 'bi-bluetooth', 'bi-robot', 'bi-stars', 'bi-camera'];
+                const cornerIcon = cornerIcons[Math.floor(Math.random() * cornerIcons.length)];
+
+                col.innerHTML = `
+                        <div class="card h-100">
+                            <div class="card-img-wrapper">
+                                <img src="${article.thumbnail}" class="card-img-top" alt="${article.title}" loading="lazy" />
+                                <span class="card-img-overlay-text"><i class="bi bi-phone me-1"></i>${article.overlayText}</span>
+                                ${article.isNew ? '<span class="card-img-overlay-text new-badge"><i class="bi bi-star-fill me-1"></i>NEW</span>' : ''}
+                                <div class="card-corner-icon"><i class="bi ${cornerIcon}"></i></div>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2">
+                                    ${article.tags.map(tag =>
+                                        `<span class="tag-badge tag-${tag}"><i class="bi bi-tag me-1"></i>#${tag}</span>`
+                                    ).join('')}
+                                </div>
+                                <h5 class="card-title"><i class="bi bi-android2 me-2" style="color:#0d6efd;"></i>${article.title}</h5>
+                                <p class="card-text flex-grow-1">${article.excerpt}</p>
+                                <div class="d-flex align-items-center mt-3 pt-3 border-top flex-wrap gap-2">
+                                    <img src="${article.authorAvatar}" alt="${article.authorName}" class="author-avatar-sm" loading="lazy" />
+                                    <div class="me-auto">
+                                        <span class="author-name-sm d-block">
+                                            <span class="author-dot"></span>${article.authorName}
+                                        </span>
+                                        <small class="text-muted">
+                                            <i class="bi bi-calendar3 me-1"></i>${article.date}
+                                        </small>
+                                    </div>
+                                    <button class="btn btn-quick-info"
+                                            tabindex="0"
+                                            data-bs-toggle="popover"
+                                            data-bs-title="📋 Quick Details"
+                                            data-bs-content='${popoverContent.replace(/'/g, "&#39;")}'
+                                            data-bs-trigger="focus"
+                                            data-bs-html="true"
+                                            data-bs-placement="top"
+                                            title="Quick Details">
+                                        <i class="bi bi-info-circle me-1"></i>Quick Info
+                                    </button>
+                                    <button class="btn btn-primary btn-sm rounded-pill read-more-btn" data-article-id="${article.id}">
+                                        <i class="bi bi-book me-1"></i>Read More <i class="bi bi-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                articlesRow.appendChild(col);
+            });
+
+            initializePopovers();
+            attachRippleToButtons();
+
+            document.querySelectorAll('.read-more-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.currentTarget.getAttribute('data-article-id'));
+                    const article = articles.find(a => a.id === id);
+                    if (article) openArticleModal(article);
+                });
+            });
         }
-        if (downEfficiency !== null) {
-            causesHtml += `<li><i class="fas fa-chart-simple"></i> 📊 كفاءة التنزيل: ${downEfficiency.toFixed(1)}% ${upEfficiency !== null ? `| كفاءة الرفع: ${upEfficiency.toFixed(1)}%` : ''}</li>`;
-        } else {
-            causesHtml += `<li><i class="fas fa-chart-simple"></i> أدخل السرعة الفعلية والسرعة القصوى لحساب الكفاءة.</li>`;
+
+        // ─────────────────────────────────────────────
+        // Open modal with article details + author box
+        // ─────────────────────────────────────────────
+        function openArticleModal(article) {
+            document.getElementById('articleModalLabel').innerHTML = `<i class="bi bi-phone me-2"></i>${article.title}`;
+            document.getElementById('articleFullContent').innerHTML = article.fullContent;
+            document.getElementById('articleMeta').innerHTML = `
+                    <i class="bi bi-calendar-check me-1"></i> ${article.date} &nbsp;|&nbsp; 
+                    <i class="bi bi-tags me-1"></i> ${article.tags.join(', ')}
+                `;
+            document.getElementById('modalAuthorAvatar').src = article.authorAvatar;
+            document.getElementById('modalAuthorAvatar').alt = article.authorName;
+            document.getElementById('modalAuthorName').innerHTML = `<i class="bi bi-person-circle me-2"></i>${article.authorName}`;
+            document.getElementById('modalAuthorBio').textContent = article.authorBio;
+            document.getElementById('modalAuthorMeta').innerHTML = `
+                    <i class="bi bi-pencil-square me-1"></i> Published on ${article.date}
+                `;
+
+            const indicatorsContainer = document.getElementById('carouselIndicators');
+            const carouselInner = document.getElementById('carouselInner');
+            indicatorsContainer.innerHTML = '';
+            carouselInner.innerHTML = '';
+
+            const galleryImages = (article.gallery && article.gallery.length > 0) ?
+                article.gallery :
+                [article.thumbnail];
+
+            galleryImages.forEach((imgUrl, idx) => {
+                const indicator = document.createElement('button');
+                indicator.type = 'button';
+                indicator.setAttribute('data-bs-target', '#articleCarousel');
+                indicator.setAttribute('data-bs-slide-to', idx);
+                if (idx === 0) indicator.classList.add('active');
+                indicator.setAttribute('aria-label', `Slide ${idx + 1}`);
+                indicatorsContainer.appendChild(indicator);
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `carousel-item ${idx === 0 ? 'active' : ''}`;
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                img.className = 'd-block w-100';
+                img.alt = `${article.title} image ${idx + 1}`;
+                img.loading = 'lazy';
+                itemDiv.appendChild(img);
+                carouselInner.appendChild(itemDiv);
+            });
+
+            articleCarousel.to(0);
+            articleModal.show();
+            setTimeout(attachRippleToButtons, 150);
         }
-        causesHtml += `</ul>`;
-        causeContainer.innerHTML = causesHtml;
 
-        // بناء التوصيات
-        let recommendations = [];
+        // ─────────────────────────────────────────────
+        // Filter button click handlers
+        // ─────────────────────────────────────────────
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.getAttribute('data-filter');
+                renderArticles(currentFilter, searchInput.value);
+            });
+        });
 
-        // توصيات بناءً على CRC
-        if (crcUpVal !== null && crcUpVal > 300) {
-            recommendations.push("🔌 <strong>استبدال جميع المرشحات ( microfilters )</strong> على خط الهاتف، ويفضل استخدام مرشح عالي الجودة عند مقبس المودم.");
-            recommendations.push("🧹 <strong>اختبار الخط من المقبس الرئيسي</strong> (Master Socket) — افصل جميع الأجهزة الطرفية وشغّل المودم مباشرة.");
-            recommendations.push("⚡ إبعاد المودم عن أجهزة التلفزيون، الشواحن، ومصادر التداخل الكهرومغناطيسي.");
-            recommendations.push("🔄 التواصل مع مزود الخدمة لتفعيل Interleaving عميق إذا استمرت الأخطاء.");
-        } else if (crcUpVal !== null && crcUpVal > 50) {
-            recommendations.push("📞 فحص كابل الهاتف والموصلات واستبدال أي سلك تالف.");
-            recommendations.push("🧲 نقل المودم إلى موقع آخر بعيداً عن الأجهزة الإلكترونية.");
-        }
+        // ─────────────────────────────────────────────
+        // Search input handler
+        // ─────────────────────────────────────────────
+        searchInput.addEventListener('input', function() {
+            renderArticles(currentFilter, this.value);
+        });
+        document.getElementById('searchForm').addEventListener('submit', e => e.preventDefault());
 
-        // توصيات متعلقة بضعف السرعة
-        if (downEfficiency !== null && downEfficiency < 65 && rateDownVal !== null && maxDownVal !== null) {
-            recommendations.push("📡 <strong>دخول إعدادات المودم</strong> (192.168.1.1) وتغيير وضع التشغيل إلى ADSL2+ أو VDSL حسب الخط، وإعادة التشغيل.");
-            recommendations.push("📞 <strong>الاتصال بمزود الخدمة</strong> وطلب إعادة تعيين البروفايل (Reset Profile) وخفض هامش SNR المستهدف إلى 6-9dB لزيادة السرعة.");
-            recommendations.push("🛠️ تجربة إعادة ضبط المصنع للمودم وتحديث البرنامج الثابت إن أمكن.");
-        } else if (downEfficiency !== null && downEfficiency < 85 && rateDownVal !== null) {
-            recommendations.push("⚙️ تحقق من كابل الإنترنت الداخلي واستخدم كابل قصير مجدول عالي الجودة.");
-        }
-
-        if (snrDownVal !== null && snrDownVal > 19 && downEfficiency !== null && downEfficiency < 70 && attnDownVal !== null && attnDownVal < 45) {
-            recommendations.push("🎯 طلب خفض 'Target SNR Margin' بشكل رسمي من الدعم الفني لرفع السرعة مع بقاء الخط مستقراً.");
-        }
-
-        // توصيات إضافية عامة
-        if (recommendations.length === 0) {
-            recommendations.push("🔄 إعادة تشغيل المودم والراوتر (فصل التيار لمدة 30 ثانية) لحل أي مشاكل مؤقتة.");
-            recommendations.push("🌐 تغيير DNS إلى 1.1.1.1 أو 8.8.8.8 لتحسين زمن الاستجابة.");
-            recommendations.push("📶 اختبار السرعة عبر كابل إيثرنت بدلاً من الواي فاي لتحديد موقع المشكلة.");
-        } else {
-            if (!recommendations.some(r => r.includes("إعادة تشغيل"))) 
-                recommendations.push("🔄 أعد تشغيل المودم بعد تطبيق أي تعديل على الأسلاك أو المرشحات.");
-        }
-
-        // عرض التوصيات
-        const recommendContainer = document.getElementById('recommendContainer');
-        let recHtml = `<ul class="rec-list">`;
-        for (let rec of recommendations) {
-            recHtml += `<li><i class="fas fa-wrench"></i> ${rec}</li>`;
-        }
-        recHtml += `</ul><div class="info-note" style="margin-top: 1rem;"><i class="fas fa-microphone-alt"></i> <strong>خلاصة الخبير:</strong> الأولوية القصوى هي معالجة أخطاء CRC (إن وجدت) ثم تحسين إعدادات السرعة بالتعاون مع مزود الخدمة.</div>`;
-        recommendContainer.innerHTML = recHtml;
-
-        // ملاحظة إضافية عن السرعة والـ SNR
-        const extraNoteDiv = document.getElementById('extraNote');
-        if (snrDownVal !== null && downEfficiency !== null && downEfficiency < 55 && attnDownVal !== null && attnDownVal < 45 && snrDownVal > 18) {
-            extraNoteDiv.style.display = "block";
-            extraNoteDiv.innerHTML = `<i class="fas fa-chart-line"></i> 🔎 ملاحظة فنية: مع SNR=${snrDownVal}dB وتوهين منخفض نسبياً، من المفترض وصول سرعة أعلى بكثير. يبدو أن هناك تحديداً للسرعة من قبل ISP. تواصل معهم واطلب رفع البروفايل.`;
-        } else if (crcUpVal !== null && crcUpVal > 500) {
-            extraNoteDiv.style.display = "block";
-            extraNoteDiv.innerHTML = `<i class="fas fa-shield-alt"></i> 🛡️ الأولوية الآن: إصلاح أخطاء CRC في الرفع — بدون ذلك لن تستقر السرعة. راجع جميع التوصيات المتعلقة بالكابلات والمرشحات.`;
-        } else {
-            extraNoteDiv.style.display = "none";
-        }
-    }
-
-    // مسح جميع الحقول
-    function clearAllFields() {
-        const allInputs = [snrDown, snrUp, attnDown, attnUp, rateDown, rateUp, maxDown, maxUp, powerDown, powerUp, crcDown, crcUp];
-        allInputs.forEach(inp => { inp.value = ''; });
-        analyzeAndUpdate();
-    }
-
-    // دالة تعبئة مثال توضيحي (قيم حقيقية توضح المشكلة) ولكن بدون حفظ تلقائي كقيم افتراضية - فقط للشرح
-    function fillExample() {
-        // نضع مثالاً مستلهماً من الصورة لكن المستخدم يمكنه تعديله: قيم نموذجية لخط ضعيف CRC
-        snrDown.value = '21.5';
-        snrUp.value = '14.9';
-        attnDown.value = '28.4';
-        attnUp.value = '15.2';
-        rateDown.value = '4096';
-        rateUp.value = '1022';
-        maxDown.value = '12720';
-        maxUp.value = '1254';
-        powerDown.value = '18.7';
-        powerUp.value = '12.5';
-        crcDown.value = '0';
-        crcUp.value = '1886';
-        analyzeAndUpdate();
-    }
-
-    // ربط الأحداث لكل المدخلات (تحديث فوري)
-    const allFields = [snrDown, snrUp, attnDown, attnUp, rateDown, rateUp, maxDown, maxUp, powerDown, powerUp, crcDown, crcUp];
-    allFields.forEach(field => {
-        field.addEventListener('input', analyzeAndUpdate);
-    });
-
-    clearBtn.addEventListener('click', clearAllFields);
-    exampleHintBtn.addEventListener('click', fillExample);
-
-    // تحليل أولي (لا توجد قيم افتراضية)
-    analyzeAndUpdate();
-</script>
+        // ─────────────────────────────────────────────
+        // Initial render
+        // ─────────────────────────────────────────────
+        renderArticles();
+    </script>
 </body>
-</html>
+            </html>
